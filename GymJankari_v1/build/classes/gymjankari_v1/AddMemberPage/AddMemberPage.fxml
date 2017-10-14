@@ -13,9 +13,9 @@
 
 <BorderPane style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.AddMemberPage.AddMemberPageController">
    <center>
-      <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" prefViewportHeight="800.0" prefViewportWidth="600.0" style="-fx-background-color: #ffffff;">
+      <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" prefViewportHeight="698.0" prefViewportWidth="468.0" style="-fx-background-color: #ffffff;">
          <content>
-            <StackPane layoutY="7.0">
+            <AnchorPane style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
                <children>
                   <VBox layoutY="7.0" spacing="15.0" style="-fx-background-color: #ffffff;">
                      <children>
@@ -147,7 +147,7 @@
                      </padding>
                   </VBox>
                </children>
-            </StackPane>
+            </AnchorPane>
          </content>
       </ScrollPane>
    </center>

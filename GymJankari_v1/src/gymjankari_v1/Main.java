@@ -44,7 +44,7 @@ public class Main extends Application {
         mainLayout.setCenter(homepageLayout);
     }
     
-     public static void gotoaddmemberpage() throws IOException {
+     public static void showaddmemberpage() throws IOException {
         FXMLLoader loader= new FXMLLoader();
         loader.setLocation(Main.class.getResource("AddMemberPage/AddMemberPage.fxml"));
         BorderPane addmemberpageLayout=loader.load();

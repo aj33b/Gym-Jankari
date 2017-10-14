@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import com.jfoenix.controls.*?>
 <?import java.lang.*?>
@@ -19,7 +22,7 @@
             </ImageView>
          </center>
          <left>
-            <JFXButton fx:id="backButton" contentDisplay="GRAPHIC_ONLY" onAction="#backbuttonclicked" text="Back" BorderPane.alignment="CENTER">
+            <JFXButton fx:id="backButton" contentDisplay="GRAPHIC_ONLY" onAction="#backButtonclicked" text="Back" BorderPane.alignment="CENTER">
                <graphic>
                   <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -31,4 +34,46 @@
          </left>
       </JFXToolbar>
    </top>
+   <left>
+      <VBox style="-fx-background-color: #097054;" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton fx:id="viewmemberButton" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" prefHeight="150.0" prefWidth="200.0" text="View Member" textFill="WHITE">
+               <font>
+                  <Font name="CapsuulaRegular" size="25.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="80.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/search_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="addmemberButton" contentDisplay="TOP" onAction="#addmemberButtonclicked" prefHeight="150.0" prefWidth="200.0" text="Add Member" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="80.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/add_user_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="CapsuulaRegular" size="25.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="expirydetailsButton" contentDisplay="TOP" layoutX="10.0" layoutY="160.0" prefHeight="150.0" prefWidth="200.0" text="Expiry Details" textFill="WHITE">
+               <font>
+                  <Font name="CapsuulaRegular" size="25.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="80.0" fitWidth="98.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/expiry_icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+         </children>
+      </VBox>
+   </left>
 </BorderPane>

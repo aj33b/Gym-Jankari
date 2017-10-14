@@ -46,7 +46,7 @@ public class HomePageController implements Initializable {
     
     @FXML
     private void addmemberclicked() throws IOException{
-       main.gotoaddmemberpage();
+       main.showaddmemberpage();
     }
     
         

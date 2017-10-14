@@ -6,12 +6,14 @@
 package gymjankari_v1.HomePage;
 
 import com.jfoenix.controls.JFXButton;
+import com.sun.javafx.css.Style;
 import gymjankari_v1.Main;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javax.jws.soap.SOAPBinding;
 
 /**
  * FXML Controller class
@@ -24,10 +26,21 @@ public class MainViewController implements Initializable {
 
     @FXML
     private JFXButton backButton;
+    @FXML
+    private JFXButton addmemberButton;
+    @FXML
+    private JFXButton viewmemberButton;
+    @FXML
+    private JFXButton paymentdetailsButton;
     
     @FXML
-    private void backbuttonclicked() throws IOException{
+    private void backButtonclicked() throws IOException{
     main.showHomePage();
+    }
+    
+    @FXML
+    private void addmemberButtonclicked() throws IOException{
+    main.showaddmemberpage();
     }
     
 

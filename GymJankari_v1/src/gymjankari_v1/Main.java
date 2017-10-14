@@ -56,11 +56,6 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-        //Comment added by Ajeeb12345.
-        //Comment added by Amit.
-        //Comment added again by Ajeeb.
-        //Second comment added by Amit.
-        //Third comment added by Ajeeb.
-        //Third comment added by Amit.
+       //First branch comment by Ajeeb.
     }   
 }

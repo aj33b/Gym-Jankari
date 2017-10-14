@@ -56,7 +56,5 @@ public class Main extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-        //Added by ajeeb for various testing purposes.
-        //Added again by ajeeb.
     }   
 }

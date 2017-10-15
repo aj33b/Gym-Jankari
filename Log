@@ -1,10 +1,28 @@
 # Sun October 15 2017 6:57 PM
 Contributor:Amit Shrestha @amit-shrestha
 Work Completed:
-  Member Adding Module(except Shift entity and Storing photo in Database)
+  -Member Adding Module(except Shift entity and Storing photo in Database)
 To Ajeeb Rimal @aj33b
-  Please create a dialog box for message display(example:member added successfully) inside package:dialogbox(already created)
-  Any idea for shift combo box???
+  -Please create a dialog box for message display(example:member added successfully) inside package:dialogbox(already created)
+  -Any idea for shift combo box???
 #END
-  
-  
+_____________________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________________
+#Sun October 15 2017 10:30 PM
+Contributor: Ajeeb Rimal @aj33b
+Work Completed:
+  -Improvement in Add Member Page.
+          -Label Float option enabled while clicking on text field.
+          -Whole page gets center aligned when the size of whole window is changed.
+          -Spacing are maintained to make the layout neat.
+  -The View Member Page has been edited by addition of search bar and data display table.
+  -The Package previously known as gymjankari_v1.HomePage has been renamed to gymjankari_v1.MainView and the files HomePage.fxml and HomePageController.java has been deleted.
+  -A new library controlfx has been added to the project in order to enhance the UI controls. So far this library has been used to control the notification pushing mechanism.
+  -The package for dialogbox has been removed as notification system is used in place of them.
+  -Notification is popped up at top right corner of screen when member is added.
+To Amit Shrestha @amit-shrestha
+   -Please add the JAR file for controlfx library if not added automatically when you pull this version.The file has been uploaded in usual place as other library.
+   -To know the code used for notification refer to the AddMemberPageController.java file where you used the classic system.out.println code which has been replaced.
+#END
+_____________________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________________

@@ -5,9 +5,15 @@
  */
 package gymjankari_v1.ViewMemberPage;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 /**
  * FXML Controller class
@@ -16,6 +22,23 @@ import javafx.fxml.Initializable;
  */
 public class ViewMemberPageController implements Initializable {
 
+    @FXML
+    private JFXTextField searchTextField;
+    @FXML
+    private JFXButton searchButton;
+    @FXML
+    private TableView<?> memberdetailTableView;
+    @FXML
+    private TableColumn<?, ?> memberidTableColumn;
+    @FXML
+    private TableColumn<?, ?> fullnameTableColumn;
+    @FXML
+    private TableColumn<?, ?> shiftTableColumn;
+    @FXML
+    private TableColumn<?, ?> phonenoTableColumn;
+    @FXML
+    private TableColumn<?, ?> expirydateTableColumn;
+
     /**
      * Initializes the controller class.
      */
@@ -23,5 +46,9 @@ public class ViewMemberPageController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void searchButtonClicked(ActionEvent event) {
+    }
     
 }

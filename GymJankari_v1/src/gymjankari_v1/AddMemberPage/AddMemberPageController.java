@@ -6,7 +6,7 @@
 package gymjankari_v1.AddMemberPage;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,8 +16,9 @@ import java.util.ResourceBundle;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -40,19 +41,17 @@ public class AddMemberPageController implements Initializable {
     @FXML
     private DatePicker dobDatePicker;
     @FXML
-    private JFXRadioButton maleRadioButton;
+    private RadioButton maleRadioButton;
     @FXML
-    private JFXRadioButton femaleRadioButton;
+    private RadioButton femaleRadioButton;
     @FXML
-    private JFXTextField heightftTextField;
+    private JFXTextField heightTextField;
     @FXML
-    private JFXTextField heighinTextField;
-    @FXML
-    private JFXTextField weightkgsTextField;
+    private JFXTextField weightTextField;
     @FXML
     private JFXTextField streetTextField;
     @FXML
-    private JFXTextField vdcmunicipalityTextField;
+    private JFXTextField vdcmunTextField;
     @FXML
     private JFXTextField wardnoTextField;
     @FXML
@@ -68,18 +67,26 @@ public class AddMemberPageController implements Initializable {
     @FXML
     private DatePicker membersinceDatePicker;
     @FXML
-    private ChoiceBox<?> membertypeChoiceBox;
+    private JFXComboBox<?> starttimeComboBox;
+    @FXML
+    private JFXComboBox<?> starttimeapComboBox;
+    @FXML
+    private JFXComboBox<?> endtimeComboBox;
+    @FXML
+    private JFXComboBox<?> endtimeapComboBox;
     @FXML
     private DatePicker paymentdateDatePicker;
     @FXML
+    private JFXTextField paymentrateTextField;
+    @FXML
     private JFXTextField paymentamountTextField;
     @FXML
-    private JFXButton adddetailsButton;
+    private JFXButton addButton;
     @FXML
-    private JFXButton addmemberButton;
+    private ToggleGroup gender;
     
     @FXML
-    private void uploadbuttonclicked() throws IOException{
+    private void uploadButtonClicked() throws IOException{
     FileChooser fc = new FileChooser();
     fc.getExtensionFilters().addAll(new ExtensionFilter("Image Files","*.jpg","*.png","*.JPG","*.PNG"),
                                     new ExtensionFilter("JPEG Files (*.jpg)","*.jpg","*.JPG"),
@@ -98,7 +105,7 @@ public class AddMemberPageController implements Initializable {
     }
     
     @FXML
-    private void addmemberbuttonclicked(){
+    private void addButtonClicked(){
         }
 
     /**

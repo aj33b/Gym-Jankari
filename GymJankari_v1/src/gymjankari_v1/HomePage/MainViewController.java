@@ -24,12 +24,37 @@ public class MainViewController implements Initializable {
 
     @FXML
     private JFXButton backButton;
+    @FXML
+    private JFXButton addmemberButton;
+    @FXML
+    private JFXButton viewmemberButton;
+    @FXML
+    private JFXButton aboutdevButton;
+    @FXML
+    private JFXButton expirydetailsButton;
     
     @FXML
-    private void backbuttonclicked() throws IOException{
-    main.showHomePage();
+    private void backButtonClicked() throws IOException{
+    main.showviewmemberpage();
     }
     
+    @FXML
+    private void addmemberButtonClicked() throws IOException{
+    main.showaddmemberpage();
+    }
+    
+    @FXML
+    private void viewmemberButtonClicked() throws IOException{
+    main.showviewmemberpage();
+    }
+    
+    @FXML
+    private void expirydetailsButtonClicked() throws IOException{
+    }
+    
+    @FXML
+    private void aboutdevButtonClicked() throws IOException{
+    }    
 
     /**
      * Initializes the controller class.

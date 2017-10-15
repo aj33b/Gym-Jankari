@@ -25,7 +25,7 @@ public class Main extends Application {
       Main.basewindow=primaryStage;
       Main.basewindow.setTitle("GymJankari");
       showMainView();
-      showHomePage();
+      showviewmemberpage();
     }
     
     private void showMainView() throws IOException{
@@ -37,14 +37,14 @@ public class Main extends Application {
         basewindow.show();
     }
     
-    public static void showHomePage()throws IOException{
+    public static void showviewmemberpage()throws IOException{
         FXMLLoader loader= new FXMLLoader();
-        loader.setLocation(Main.class.getResource("HomePage/HomePage.fxml"));
+        loader.setLocation(Main.class.getResource("ViewMemberPage/ViewMemberPage.fxml"));
         BorderPane homepageLayout=loader.load();
         mainLayout.setCenter(homepageLayout);
     }
     
-     public static void gotoaddmemberpage() throws IOException {
+     public static void showaddmemberpage() throws IOException {
         FXMLLoader loader= new FXMLLoader();
         loader.setLocation(Main.class.getResource("AddMemberPage/AddMemberPage.fxml"));
         BorderPane addmemberpageLayout=loader.load();

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gymjankari_v1.HomePage;
+package gymjankari_v1.MainView;
 
 import com.jfoenix.controls.JFXButton;
 import gymjankari_v1.Main;

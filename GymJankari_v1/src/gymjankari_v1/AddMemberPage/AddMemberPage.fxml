@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -33,28 +34,21 @@
          <center>
             <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" prefViewportHeight="698.0" prefViewportWidth="468.0" style="-fx-background-color: #ffffff;">
                <content>
-                  <AnchorPane style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
+                  <StackPane alignment="TOP_CENTER" style="-fx-background-color: #ffffff;">
                      <children>
-                        <VBox layoutY="5.0" spacing="15.0" style="-fx-background-color: #ffffff;">
+                        <VBox maxHeight="897.0" maxWidth="550.0" minHeight="897.0" minWidth="550.0" prefHeight="897.0" prefWidth="550.0" spacing="25.0" style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
                            <children>
-                              <GridPane hgap="15.0">
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
+                              <HBox spacing="20.0">
                                  <children>
-                                    <VBox spacing="15.0">
+                                    <VBox spacing="25.0">
                                        <children>
                                           <Label text="Basic Information :">
                                              <font>
                                                 <Font name="System Bold" size="13.0" />
                                              </font>
                                           </Label>
-                                          <JFXTextField fx:id="fullnameTextField" promptText="Full Name" />
-                                          <DatePicker fx:id="dobDatePicker" prefHeight="25.0" prefWidth="258.0" promptText="DOB (MM/DD/YYYY)" />
+                                          <JFXTextField fx:id="fullnameTextField" labelFloat="true" promptText="Full Name" />
+                                          <DatePicker fx:id="dobDatePicker" prefHeight="25.0" prefWidth="275.0" promptText="DOB (MM/DD/YYYY)" />
                                           <HBox spacing="10.0">
                                              <children>
                                                 <Label text="Gender :" />
@@ -67,65 +61,65 @@
                                                 <RadioButton fx:id="otherRadioButton" mnemonicParsing="false" text="Other" toggleGroup="$gender" />
                                              </children>
                                           </HBox>
-                                          <JFXTextField fx:id="heightTextField" promptText="Height (ft.in)" />
-                                          <JFXTextField fx:id="weightTextField" promptText="Weight (kgs)" />
+                                          <JFXTextField fx:id="heightTextField" labelFloat="true" promptText="Height (ft.in)" />
+                                          <JFXTextField fx:id="weightTextField" labelFloat="true" promptText="Weight (kgs)" />
                                        </children>
                                     </VBox>
-                                    <Pane style="-fx-background-color: #ffffff;" GridPane.columnIndex="1">
+                                    <HBox alignment="TOP_CENTER">
                                        <children>
-                                          <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/upload_image.png" />
-                                             </image>
-                                          </ImageView>
-                                          <ImageView fx:id="photoImageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" />
-                                          <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../images/circle.png" />
-                                             </image>
-                                          </ImageView>
-                                          <JFXButton fx:id="uploadButton" contentDisplay="GRAPHIC_ONLY" layoutX="54.0" layoutY="58.0" onAction="#uploadButtonClicked">
-                                             <graphic>
-                                                <ImageView fitHeight="75.0" fitWidth="75.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+                                          <Pane nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #ffffff;">
+                                             <children>
+                                                <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../images/upload_icon.png" />
+                                                      <Image url="@../images/upload_image.png" />
                                                    </image>
                                                 </ImageView>
-                                             </graphic>
-                                          </JFXButton>
+                                                <ImageView fx:id="photoImageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" />
+                                                <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/circle.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <JFXButton fx:id="uploadButton" contentDisplay="GRAPHIC_ONLY" layoutX="54.0" layoutY="58.0" onAction="#uploadButtonClicked">
+                                                   <graphic>
+                                                      <ImageView fitHeight="75.0" fitWidth="75.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../images/upload_icon.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </JFXButton>
+                                             </children>
+                                          </Pane>
                                        </children>
-                                    </Pane>
+                                    </HBox>
                                  </children>
-                              </GridPane>
+                              </HBox>
                               <Label text="Contact Information :">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <GridPane hgap="15.0" vgap="15.0">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
+                              <HBox spacing="15.0">
                                  <children>
-                                    <JFXTextField fx:id="streetTextField" promptText="Street" />
-                                    <JFXTextField fx:id="vdcmunTextField" promptText="VDC/Municipality" GridPane.columnIndex="1" />
-                                    <JFXTextField fx:id="wardnoTextField" promptText="Ward No." GridPane.rowIndex="1" />
-                                    <JFXTextField fx:id="districtTextField" promptText="District" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <JFXTextField fx:id="streetTextField" labelFloat="true" prefWidth="250.0" promptText="Street" />
+                                    <JFXTextField fx:id="vdcmunTextField" labelFloat="true" prefWidth="250.0" promptText="VDC/Municipality" GridPane.columnIndex="1" />
                                  </children>
-                              </GridPane>
+                              </HBox>
+                              <HBox spacing="15.0">
+                                 <children>
+                                    <JFXTextField fx:id="wardnoTextField" labelFloat="true" prefWidth="250.0" promptText="Ward No." GridPane.rowIndex="1" />
+                                    <JFXTextField fx:id="districtTextField" labelFloat="true" prefWidth="250.0" promptText="District" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                 </children>
+                              </HBox>
                               <Label layoutX="20.0" layoutY="238.0" text="Address :" />
                               <HBox spacing="15.0">
                                  <children>
-                                    <JFXTextField fx:id="landlineTextField" prefHeight="23.0" prefWidth="225.0" promptText="Phone (Landline)" />
-                                    <JFXTextField fx:id="mobileTextField" layoutX="20.0" layoutY="427.0" prefHeight="23.0" prefWidth="232.0" promptText="Phone (Mobile)" />
+                                    <JFXTextField fx:id="landlineTextField" labelFloat="true" prefWidth="250.0" promptText="Phone (Landline)" />
+                                    <JFXTextField fx:id="mobileTextField" labelFloat="true" layoutX="20.0" layoutY="427.0" prefWidth="250.0" promptText="Phone (Mobile)" />
                                  </children>
                               </HBox>
-                              <JFXTextField fx:id="emailTextField" promptText="E-mail Address" />
+                              <JFXTextField fx:id="emailTextField" labelFloat="true" promptText="E-mail Address" />
                               <Label layoutX="20.0" layoutY="238.0" text="Membership Information :">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
@@ -133,7 +127,7 @@
                               </Label>
                               <HBox spacing="15.0">
                                  <children>
-                                    <JFXTextField fx:id="memberidTextField" layoutX="20.0" layoutY="389.0" prefHeight="23.0" prefWidth="185.0" promptText="Membership ID" />
+                                    <JFXTextField fx:id="memberidTextField" labelFloat="true" layoutX="20.0" layoutY="389.0" prefHeight="23.0" prefWidth="185.0" promptText="Membership ID" />
                                     <DatePicker fx:id="membersinceDatePicker" prefHeight="25.0" prefWidth="246.0" promptText="Member Since (MM/DD/YYYY)" />
                                  </children>
                               </HBox>
@@ -153,8 +147,8 @@
                                  </font>
                               </Label>
                               <DatePicker fx:id="paymentdateDatePicker" prefHeight="25.0" prefWidth="238.0" promptText="Payment Date (MM/DD/YYYY)" />
-                              <JFXTextField fx:id="paymentrateTextField" promptText="Monthly Rate (Rs.)" />
-                              <JFXTextField fx:id="paymentamountTextField" promptText="Payment Amount" />
+                              <JFXTextField fx:id="paymentrateTextField" labelFloat="true" promptText="Monthly Rate (Rs.)" />
+                              <JFXTextField fx:id="paymentamountTextField" labelFloat="true" promptText="Payment Amount" />
                               <HBox alignment="TOP_RIGHT">
                                  <children>
                                     <JFXButton fx:id="addButton" onAction="#addButtonClicked" prefHeight="34.0" prefWidth="143.0" style="-fx-background-color: #003366;" text="Add" textFill="WHITE" />
@@ -166,7 +160,7 @@
                            </padding>
                         </VBox>
                      </children>
-                  </AnchorPane>
+                  </StackPane>
                </content>
             </ScrollPane>
          </center>

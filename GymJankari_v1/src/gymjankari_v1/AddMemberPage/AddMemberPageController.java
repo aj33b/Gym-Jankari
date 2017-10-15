@@ -145,6 +145,7 @@ public class AddMemberPageController implements Initializable {
         } 
         member.setPayDate(paymentdateDatePicker.getValue().toString());
         member.setPayRate(Float.parseFloat(paymentrateTextField.getText()));
+        member.setPayAmount(Float.parseFloat(paymentamountTextField.getText()));
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

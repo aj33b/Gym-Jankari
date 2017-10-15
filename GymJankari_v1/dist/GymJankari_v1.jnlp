@@ -8,8 +8,9 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="GymJankari_v1.jar" size="77891" download="eager" />
+    <jar href="GymJankari_v1.jar" size="84668" download="eager" />
     <jar href="lib/jfoenix.jar" size="2386535" download="eager" />
+    <jar href="lib/sqlite-jdbc-3.20.0.jar" size="6637012" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="GymJankari_v1" >
     <param name="requiredFXVersion" value="8.0+"/>

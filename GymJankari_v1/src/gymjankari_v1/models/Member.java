@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class Member {
     private String fullName;
-    private Date DOB;
+    private String DOB;
     private String gender;
     private String height;
     private String weight;
@@ -28,12 +28,12 @@ public class Member {
     
     private String mId;
     private String shift;
-    private Date memberSince;
+    private String memberSince;
     
-    private Date payDate;
+    private String payDate;
     private float payRate;
     private float payAmount;
-    private Date expiryDate;
+    private String expiryDate;
 
     public String getFullName() {
         return fullName;
@@ -43,11 +43,11 @@ public class Member {
         this.fullName = fullName;
     }
 
-    public Date getDOB() {
+    public String getDOB() {
         return DOB;
     }
 
-    public void setDOB(Date DOB) {
+    public void setDOB(String DOB) {
         this.DOB = DOB;
     }
 
@@ -147,19 +147,19 @@ public class Member {
         this.shift = shift;
     }
 
-    public Date getMemberSince() {
+    public String getMemberSince() {
         return memberSince;
     }
 
-    public void setMemberSince(Date memberSince) {
+    public void setMemberSince(String memberSince) {
         this.memberSince = memberSince;
     }
 
-    public Date getPayDate() {
+    public String getPayDate() {
         return payDate;
     }
 
-    public void setPayDate(Date payDate) {
+    public void setPayDate(String payDate) {
         this.payDate = payDate;
     }
 
@@ -179,11 +179,11 @@ public class Member {
         this.payAmount = payAmount;
     }
 
-    public Date getExpiryDate() {
+    public String getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(Date expiryDate) {
+    public void setExpiryDate(String expiryDate) {
         this.expiryDate = expiryDate;
     }
     

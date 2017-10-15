@@ -36,7 +36,7 @@
                <content>
                   <StackPane alignment="TOP_CENTER" style="-fx-background-color: #ffffff;">
                      <children>
-                        <VBox maxHeight="897.0" maxWidth="550.0" minHeight="897.0" minWidth="550.0" prefHeight="897.0" prefWidth="550.0" spacing="25.0" style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
+                        <VBox maxHeight="950.0" maxWidth="550.0" minHeight="950.0" minWidth="550.0" prefHeight="950.0" prefWidth="550.0" spacing="25.0" style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
                            <children>
                               <HBox spacing="20.0">
                                  <children>
@@ -100,6 +100,7 @@
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
+                              <Label layoutX="20.0" layoutY="238.0" text="Address :" />
                               <HBox spacing="15.0">
                                  <children>
                                     <JFXTextField fx:id="streetTextField" labelFloat="true" prefWidth="250.0" promptText="Street" />
@@ -112,7 +113,6 @@
                                     <JFXTextField fx:id="districtTextField" labelFloat="true" prefWidth="250.0" promptText="District" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                  </children>
                               </HBox>
-                              <Label layoutX="20.0" layoutY="238.0" text="Address :" />
                               <HBox spacing="15.0">
                                  <children>
                                     <JFXTextField fx:id="landlineTextField" labelFloat="true" prefWidth="250.0" promptText="Phone (Landline)" />

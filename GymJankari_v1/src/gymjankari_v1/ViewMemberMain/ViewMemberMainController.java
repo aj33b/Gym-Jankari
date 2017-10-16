@@ -8,6 +8,7 @@ package gymjankari_v1.ViewMemberMain;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import gymjankari_v1.models.Member;
 import gymjankari_v1.service.MemberService;
 import gymjankari_v1.serviceimplementation.MemberServiceImplementation;
@@ -15,9 +16,18 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,6 +38,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -92,11 +103,11 @@ public class ViewMemberMainController implements Initializable {
     @FXML
     private ToggleGroup gender;
     @FXML
-    private TableView<?> paymentdetailTableView;
+    private TableView<String> paymentdetailTableView;
     @FXML
-    private TableColumn<?, ?> paymentdateTableColumn;
+    private TableColumn<String, String> paymentdateTableColumn;
     @FXML
-    private TableColumn<?, ?> paymentamountTableColumn;
+    private TableColumn<String, String> paymentamountTableColumn;
     @FXML
     private JFXButton editButton;
     @FXML
@@ -149,7 +160,6 @@ public class ViewMemberMainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
     }
 
     @FXML
@@ -176,5 +186,40 @@ public class ViewMemberMainController implements Initializable {
     @FXML
     private void deleteButtonClicked(ActionEvent event) {
     }
-
+    
+    public void setData(String displayId){
+        MemberService memberService = new MemberServiceImplementation();
+        Member member = memberService.getById(displayId);
+        ObservableList<String> paymentList = FXCollections.observableArrayList();
+        //String[] paymentInfo = {member.getPayDate()};
+        paymentList.add(member.getPayDate());
+        populateTable();
+        paymentdetailTableView.setItems(paymentList);
+        fullnameTextField.setText(member.getFullName());
+        dobDatePicker.setValue(localDate(member.getDOB()));
+        heightTextField.setText(member.getHeight());
+        weightTextField.setText(member.getWeight());
+        streetTextField.setText(member.getStreet());
+        vdcmunTextField.setText(member.getVdcmun());
+        wardnoTextField.setText(member.getWard());
+        districtTextField.setText(member.getDistrict());
+        emailTextField.setText(member.getEmail());
+        landlineTextField.setText(member.getLandline());
+        mobileTextField.setText(member.getMobile());
+        memberidTextField.setText(member.getDisplayId());
+        membersinceDatePicker.setValue(localDate(member.getMemberSince()));
+        paymentrateTextField.setText(String.valueOf(member.getPayRate()));
+        saveButton.setVisible(true);
+    }
+    
+    public LocalDate localDate(String stringDate){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(stringDate, formatter);
+        return localDate;
+    }
+    
+    public void populateTable(){
+        paymentdateTableColumn.setCellValueFactory(new PropertyValueFactory<>("payDate"));
+        //paymentamountTableColumn.setCellValueFactory(new PropertyValueFactory<>("payAmount"));
+    }
  }

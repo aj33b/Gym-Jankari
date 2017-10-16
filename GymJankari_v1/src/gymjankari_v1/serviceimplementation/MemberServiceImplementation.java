@@ -72,6 +72,7 @@ public class MemberServiceImplementation implements MemberService{
             ResultSet rs = read_stm.executeQuery(read_sql);
             while(rs.next()){
                 Member member = new Member();
+                member.setPrimaryId("PrimaryId");
                 member.setDisplayId(rs.getString("MemberId"));
                 member.setFullName(rs.getString("FullName"));
                 member.setDOB(rs.getString("DateOfBirth"));
@@ -110,9 +111,38 @@ public class MemberServiceImplementation implements MemberService{
     }
 
     @Override
-    public Member getById(String mId) {
-        
-        return null;
+    public Member getById(String displayId) {
+        Member member = new Member();
+        String read_sql = "select * from gymjankaridb where MemberId='"+displayId+"'";
+        try {
+            Statement read_stm = connect.createStatement();
+            ResultSet rs = read_stm.executeQuery(read_sql);
+            while(rs.next()){
+                member.setPrimaryId(rs.getString("PrimaryId"));
+                member.setDisplayId(rs.getString("MemberId"));
+                member.setFullName(rs.getString("FullName"));
+                member.setDOB(rs.getString("DateOfBirth"));
+                member.setGender(rs.getString("Gender"));
+                member.setHeight(rs.getString("Height"));
+                member.setWeight(rs.getString("Weight"));
+                member.setStreet(rs.getString("Street"));
+                member.setVdcmun(rs.getString("VDCMun"));
+                member.setWard(rs.getString("WardNo"));
+                member.setDistrict(rs.getString("District"));
+                member.setEmail(rs.getString("EmailAddress"));
+                member.setLandline(rs.getString("Landline"));
+                member.setMobile(rs.getString("Mobile"));
+                member.setMemberSince(rs.getString("MemberSince"));
+                member.setShift(rs.getString("Shift"));   
+                member.setPayDate(rs.getString("PaymentDate"));
+                member.setPayRate(rs.getFloat("MonthlyRate"));
+                member.setPayAmount(rs.getFloat("PaymentAmount"));
+                member.setExpiryDate(rs.getString("ExpiryDate"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return member;
     }
 
     @Override
@@ -124,6 +154,7 @@ public class MemberServiceImplementation implements MemberService{
             ResultSet rs = read_stm.executeQuery(read_sql);
             while(rs.next()){
                 Member member = new Member();
+                member.setPrimaryId(rs.getString("PrimaryId"));
                 member.setDisplayId(rs.getString("MemberId"));
                 member.setFullName(rs.getString("FullName"));
                 member.setDOB(rs.getString("DateOfBirth"));
@@ -160,6 +191,7 @@ public class MemberServiceImplementation implements MemberService{
             ResultSet rs = read_stm.executeQuery(read_sql);
             while(rs.next()){
                 Member member = new Member();
+                member.setPrimaryId(rs.getString("PrimaryId"));
                 member.setDisplayId(rs.getString("MemberId"));
                 member.setFullName(rs.getString("FullName"));
                 member.setDOB(rs.getString("DateOfBirth"));

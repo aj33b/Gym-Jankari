@@ -34,6 +34,7 @@ public class Member {
     private String expiryDate;
     
     private String displayId;
+    private String primaryId;
 
     public String getFullName() {
         return fullName;
@@ -194,8 +195,13 @@ public class Member {
     public void setDisplayId(String displayId) {
         this.displayId = displayId;
     }
-    
-    
-    
+
+    public String getPrimaryId() {
+        return primaryId;
+    }
+
+    public void setPrimaryId(String primaryId) {
+        this.primaryId = primaryId;
+    }
     
 }

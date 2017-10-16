@@ -32,6 +32,8 @@ public class Member {
     private float payRate;
     private float payAmount;
     private String expiryDate;
+    
+    private String displayId;
 
     public String getFullName() {
         return fullName;
@@ -184,6 +186,15 @@ public class Member {
     public void setExpiryDate(String expiryDate) {
         this.expiryDate = expiryDate;
     }
+
+    public String getDisplayId() {
+        return displayId;
+    }
+
+    public void setDisplayId(String displayId) {
+        this.displayId = displayId;
+    }
+    
     
     
     

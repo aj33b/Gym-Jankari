@@ -19,7 +19,7 @@ public interface MemberService {
     public boolean deleteMember(String mId);
     public boolean editMember(Member member);
     public Member getById(String mId);
-    public List<Member> searchById(String mId);
-    public List<Member> searchByName(String fullName);
+    public ObservableList<Member> searchById(String mId);
+    public ObservableList<Member> searchByName(String fullName);
     
 }

@@ -13,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -73,8 +72,7 @@ public class MemberServiceImplementation implements MemberService{
             ResultSet rs = read_stm.executeQuery(read_sql);
             while(rs.next()){
                 Member member = new Member();
-                System.out.println(rs.getString("MemberId"));
-                member.setmId(rs.getString("MemberId"));
+                member.setDisplayId(rs.getString("MemberId"));
                 member.setFullName(rs.getString("FullName"));
                 member.setDOB(rs.getString("DateOfBirth"));
                 member.setGender(rs.getString("Gender"));
@@ -98,7 +96,6 @@ public class MemberServiceImplementation implements MemberService{
         } catch (SQLException ex) {
             Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return memberList;
     }
 
@@ -114,17 +111,80 @@ public class MemberServiceImplementation implements MemberService{
 
     @Override
     public Member getById(String mId) {
+        
         return null;
     }
 
     @Override
-    public List<Member> searchById(String mId) {
-        return null;
+    public ObservableList<Member> searchById(String mId) {
+        ObservableList<Member> memberList = FXCollections.observableArrayList();
+        String read_sql = "select * from gymjankaridb where MemberId='"+mId+"'";
+        try {
+            Statement read_stm = connect.createStatement();
+            ResultSet rs = read_stm.executeQuery(read_sql);
+            while(rs.next()){
+                Member member = new Member();
+                member.setDisplayId(rs.getString("MemberId"));
+                member.setFullName(rs.getString("FullName"));
+                member.setDOB(rs.getString("DateOfBirth"));
+                member.setGender(rs.getString("Gender"));
+                member.setHeight(rs.getString("Height"));
+                member.setWeight(rs.getString("Weight"));
+                member.setStreet(rs.getString("Street"));
+                member.setVdcmun(rs.getString("VDCMun"));
+                member.setWard(rs.getString("WardNo"));
+                member.setDistrict(rs.getString("District"));
+                member.setEmail(rs.getString("EmailAddress"));
+                member.setLandline(rs.getString("Landline"));
+                member.setMobile(rs.getString("Mobile"));
+                member.setMemberSince(rs.getString("MemberSince"));
+                member.setShift(rs.getString("Shift"));   
+                member.setPayDate(rs.getString("PaymentDate"));
+                member.setPayRate(rs.getFloat("MonthlyRate"));
+                member.setPayAmount(rs.getFloat("PaymentAmount"));
+                member.setExpiryDate(rs.getString("ExpiryDate"));
+                memberList.add(member);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return memberList;
     }
 
     @Override
-    public List<Member> searchByName(String fullName) {
-        return null;
+    public ObservableList<Member> searchByName(String fullName) {
+        ObservableList<Member> memberList = FXCollections.observableArrayList();
+        String read_sql = "select * from gymjankaridb where FullName='"+fullName+"'";
+        try {
+            Statement read_stm = connect.createStatement();
+            ResultSet rs = read_stm.executeQuery(read_sql);
+            while(rs.next()){
+                Member member = new Member();
+                member.setDisplayId(rs.getString("MemberId"));
+                member.setFullName(rs.getString("FullName"));
+                member.setDOB(rs.getString("DateOfBirth"));
+                member.setGender(rs.getString("Gender"));
+                member.setHeight(rs.getString("Height"));
+                member.setWeight(rs.getString("Weight"));
+                member.setStreet(rs.getString("Street"));
+                member.setVdcmun(rs.getString("VDCMun"));
+                member.setWard(rs.getString("WardNo"));
+                member.setDistrict(rs.getString("District"));
+                member.setEmail(rs.getString("EmailAddress"));
+                member.setLandline(rs.getString("Landline"));
+                member.setMobile(rs.getString("Mobile"));
+                member.setMemberSince(rs.getString("MemberSince"));
+                member.setShift(rs.getString("Shift"));   
+                member.setPayDate(rs.getString("PaymentDate"));
+                member.setPayRate(rs.getFloat("MonthlyRate"));
+                member.setPayAmount(rs.getFloat("PaymentAmount"));
+                member.setExpiryDate(rs.getString("ExpiryDate"));
+                memberList.add(member);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return memberList;
     }
     
 }

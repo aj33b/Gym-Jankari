@@ -20,6 +20,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -30,7 +31,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author aj33b
  */
 public class ViewMemberPageController implements Initializable {
-
+    
+    @FXML
+    private RadioButton memberIdRadioButton;
+    @FXML
+    private RadioButton nameRadioButton;
     @FXML
     private JFXTextField searchTextField;
     @FXML
@@ -56,17 +61,30 @@ public class ViewMemberPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         MemberService memberService = new MemberServiceImplementation();
-        memberidTableColumn.setCellValueFactory(new PropertyValueFactory<>("mId"));
-        fullnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("fullName"));
-        shiftTableColumn.setCellValueFactory(new PropertyValueFactory<>("shift"));
-        phonenoTableColumn.setCellValueFactory(new PropertyValueFactory<>("mobile"));
-        expirydateTableColumn.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
+        populateTable();
         memberdetailTableView.setItems(memberService.getAllMember());
             
     }    
 
     @FXML
     private void searchButtonClicked(ActionEvent event) {
+        MemberService memberService = new MemberServiceImplementation();
+        populateTable();
+        if(memberIdRadioButton.isSelected()){  
+            memberdetailTableView.setItems(memberService.searchById(searchTextField.getText()));
+        }else if(nameRadioButton.isSelected()){
+            memberdetailTableView.setItems(memberService.searchByName(searchTextField.getText()));
+        }else{ 
+            memberdetailTableView.setItems(memberService.getAllMember());
+        }  
+    }
+    
+    public void populateTable(){
+        memberidTableColumn.setCellValueFactory(new PropertyValueFactory<>("displayId"));
+        fullnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("fullName"));
+        shiftTableColumn.setCellValueFactory(new PropertyValueFactory<>("shift"));
+        phonenoTableColumn.setCellValueFactory(new PropertyValueFactory<>("mobile"));
+        expirydateTableColumn.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
     }
     
 }

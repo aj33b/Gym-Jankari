@@ -26,3 +26,14 @@ To Amit Shrestha @amit-shrestha
 #END
 _____________________________________________________________________________________________________________________________
 _____________________________________________________________________________________________________________________________
+#Mon October 16 2017 1:53 PM
+Contributor: Ajeeb Rimal @aj33b
+Work Completed:
+  -A new pacakge named ViewMemberMain has been added along with a fxml file and controller.
+  -The ViewMemberMain is the page that will be shown after the user clicks on any item from the table of ViewMemberPage.
+  -This page has Edit Button, Delete Button and Save button.
+  -All the textfields are disabled at first and save button is invisibele and when edit button is clicked the textfields are enabled for edit and save button is visible and vice versa when save button is clicked.
+To Amit Shrestha @amit-shrestha
+  -Try to populate the tableview of ViewMemberPage from the database.
+  -Make a system for populating the ViewMemberMain page from the database, edit feature and delete feature.
+#END

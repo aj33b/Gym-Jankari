@@ -56,9 +56,8 @@ public class ViewMemberPageController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         MemberService memberService = new MemberServiceImplementation();
-        //memberidTableColumn.setCellValueFactory(new PropertyValueFactory<>("mId"));
-        fullnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         memberidTableColumn.setCellValueFactory(new PropertyValueFactory<>("mId"));
+        fullnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         shiftTableColumn.setCellValueFactory(new PropertyValueFactory<>("shift"));
         phonenoTableColumn.setCellValueFactory(new PropertyValueFactory<>("mobile"));
         expirydateTableColumn.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));

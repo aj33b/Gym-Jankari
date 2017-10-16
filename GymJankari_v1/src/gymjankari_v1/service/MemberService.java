@@ -7,6 +7,7 @@ package gymjankari_v1.service;
 
 import gymjankari_v1.models.Member;
 import java.util.List;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public interface MemberService {
     public boolean addMember(Member member);
-    public List<Member> getAllMember();
+    public ObservableList<Member> getAllMember();
     public boolean deleteMember(String mId);
     public boolean editMember(Member member);
     public Member getById(String mId);

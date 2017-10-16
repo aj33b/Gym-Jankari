@@ -139,7 +139,7 @@ public class AddMemberPageController implements Initializable {
         String shift = "any";
         if(shift == null)
         {
-            member.setShift("no specified!!!");
+            member.setShift("not specified!!!");
         }else{
             member.setShift(shift);   
         } 

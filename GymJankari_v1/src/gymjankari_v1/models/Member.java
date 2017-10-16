@@ -5,8 +5,6 @@
  */
 package gymjankari_v1.models;
 
-import java.util.Date;
-
 /**
  *
  * @author AmitShrestha

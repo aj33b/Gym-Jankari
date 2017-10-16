@@ -37,3 +37,22 @@ To Amit Shrestha @amit-shrestha
   -Try to populate the tableview of ViewMemberPage from the database.
   -Make a system for populating the ViewMemberMain page from the database, edit feature and delete feature.
 #END
+_____________________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________________
+# Mon October 16 2017 8:24 PM
+Contributor:Amit Shrestha @amit-shrestha
+Work Completed:
+  -Data populating module completed.
+  -Search module completed.
+  -Extra Radio Buttons added on ViewMemberPage.fxml to handle the muti-search option.  	
+
+#END
+_____________________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________________
+# Tue October 16 2017 12:37 AM
+Contributor:Amit Shrestha @amit-shrestha
+Work Completed:
+  -Data Populating module in edit form on progress(Note:Update module remaining)  	
+To Ajeeb Rimal @aj33b
+  -*BUG:Please check the Save button.It appears before edit button is clicked.
+#END

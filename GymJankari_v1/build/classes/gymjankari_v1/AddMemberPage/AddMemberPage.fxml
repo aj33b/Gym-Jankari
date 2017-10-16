@@ -36,7 +36,7 @@
                <content>
                   <StackPane alignment="TOP_CENTER" style="-fx-background-color: #ffffff;">
                      <children>
-                        <VBox maxHeight="950.0" maxWidth="550.0" minHeight="950.0" minWidth="550.0" prefHeight="950.0" prefWidth="550.0" spacing="25.0" style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
+                        <VBox maxHeight="950.0" maxWidth="520.0" minHeight="950.0" minWidth="520.0" prefHeight="950.0" prefWidth="520.0" spacing="25.0" style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
                            <children>
                               <HBox spacing="20.0">
                                  <children>
@@ -155,9 +155,6 @@
                                  </children>
                               </HBox>
                            </children>
-                           <padding>
-                              <Insets left="30.0" />
-                           </padding>
                         </VBox>
                      </children>
                   </StackPane>

@@ -28,7 +28,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.AddMemberPage.AddMemberPageController">
+<BorderPane style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.ViewMemberMain.ViewMemberMainController">
    <center>
       <BorderPane>
          <center>
@@ -36,8 +36,14 @@
                <content>
                   <StackPane alignment="TOP_CENTER" style="-fx-background-color: #ffffff;">
                      <children>
-                        <VBox maxHeight="950.0" maxWidth="520.0" minHeight="950.0" minWidth="520.0" prefHeight="950.0" prefWidth="520.0" spacing="25.0" style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
+                        <VBox maxHeight="1050.0" maxWidth="520.0" minHeight="1050.0" minWidth="520.0" prefHeight="1050.0" prefWidth="520.0" spacing="25.0" style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
                            <children>
+                              <HBox alignment="TOP_RIGHT" spacing="25.0">
+                                 <children>
+                                    <JFXButton fx:id="editButton" onAction="#editButtonClicked" prefHeight="34.0" prefWidth="143.0" style="-fx-background-color: #003366;" text="Edit" textFill="WHITE" />
+                                    <JFXButton fx:id="deleteButton" onAction="#deleteButtonClicked" prefHeight="34.0" prefWidth="143.0" style="-fx-background-color: #003366;" text="Delete" textFill="WHITE" />
+                                 </children>
+                              </HBox>
                               <HBox spacing="20.0">
                                  <children>
                                     <VBox spacing="25.0">
@@ -47,8 +53,8 @@
                                                 <Font name="System Bold" size="13.0" />
                                              </font>
                                           </Label>
-                                          <JFXTextField fx:id="fullnameTextField" labelFloat="true" promptText="Full Name" />
-                                          <DatePicker fx:id="dobDatePicker" prefHeight="25.0" prefWidth="275.0" promptText="DOB (MM/DD/YYYY)" />
+                                          <JFXTextField fx:id="fullnameTextField" editable="false" labelFloat="true" promptText="Full Name" />
+                                          <DatePicker fx:id="dobDatePicker" editable="false" prefHeight="25.0" prefWidth="275.0" promptText="DOB (MM/DD/YYYY)" />
                                           <HBox spacing="10.0">
                                              <children>
                                                 <Label text="Gender :" />
@@ -61,8 +67,8 @@
                                                 <RadioButton fx:id="otherRadioButton" mnemonicParsing="false" text="Other" toggleGroup="$gender" />
                                              </children>
                                           </HBox>
-                                          <JFXTextField fx:id="heightTextField" labelFloat="true" promptText="Height (ft.in)" />
-                                          <JFXTextField fx:id="weightTextField" labelFloat="true" promptText="Weight (kgs)" />
+                                          <JFXTextField fx:id="heightTextField" editable="false" labelFloat="true" promptText="Height (ft.in)" />
+                                          <JFXTextField fx:id="weightTextField" editable="false" labelFloat="true" promptText="Weight (kgs)" />
                                        </children>
                                     </VBox>
                                     <HBox alignment="TOP_CENTER">
@@ -103,23 +109,23 @@
                               <Label layoutX="20.0" layoutY="238.0" text="Address :" />
                               <HBox spacing="15.0">
                                  <children>
-                                    <JFXTextField fx:id="streetTextField" labelFloat="true" prefWidth="250.0" promptText="Street" />
-                                    <JFXTextField fx:id="vdcmunTextField" labelFloat="true" prefWidth="250.0" promptText="VDC/Municipality" GridPane.columnIndex="1" />
+                                    <JFXTextField fx:id="streetTextField" editable="false" labelFloat="true" prefWidth="250.0" promptText="Street" />
+                                    <JFXTextField fx:id="vdcmunTextField" editable="false" labelFloat="true" prefWidth="250.0" promptText="VDC/Municipality" GridPane.columnIndex="1" />
                                  </children>
                               </HBox>
                               <HBox spacing="15.0">
                                  <children>
-                                    <JFXTextField fx:id="wardnoTextField" labelFloat="true" prefWidth="250.0" promptText="Ward No." GridPane.rowIndex="1" />
-                                    <JFXTextField fx:id="districtTextField" labelFloat="true" prefWidth="250.0" promptText="District" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <JFXTextField fx:id="wardnoTextField" editable="false" labelFloat="true" prefWidth="250.0" promptText="Ward No." GridPane.rowIndex="1" />
+                                    <JFXTextField fx:id="districtTextField" editable="false" labelFloat="true" prefWidth="250.0" promptText="District" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                  </children>
                               </HBox>
                               <HBox spacing="15.0">
                                  <children>
-                                    <JFXTextField fx:id="landlineTextField" labelFloat="true" prefWidth="250.0" promptText="Phone (Landline)" />
-                                    <JFXTextField fx:id="mobileTextField" labelFloat="true" layoutX="20.0" layoutY="427.0" prefWidth="250.0" promptText="Phone (Mobile)" />
+                                    <JFXTextField fx:id="landlineTextField" editable="false" labelFloat="true" prefWidth="250.0" promptText="Phone (Landline)" />
+                                    <JFXTextField fx:id="mobileTextField" editable="false" labelFloat="true" layoutX="20.0" layoutY="427.0" prefWidth="250.0" promptText="Phone (Mobile)" />
                                  </children>
                               </HBox>
-                              <JFXTextField fx:id="emailTextField" labelFloat="true" promptText="E-mail Address" />
+                              <JFXTextField fx:id="emailTextField" editable="false" labelFloat="true" promptText="E-mail Address" />
                               <Label layoutX="20.0" layoutY="238.0" text="Membership Information :">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
@@ -127,8 +133,8 @@
                               </Label>
                               <HBox spacing="15.0">
                                  <children>
-                                    <JFXTextField fx:id="memberidTextField" labelFloat="true" layoutX="20.0" layoutY="389.0" prefHeight="23.0" prefWidth="185.0" promptText="Membership ID" />
-                                    <DatePicker fx:id="membersinceDatePicker" prefHeight="25.0" prefWidth="246.0" promptText="Member Since (MM/DD/YYYY)" />
+                                    <JFXTextField fx:id="memberidTextField" editable="false" labelFloat="true" layoutX="20.0" layoutY="389.0" prefHeight="23.0" prefWidth="185.0" promptText="Membership ID" />
+                                    <DatePicker fx:id="membersinceDatePicker" editable="false" prefHeight="25.0" prefWidth="246.0" promptText="Member Since (MM/DD/YYYY)" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="15.0">
@@ -146,12 +152,16 @@
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <DatePicker fx:id="paymentdateDatePicker" prefHeight="25.0" prefWidth="238.0" promptText="Payment Date (MM/DD/YYYY)" />
-                              <JFXTextField fx:id="paymentrateTextField" labelFloat="true" promptText="Monthly Rate (Rs.)" />
-                              <JFXTextField fx:id="paymentamountTextField" labelFloat="true" promptText="Payment Amount" />
+                              <JFXTextField fx:id="paymentrateTextField" editable="false" labelFloat="true" promptText="Monthly Rate (Rs.)" />
+                              <TableView fx:id="paymentdetailTableView" prefHeight="134.0" prefWidth="520.0">
+                                <columns>
+                                  <TableColumn fx:id="paymentdateTableColumn" editable="false" prefWidth="225.0" text="Payment Date" />
+                                  <TableColumn fx:id="paymentamountTableColumn" editable="false" minWidth="0.0" prefWidth="294.0" text="Payment Amount" />
+                                </columns>
+                              </TableView>
                               <HBox alignment="TOP_RIGHT">
                                  <children>
-                                    <JFXButton fx:id="addButton" onAction="#addButtonClicked" prefHeight="34.0" prefWidth="143.0" style="-fx-background-color: #003366;" text="Add" textFill="WHITE" />
+                                    <JFXButton fx:id="saveButton" onAction="#saveButtonClicked" prefHeight="34.0" prefWidth="143.0" style="-fx-background-color: #003366;" text="Save" textFill="WHITE" visible="false" />
                                  </children>
                               </HBox>
                            </children>

@@ -8,6 +8,7 @@ package gymjankari_v1.AddMemberPage;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.org.apache.xalan.internal.xsltc.runtime.BasisLibrary;
 import gymjankari_v1.models.Member;
 import gymjankari_v1.service.MemberService;
 import gymjankari_v1.serviceimplementation.MemberServiceImplementation;
@@ -20,8 +21,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -29,7 +32,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.util.Duration;
 import javax.imageio.ImageIO;
+import javax.swing.text.Position;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -155,9 +161,23 @@ public class AddMemberPageController implements Initializable {
         MemberService memberService = new MemberServiceImplementation();
         boolean res = memberService.addMember(member);
         if(res){
-            System.out.println("Member Added Successfully!!!");
+            Image img=new Image("gymjankari_v1/images/checked_icon.png");
+            Notifications addedNotifications = Notifications.create()
+            .title("Member Added")
+            .text("The information has been added successfully.")
+            .graphic(new ImageView(img))
+            .hideAfter(Duration.seconds(5))
+            .position(Pos.TOP_RIGHT);
+            addedNotifications.show();
+                    
         }else{
-            System.out.println("Error while adding Member!!!");
+            Notifications errorNotifications=Notifications.create()
+            .title("Failed to Add Member")
+            .text("Sorry! The information has not been added due to some error.")
+            .graphic(null)
+            .hideAfter(Duration.seconds(5))
+            .position(Pos.TOP_RIGHT);
+            errorNotifications.showError();
         }
     }
 

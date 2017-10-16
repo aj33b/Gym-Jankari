@@ -50,7 +50,7 @@ public class Main extends Application {
         BorderPane addmemberpageLayout=loader.load();
         mainLayout.setCenter(addmemberpageLayout);
     }
-            
+     
     /**
      * @param args the command line arguments
      */

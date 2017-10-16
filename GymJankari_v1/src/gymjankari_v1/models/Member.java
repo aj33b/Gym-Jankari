@@ -5,8 +5,6 @@
  */
 package gymjankari_v1.models;
 
-import java.util.Date;
-
 /**
  *
  * @author AmitShrestha
@@ -34,6 +32,9 @@ public class Member {
     private float payRate;
     private float payAmount;
     private String expiryDate;
+    
+    private String displayId;
+    private String primaryId;
 
     public String getFullName() {
         return fullName;
@@ -186,7 +187,21 @@ public class Member {
     public void setExpiryDate(String expiryDate) {
         this.expiryDate = expiryDate;
     }
-    
-    
+
+    public String getDisplayId() {
+        return displayId;
+    }
+
+    public void setDisplayId(String displayId) {
+        this.displayId = displayId;
+    }
+
+    public String getPrimaryId() {
+        return primaryId;
+    }
+
+    public void setPrimaryId(String primaryId) {
+        this.primaryId = primaryId;
+    }
     
 }

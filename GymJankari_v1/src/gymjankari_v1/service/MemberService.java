@@ -16,8 +16,8 @@ import javafx.collections.ObservableList;
 public interface MemberService {
     public boolean addMember(Member member);
     public ObservableList<Member> getAllMember();
-    public boolean deleteMember(String mId);
-    public boolean editMember(Member member);
+    public boolean deleteMember(String id);
+    public boolean editMember(Member member,String id);
     public Member getById(String mId);
     public ObservableList<Member> searchById(String mId);
     public ObservableList<Member> searchByName(String fullName);

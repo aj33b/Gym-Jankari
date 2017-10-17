@@ -92,13 +92,17 @@ public class ViewMemberPageController implements Initializable {
     private void searchButtonClicked(ActionEvent event) {
         MemberService memberService = new MemberServiceImplementation();
         populateTable();
+        if(searchTextField.getText().isEmpty()){
+            memberdetailTableView.setItems(memberService.getAllMember());
+        }else{
         if(memberIdRadioButton.isSelected()){  
             memberdetailTableView.setItems(memberService.searchById(searchTextField.getText()));
         }else if(nameRadioButton.isSelected()){
             memberdetailTableView.setItems(memberService.searchByName(searchTextField.getText()));
         }else{ 
             memberdetailTableView.setItems(memberService.getAllMember());
-        }  
+        }
+        }
     }
     
     public void populateTable(){

@@ -101,12 +101,43 @@ public class MemberServiceImplementation implements MemberService{
     }
 
     @Override
-    public boolean deleteMember(String mId) {
+    public boolean deleteMember(String id) {
+        String delete_sql = "delete from gymjankaridb where MemberId='"+id+"'";
+        try {
+            Statement delete_stm = connect.createStatement();
+            delete_stm.execute(delete_sql);
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return false;
     }
 
     @Override
-    public boolean editMember(Member member) {
+    public boolean editMember(Member member,String id) {
+        String update_sql = "update gymjankaridb set MemberId=?,FullName=?,DateOfBirth=?,Gender=?,Height=?,Weight=?,Street=?,VDCMun=?,Wardno=?,District=?,EmailAddress=?,Landline=?,Mobile=?,Shift=?,MemberSince=?,MonthlyRate=? where MemberId='"+id+"'";
+        try {
+            PreparedStatement update_pstm = connect.prepareStatement(update_sql);
+            update_pstm.setString(1, member.getDisplayId());
+            update_pstm.setString(2, member.getFullName());
+            update_pstm.setString(3, member.getDOB());
+            update_pstm.setString(4, member.getGender());
+            update_pstm.setString(5, member.getHeight());
+            update_pstm.setString(6, member.getWeight());
+            update_pstm.setString(7, member.getStreet());
+            update_pstm.setString(8, member.getVdcmun());
+            update_pstm.setString(9, member.getWard());
+            update_pstm.setString(10, member.getDistrict());
+            update_pstm.setString(11, member.getEmail());
+            update_pstm.setString(12, member.getLandline());
+            update_pstm.setString(13, member.getMobile());
+            update_pstm.setString(14, member.getShift());
+            update_pstm.setString(15, member.getMemberSince());
+            update_pstm.execute();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return false;
     }
 

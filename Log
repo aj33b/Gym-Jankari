@@ -37,7 +37,7 @@ To Amit Shrestha @amit-shrestha
   -Try to populate the tableview of ViewMemberPage from the database.
   -Make a system for populating the ViewMemberMain page from the database, edit feature and delete feature.
 #END
-___________________________________
+_____________________________________________________________________________________________________________________________
 _____________________________________________________________________________________________________________________________
 # Mon October 16 2017 8:24 PM
 Contributor:Amit Shrestha @amit-shrestha
@@ -47,7 +47,7 @@ Work Completed:
   -Extra Radio Buttons added on ViewMemberPage.fxml to handle the muti-search option.  	
 
 #END
-___________________________________
+_____________________________________________________________________________________________________________________________
 _____________________________________________________________________________________________________________________________
 # Tue October 17 2017 12:37 AM
 Contributor:Amit Shrestha @amit-shrestha
@@ -56,7 +56,7 @@ Work Completed:
 To Ajeeb Rimal @aj33b
   -*BUG:Please check the Save button.It appears before edit button is clicked.
 #END
-___________________________________
+_____________________________________________________________________________________________________________________________
 _____________________________________________________________________________________________________________________________
 # Tue October 17 2017 04:37 PM
 Contributor:Amit Shrestha @amit-shrestha
@@ -71,5 +71,17 @@ To Ajeeb Rimal @aj33b
   -Review the width of shift combobox during adding(while selecting AM) and editing.
   -Test the program by adding,editing and deleting data(try with leaving some fields blank except for Shift field)
 #END
-
+_____________________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________________
+# Tue October 17 2017 07:10 PM
+Contributor:Ajeeb Rimal @aj33b
+Work Completed:
+  -A Splash Screen has been added while initial loading of the application.
+  -Expiry Details page is added but is as same as viememberpage and needs to be worked on.
+  -About Developers page has been added but needs to be worked on for final design.
+  -Combobox for shift am/pm selection has been elongated.
+  -Upload button vanishing and appear only in edit mode in ViewMemberMain page has been made along with other various disable and enable options.
+#END
+_____________________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________________
 

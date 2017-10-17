@@ -37,3 +37,39 @@ To Amit Shrestha @amit-shrestha
   -Try to populate the tableview of ViewMemberPage from the database.
   -Make a system for populating the ViewMemberMain page from the database, edit feature and delete feature.
 #END
+___________________________________
+_____________________________________________________________________________________________________________________________
+# Mon October 16 2017 8:24 PM
+Contributor:Amit Shrestha @amit-shrestha
+Work Completed:
+  -Data populating module completed.
+  -Search module completed.
+  -Extra Radio Buttons added on ViewMemberPage.fxml to handle the muti-search option.  	
+
+#END
+___________________________________
+_____________________________________________________________________________________________________________________________
+# Tue October 17 2017 12:37 AM
+Contributor:Amit Shrestha @amit-shrestha
+Work Completed:
+  -Data Populating module in edit form on progress(Note:Update module remaining)  	
+To Ajeeb Rimal @aj33b
+  -*BUG:Please check the Save button.It appears before edit button is clicked.
+#END
+___________________________________
+_____________________________________________________________________________________________________________________________
+# Tue October 17 2017 04:37 PM
+Contributor:Amit Shrestha @amit-shrestha
+Work Completed:
+  -Data Populating module in edit form on progress(Populating Data on Payment Details and Combobox Remaining)
+  -Edit and Update module Completed.
+  -Delete module Completed.
+  -Data populating in shift Combobox completed .
+  -Bugs and Errors related to null data handled except for Shift entity.
+  -Slight changes in programflow(pages automatically goes to view after add,edit  and delete is completed).   
+To Ajeeb Rimal @aj33b
+  -Review the width of shift combobox during adding(while selecting AM) and editing.
+  -Test the program by adding,editing and deleting data(try with leaving some fields blank except for Shift field)
+#END
+
+

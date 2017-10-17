@@ -141,10 +141,10 @@
                                  <children>
                                     <Label layoutX="20.0" layoutY="269.0" text="Shift :" />
                                     <JFXComboBox fx:id="starttimeComboBox" disable="true" prefHeight="25.0" prefWidth="95.0" promptText="Start Time" />
-                                    <JFXComboBox fx:id="starttimeapComboBox" disable="true" prefHeight="25.0" prefWidth="67.0" promptText="AM/PM" />
+                                    <JFXComboBox fx:id="starttimeapComboBox" disable="true" prefHeight="25.0" prefWidth="75.0" promptText="AM/PM" />
                                     <Label text="to" />
                                     <JFXComboBox fx:id="endtimeComboBox" disable="true" prefHeight="25.0" prefWidth="95.0" promptText="End Time" />
-                                    <JFXComboBox fx:id="endtimeapComboBox" disable="true" prefHeight="25.0" prefWidth="67.0" promptText="AM/PM" />
+                                    <JFXComboBox fx:id="endtimeapComboBox" disable="true" prefHeight="25.0" prefWidth="75.0" promptText="AM/PM" />
                                  </children>
                               </HBox>
                               <Label layoutX="20.0" layoutY="465.0" text="Payment Information :">

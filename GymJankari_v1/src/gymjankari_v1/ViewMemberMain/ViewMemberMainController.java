@@ -117,6 +117,8 @@ public class ViewMemberMainController implements Initializable {
     private JFXButton deleteButton;
     @FXML
     private JFXButton saveButton;
+    @FXML
+    private ImageView uploadImageView;
     
     private String id;
     private Main main;
@@ -233,6 +235,15 @@ public class ViewMemberMainController implements Initializable {
         endtimeComboBox.setEditable(false);
         endtimeapComboBox.setEditable(false);
         saveButton.setVisible(false);
+        uploadImageView.setVisible(false);
+        uploadButton.setVisible(false);
+        maleRadioButton.setDisable(true);
+        femaleRadioButton.setDisable(true);
+        otherRadioButton.setDisable(true);
+        starttimeComboBox.setDisable(true);
+        starttimeapComboBox.setDisable(true);
+        endtimeComboBox.setDisable(true);
+        endtimeapComboBox.setDisable(true);
         
     }
 
@@ -278,6 +289,15 @@ public class ViewMemberMainController implements Initializable {
         endtimeComboBox.setEditable(true);
         endtimeapComboBox.setEditable(true);
         saveButton.setVisible(true);
+        uploadImageView.setVisible(true);
+        uploadButton.setVisible(true);
+        maleRadioButton.setDisable(false);
+        femaleRadioButton.setDisable(false);
+        otherRadioButton.setDisable(false);
+        starttimeComboBox.setDisable(false);
+        starttimeapComboBox.setDisable(false);
+        endtimeComboBox.setDisable(false);
+        endtimeapComboBox.setDisable(false);
     }
 
     @FXML

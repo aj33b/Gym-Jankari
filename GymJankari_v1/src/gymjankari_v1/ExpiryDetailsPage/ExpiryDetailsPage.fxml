@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.validation.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane id="BorderPane" prefHeight="540.0" prefWidth="790.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.ExpiryDetailsPage.ExpiryDetailsPageController">
+   <top>
+      <BorderPane BorderPane.alignment="CENTER">
+         <right>
+            <AnchorPane BorderPane.alignment="CENTER">
+               <children>
+                  <JFXTextField fx:id="searchTextField" layoutX="529.0" layoutY="15.0" prefHeight="23.0" prefWidth="257.0" promptText="Search" />
+                  <JFXButton fx:id="searchButton" contentDisplay="GRAPHIC_ONLY" defaultButton="true" layoutX="750.0" layoutY="13.0" onAction="#searchButtonClicked" text="Search">
+                     <graphic>
+                        <ImageView fitHeight="23.0" fitWidth="18.0" onMouseClicked="#searchButtonClicked" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/search_icon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <RadioButton fx:id="nameRadioButton" layoutX="417.0" layoutY="18.0" mnemonicParsing="false" selected="true" text="Name">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="search" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="memberIdRadioButton" layoutX="301.0" layoutY="18.0" mnemonicParsing="false" selected="true" text="Member ID" toggleGroup="$search" />
+                  <Label layoutX="216.0" layoutY="18.0" text="Search By:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </right>
+      </BorderPane>
+   </top>
+   <center>
+      <BorderPane BorderPane.alignment="CENTER">
+         <center>
+            <ScrollPane fitToHeight="true" fitToWidth="true" prefViewportHeight="511.0" prefViewportWidth="777.0" BorderPane.alignment="CENTER">
+               <content>
+                  <TableView fx:id="memberdetailTableView" layoutX="14.0" layoutY="84.0">
+                    <columns>
+                        <TableColumn fx:id="memberidTableColumn" prefWidth="110.0" text="Member ID" />
+                      <TableColumn fx:id="fullnameTableColumn" prefWidth="277.0" text="Full Name" />
+                      <TableColumn fx:id="shiftTableColumn" minWidth="0.0" prefWidth="112.0" text="Shift" />
+                        <TableColumn fx:id="phonenoTableColumn" minWidth="0.0" prefWidth="147.0" text="Phone No." />
+                        <TableColumn fx:id="expirydateTableColumn" prefWidth="151.0" text="Expiry Date" />
+                    </columns>
+                  </TableView>
+               </content>
+            </ScrollPane>
+         </center>
+      </BorderPane>
+   </center>
+</BorderPane>

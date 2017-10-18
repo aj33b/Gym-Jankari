@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 /**
@@ -19,16 +20,25 @@ import javafx.stage.Stage;
 public class Main extends Application {
     public static Stage basewindow;
     public static BorderPane mainLayout;
+    public static Boolean issplashloaded=false;
     
     @Override
     public void start(Stage primaryStage) throws IOException {
       Main.basewindow=primaryStage;
       Main.basewindow.setTitle("GymJankari");
-      showMainView();
-      showviewmemberpage();
+      showSplashScreen();
     }
     
-    private void showMainView() throws IOException{
+    public static void showSplashScreen() throws IOException{
+        FXMLLoader loader= new FXMLLoader();
+        loader.setLocation(Main.class.getResource("MainView/SplashScreen.fxml"));
+        StackPane splashscreen=loader.load();
+        Scene scene=new Scene(splashscreen);
+        basewindow.setScene(scene);
+        basewindow.show();
+    }
+    
+    public static void showMainView() throws IOException{
         FXMLLoader loader= new FXMLLoader();
         loader.setLocation(Main.class.getResource("MainView/MainView.fxml"));
         mainLayout=loader.load();
@@ -40,8 +50,15 @@ public class Main extends Application {
     public static void showviewmemberpage()throws IOException{
         FXMLLoader loader= new FXMLLoader();
         loader.setLocation(Main.class.getResource("ViewMemberPage/ViewMemberPage.fxml"));
-        BorderPane homepageLayout=loader.load();
-        mainLayout.setCenter(homepageLayout);
+        BorderPane viewmemberpageLayout=loader.load();
+        mainLayout.setCenter(viewmemberpageLayout);
+    }
+    
+    public static void showexpirydetailspage()throws IOException{
+        FXMLLoader loader= new FXMLLoader();
+        loader.setLocation(Main.class.getResource("ExpiryDetailsPage/ExpiryDetailsPage.fxml"));
+        BorderPane expirydetailspageLayout=loader.load();
+        mainLayout.setCenter(expirydetailspageLayout);
     }
     
      public static void showaddmemberpage() throws IOException {
@@ -51,10 +68,17 @@ public class Main extends Application {
         mainLayout.setCenter(addmemberpageLayout);
     }
      
+     public static void showaboutdeveloperspage() throws IOException{
+        FXMLLoader loader= new FXMLLoader();
+        loader.setLocation(Main.class.getResource("AboutDevelopersPage/AboutDevelopersPage.fxml"));
+        BorderPane aboutdevelopersLayout=loader.load();
+        mainLayout.setCenter(aboutdevelopersLayout);
+    }
+     
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         launch(args);
-    }   
+    }       
 }

@@ -50,10 +50,12 @@ public class MainViewController implements Initializable {
     
     @FXML
     private void expirydetailsButtonClicked() throws IOException{
+    main.showexpirydetailspage();
     }
     
     @FXML
     private void aboutdevButtonClicked() throws IOException{
+    main.showaboutdeveloperspage();
     }    
 
     /**

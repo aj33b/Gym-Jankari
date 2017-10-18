@@ -58,13 +58,13 @@
                                           <HBox spacing="10.0">
                                              <children>
                                                 <Label text="Gender :" />
-                                                <RadioButton fx:id="maleRadioButton" mnemonicParsing="false" selected="true" text="Male">
+                                                <RadioButton fx:id="maleRadioButton" disable="true" mnemonicParsing="false" selected="true" text="Male">
                                                    <toggleGroup>
                                                       <ToggleGroup fx:id="gender" />
                                                    </toggleGroup>
                                                 </RadioButton>
-                                                <RadioButton fx:id="femaleRadioButton" mnemonicParsing="false" text="Female" toggleGroup="$gender" />
-                                                <RadioButton fx:id="otherRadioButton" mnemonicParsing="false" text="Other" toggleGroup="$gender" />
+                                                <RadioButton fx:id="femaleRadioButton" disable="true" mnemonicParsing="false" text="Female" toggleGroup="$gender" />
+                                                <RadioButton fx:id="otherRadioButton" disable="true" mnemonicParsing="false" text="Other" toggleGroup="$gender" />
                                              </children>
                                           </HBox>
                                           <JFXTextField fx:id="heightTextField" editable="false" labelFloat="true" promptText="Height (ft.in)" />
@@ -75,7 +75,7 @@
                                        <children>
                                           <Pane nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #ffffff;">
                                              <children>
-                                                <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fx:id="uploadImageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false">
                                                    <image>
                                                       <Image url="@../images/upload_image.png" />
                                                    </image>
@@ -86,9 +86,9 @@
                                                       <Image url="@../images/circle.png" />
                                                    </image>
                                                 </ImageView>
-                                                <JFXButton fx:id="uploadButton" contentDisplay="GRAPHIC_ONLY" layoutX="54.0" layoutY="58.0" onAction="#uploadButtonClicked">
+                                                <JFXButton fx:id="uploadButton" contentDisplay="GRAPHIC_ONLY" layoutX="54.0" layoutY="58.0" onAction="#uploadButtonClicked" opacity="0.0" visible="false">
                                                    <graphic>
-                                                      <ImageView fitHeight="75.0" fitWidth="75.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
+                                                      <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
                                                             <Image url="@../images/upload_icon.png" />
                                                          </image>
@@ -140,11 +140,11 @@
                               <HBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
                                     <Label layoutX="20.0" layoutY="269.0" text="Shift :" />
-                                    <JFXComboBox fx:id="starttimeComboBox" prefHeight="25.0" prefWidth="95.0" promptText="Start Time" />
-                                    <JFXComboBox fx:id="starttimeapComboBox" prefHeight="25.0" prefWidth="67.0" promptText="AM/PM" />
+                                    <JFXComboBox fx:id="starttimeComboBox" disable="true" prefHeight="25.0" prefWidth="95.0" promptText="Start Time" />
+                                    <JFXComboBox fx:id="starttimeapComboBox" disable="true" prefHeight="25.0" prefWidth="75.0" promptText="AM/PM" />
                                     <Label text="to" />
-                                    <JFXComboBox fx:id="endtimeComboBox" prefHeight="25.0" prefWidth="95.0" promptText="End Time" />
-                                    <JFXComboBox fx:id="endtimeapComboBox" prefHeight="25.0" prefWidth="67.0" promptText="AM/PM" />
+                                    <JFXComboBox fx:id="endtimeComboBox" disable="true" prefHeight="25.0" prefWidth="95.0" promptText="End Time" />
+                                    <JFXComboBox fx:id="endtimeapComboBox" disable="true" prefHeight="25.0" prefWidth="75.0" promptText="AM/PM" />
                                  </children>
                               </HBox>
                               <Label layoutX="20.0" layoutY="465.0" text="Payment Information :">

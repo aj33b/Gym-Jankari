@@ -5,9 +5,15 @@
  */
 package gymjankari_v1.serviceimplementation;
 
+import gymjankari_v1.AddMemberPage.AddMemberPageController;
 import gymjankari_v1.dbconnection.DBConnection;
 import gymjankari_v1.models.Member;
 import gymjankari_v1.service.MemberService;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,7 +39,7 @@ public class MemberServiceImplementation implements MemberService{
     @Override
     public boolean addMember(Member member) {
         try {
-            String write_sql = "insert into gymjankaridb(MemberId,FullName,DateOfBirth,Gender,Height,Weight,Street,VDCMun,WardNo,District,EmailAddress,Landline,Mobile,Shift,MemberSince,PaymentDate,MonthlyRate,PaymentAmount,ExpiryDate)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String write_sql = "insert into gymjankaridb(MemberId,FullName,DateOfBirth,Gender,Height,Weight,Street,VDCMun,WardNo,District,EmailAddress,Landline,Mobile,Shift,MemberSince,PaymentDate,MonthlyRate,PaymentAmount,ExpiryDate,Picture)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement write_pstm = connect.prepareStatement(write_sql);
             write_pstm.setString(1, member.getmId());
             write_pstm.setString(2, member.getFullName());
@@ -54,6 +60,7 @@ public class MemberServiceImplementation implements MemberService{
             write_pstm.setFloat(17, member.getPayRate());
             write_pstm.setFloat(18, member.getPayAmount());
             write_pstm.setString(19, member.getExpiryDate());
+            write_pstm.setString(20, member.getPicture());
             write_pstm.execute();
             return true;
             
@@ -92,6 +99,7 @@ public class MemberServiceImplementation implements MemberService{
                 member.setPayRate(rs.getFloat("MonthlyRate"));
                 member.setPayAmount(rs.getFloat("PaymentAmount"));
                 member.setExpiryDate(rs.getString("ExpiryDate"));
+                member.setPicture(rs.getString("Picture"));
                 memberList.add(member);
             }
         } catch (SQLException ex) {
@@ -115,7 +123,7 @@ public class MemberServiceImplementation implements MemberService{
 
     @Override
     public boolean editMember(Member member,String id) {
-        String update_sql = "update gymjankaridb set MemberId=?,FullName=?,DateOfBirth=?,Gender=?,Height=?,Weight=?,Street=?,VDCMun=?,Wardno=?,District=?,EmailAddress=?,Landline=?,Mobile=?,Shift=?,MemberSince=?,MonthlyRate=? where MemberId='"+id+"'";
+        String update_sql = "update gymjankaridb set MemberId=?,FullName=?,DateOfBirth=?,Gender=?,Height=?,Weight=?,Street=?,VDCMun=?,Wardno=?,District=?,EmailAddress=?,Landline=?,Mobile=?,Shift=?,MemberSince=?,MonthlyRate=?,Picture=? where MemberId='"+id+"'";
         try {
             PreparedStatement update_pstm = connect.prepareStatement(update_sql);
             update_pstm.setString(1, member.getDisplayId());
@@ -133,6 +141,7 @@ public class MemberServiceImplementation implements MemberService{
             update_pstm.setString(13, member.getMobile());
             update_pstm.setString(14, member.getShift());
             update_pstm.setString(15, member.getMemberSince());
+            update_pstm.setString(16, member.getPicture());
             update_pstm.execute();
             return true;
         } catch (SQLException ex) {
@@ -169,6 +178,7 @@ public class MemberServiceImplementation implements MemberService{
                 member.setPayRate(rs.getFloat("MonthlyRate"));
                 member.setPayAmount(rs.getFloat("PaymentAmount"));
                 member.setExpiryDate(rs.getString("ExpiryDate"));
+                member.setPicture(rs.getString("Picture"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
@@ -205,6 +215,7 @@ public class MemberServiceImplementation implements MemberService{
                 member.setPayRate(rs.getFloat("MonthlyRate"));
                 member.setPayAmount(rs.getFloat("PaymentAmount"));
                 member.setExpiryDate(rs.getString("ExpiryDate"));
+                member.setPicture(rs.getString("Picture"));
                 memberList.add(member);
             }
         } catch (SQLException ex) {
@@ -242,6 +253,7 @@ public class MemberServiceImplementation implements MemberService{
                 member.setPayRate(rs.getFloat("MonthlyRate"));
                 member.setPayAmount(rs.getFloat("PaymentAmount"));
                 member.setExpiryDate(rs.getString("ExpiryDate"));
+                member.setPicture("Picture");
                 memberList.add(member);
             }
         } catch (SQLException ex) {

@@ -13,7 +13,10 @@ import gymjankari_v1.models.Member;
 import gymjankari_v1.service.MemberService;
 import gymjankari_v1.serviceimplementation.MemberServiceImplementation;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -38,6 +41,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
 import org.controlsfx.control.Notifications;
+import org.apache.commons.codec.binary.Base64;
 
 /**
  * FXML Controller class
@@ -102,6 +106,7 @@ public class AddMemberPageController implements Initializable {
     private ToggleGroup gender;
     
     private Main main;
+    private String imageDataString;
     
     @FXML
     private void uploadButtonClicked() throws IOException{
@@ -112,9 +117,13 @@ public class AddMemberPageController implements Initializable {
     File selectedFile=fc.showOpenDialog(null); 
       
     if(selectedFile != null){
-        BufferedImage bufferedimage= ImageIO.read(selectedFile);
-        Image img= SwingFXUtils.toFXImage(bufferedimage, null);
+        BufferedImage bufferedImage= ImageIO.read(selectedFile);
+        Image img= SwingFXUtils.toFXImage(bufferedImage, null);
         photoImageView.setImage(img);
+        FileInputStream imageInFile = new FileInputStream(selectedFile);
+        byte imageData[] = new byte[(int) selectedFile.length()];
+        imageInFile.read(imageData);
+        imageDataString = encodeImage(imageData);
     }
     else{
         System.out.println("File is not valid!!");    
@@ -199,6 +208,7 @@ public class AddMemberPageController implements Initializable {
         calendar.add(Calendar.MONTH, 1);
         java.util.Date expiryDate = calendar.getTime();
         member.setExpiryDate(expiryDate.toString());
+        member.setPicture(imageDataString);
         MemberService memberService = new MemberServiceImplementation();
         boolean res = memberService.addMember(member);
         if(res){
@@ -245,4 +255,7 @@ public class AddMemberPageController implements Initializable {
         endtimeapComboBox.setItems(dayNight);
     }
     
+    public static String encodeImage(byte[] imageByteArray) {
+        return Base64.encodeBase64URLSafeString(imageByteArray);
+    }
 }

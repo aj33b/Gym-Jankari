@@ -8,24 +8,20 @@ package gymjankari_v1.ViewMemberMain;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
+import static gymjankari_v1.AddMemberPage.AddMemberPageController.encodeImage;
 import gymjankari_v1.Main;
 import gymjankari_v1.models.Member;
 import gymjankari_v1.service.MemberService;
 import gymjankari_v1.serviceimplementation.MemberServiceImplementation;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -48,6 +44,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Duration;
 import javax.imageio.ImageIO;
+import org.apache.commons.codec.binary.Base64;
 import org.controlsfx.control.Notifications;
 
 /**
@@ -122,6 +119,7 @@ public class ViewMemberMainController implements Initializable {
     
     private String id;
     private Main main;
+    private String imageDataString;
     
     @FXML
     private void uploadButtonClicked() throws IOException{
@@ -132,9 +130,13 @@ public class ViewMemberMainController implements Initializable {
     File selectedFile=fc.showOpenDialog(null); 
       
     if(selectedFile != null){
-        BufferedImage bufferedimage= ImageIO.read(selectedFile);
-        Image img= SwingFXUtils.toFXImage(bufferedimage, null);
+        BufferedImage bufferedImage= ImageIO.read(selectedFile);
+        Image img= SwingFXUtils.toFXImage(bufferedImage, null);
         photoImageView.setImage(img);
+        FileInputStream imageInFile = new FileInputStream(selectedFile);
+        byte imageData[] = new byte[(int) selectedFile.length()];
+        imageInFile.read(imageData);
+        imageDataString = encodeImage(imageData);
     }
     else{
         System.out.println("File is not valid!!");    
@@ -186,6 +188,7 @@ public class ViewMemberMainController implements Initializable {
             member.setShift(shift);   
         } 
         member.setPayRate(Float.parseFloat(paymentrateTextField.getText()));
+        member.setPicture(imageDataString);
         MemberService memberService = new MemberServiceImplementation();
         boolean res = memberService.editMember(member,id);
         if(res){
@@ -332,28 +335,38 @@ public class ViewMemberMainController implements Initializable {
     }
     
     public void setData(String displayId){
-        MemberService memberService = new MemberServiceImplementation();
-        Member member = memberService.getById(displayId);
-        ObservableList<String> paymentList = FXCollections.observableArrayList();
-        //String[] paymentInfo = {member.getPayDate()};
-        paymentList.add(member.getPayDate());
-        populateTable();
-        paymentdetailTableView.setItems(paymentList);
-        fullnameTextField.setText(member.getFullName());
-        dobDatePicker.setValue(localDate(member.getDOB()));
-        heightTextField.setText(member.getHeight());
-        weightTextField.setText(member.getWeight());
-        streetTextField.setText(member.getStreet());
-        vdcmunTextField.setText(member.getVdcmun());
-        wardnoTextField.setText(member.getWard());
-        districtTextField.setText(member.getDistrict());
-        emailTextField.setText(member.getEmail());
-        landlineTextField.setText(member.getLandline());
-        mobileTextField.setText(member.getMobile());
-        memberidTextField.setText(member.getDisplayId());
-        membersinceDatePicker.setValue(localDate(member.getMemberSince()));
-        paymentrateTextField.setText(String.valueOf(member.getPayRate()));
-        saveButton.setVisible(true);
+        try {
+            MemberService memberService = new MemberServiceImplementation();
+            Member member = memberService.getById(displayId);
+            ObservableList<String> paymentList = FXCollections.observableArrayList();
+            //String[] paymentInfo = {member.getPayDate()};
+            paymentList.add(member.getPayDate());
+            populateTable();
+            paymentdetailTableView.setItems(paymentList);
+            fullnameTextField.setText(member.getFullName());
+            dobDatePicker.setValue(localDate(member.getDOB()));
+            heightTextField.setText(member.getHeight());
+            weightTextField.setText(member.getWeight());
+            streetTextField.setText(member.getStreet());
+            vdcmunTextField.setText(member.getVdcmun());
+            wardnoTextField.setText(member.getWard());
+            districtTextField.setText(member.getDistrict());
+            emailTextField.setText(member.getEmail());
+            landlineTextField.setText(member.getLandline());
+            mobileTextField.setText(member.getMobile());
+            memberidTextField.setText(member.getDisplayId());
+            membersinceDatePicker.setValue(localDate(member.getMemberSince()));
+            paymentrateTextField.setText(String.valueOf(member.getPayRate()));
+            String imageDataString = member.getPicture();
+            byte[] imageByteArray = decodeImage(imageDataString);
+            InputStream inputStream = new ByteArrayInputStream(imageByteArray);
+            BufferedImage bufferedImage = ImageIO.read(inputStream);
+            Image image= SwingFXUtils.toFXImage(bufferedImage, null);
+            photoImageView.setImage(image);
+            saveButton.setVisible(true);
+        } catch (IOException ex) {
+            Logger.getLogger(ViewMemberMainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public LocalDate localDate(String stringDate){
@@ -365,5 +378,9 @@ public class ViewMemberMainController implements Initializable {
     public void populateTable(){
         paymentdateTableColumn.setCellValueFactory(new PropertyValueFactory<>("payDate"));
         //paymentamountTableColumn.setCellValueFactory(new PropertyValueFactory<>("payAmount"));
+    }
+    
+    public static byte[] decodeImage(String imageDataString) {
+        return Base64.decodeBase64(imageDataString);
     }
  }

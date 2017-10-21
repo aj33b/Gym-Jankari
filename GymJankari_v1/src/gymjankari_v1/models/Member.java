@@ -5,6 +5,8 @@
  */
 package gymjankari_v1.models;
 
+import javafx.scene.image.Image;
+
 /**
  *
  * @author AmitShrestha
@@ -35,6 +37,7 @@ public class Member {
     
     private String displayId;
     private String primaryId;
+    private String picture;
 
     public String getFullName() {
         return fullName;
@@ -203,5 +206,14 @@ public class Member {
     public void setPrimaryId(String primaryId) {
         this.primaryId = primaryId;
     }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+    
     
 }

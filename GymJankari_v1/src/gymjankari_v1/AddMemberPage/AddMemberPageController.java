@@ -6,27 +6,24 @@
 package gymjankari_v1.AddMemberPage;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXTimePicker;
 import gymjankari_v1.Main;
 import gymjankari_v1.models.Member;
 import gymjankari_v1.service.MemberService;
 import gymjankari_v1.serviceimplementation.MemberServiceImplementation;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -87,13 +84,9 @@ public class AddMemberPageController implements Initializable {
     @FXML
     private DatePicker membersinceDatePicker;
     @FXML
-    private JFXComboBox<Integer> starttimeComboBox;
+    private JFXTimePicker startTimePicker;
     @FXML
-    private JFXComboBox<String> starttimeapComboBox;
-    @FXML
-    private JFXComboBox<Integer> endtimeComboBox;
-    @FXML
-    private JFXComboBox<String> endtimeapComboBox;
+    private JFXTimePicker endTimePicker;
     @FXML
     private DatePicker paymentdateDatePicker;
     @FXML
@@ -175,14 +168,23 @@ public class AddMemberPageController implements Initializable {
             LocalDate date = LocalDate.now();
             member.setMemberSince(date.toString());
         }else{
-        member.setMemberSince(membersinceDatePicker.getValue().toString());
+            member.setMemberSince(membersinceDatePicker.getValue().toString());
         }
-        String start = starttimeComboBox.getSelectionModel().getSelectedItem().toString();
-        String startap = starttimeapComboBox.getSelectionModel().getSelectedItem();
-        String end = endtimeComboBox.getSelectionModel().getSelectedItem().toString();
-        String endap = endtimeapComboBox.getSelectionModel().getSelectedItem();
-        String shift = start.concat(startap).concat("-").concat(end).concat(endap);
-        member.setShift(shift);
+        
+        LocalTime startTime = startTimePicker.getValue();
+        if(startTime==null){
+            LocalTime time = LocalTime.now();
+            member.setStartTime(time.toString());
+        }else{
+        member.setStartTime(String.valueOf(startTimePicker.getValue()));
+        }
+        LocalTime endTime = endTimePicker.getValue();
+        if(endTime==null){
+            LocalTime time = LocalTime.now();
+            member.setEndTime(time.toString());
+        }else{
+            member.setEndTime(String.valueOf(endTimePicker.getValue()));
+        }
         LocalDate payDate= paymentdateDatePicker.getValue();
         if(payDate==null){
             LocalDate date = LocalDate.now();
@@ -243,16 +245,6 @@ public class AddMemberPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList<Integer> time = FXCollections.observableArrayList();
-        for(int i=1;i<13;i++)
-        {
-            time.add(i);
-        }
-        ObservableList<String> dayNight = FXCollections.observableArrayList("AM","PM");
-        starttimeComboBox.setItems(time);
-        starttimeapComboBox.setItems(dayNight);
-        endtimeComboBox.setItems(time);
-        endtimeapComboBox.setItems(dayNight);
     }
     
     public static String encodeImage(byte[] imageByteArray) {

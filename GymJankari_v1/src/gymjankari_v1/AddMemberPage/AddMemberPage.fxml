@@ -1,34 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.effect.*?>
-<?import java.lang.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import com.jfoenix.validation.*?>
-<?import com.jfoenix.controls.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.DatePicker?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.AddMemberPage.AddMemberPageController">
+<BorderPane style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.AddMemberPage.AddMemberPageController">
    <center>
       <BorderPane>
          <center>
@@ -48,7 +38,7 @@
                                              </font>
                                           </Label>
                                           <JFXTextField fx:id="fullnameTextField" labelFloat="true" promptText="Full Name" />
-                                          <DatePicker fx:id="dobDatePicker" prefHeight="25.0" prefWidth="275.0" promptText="DOB (MM/DD/YYYY)" />
+                                          <JFXDatePicker fx:id="dobDatePicker" prefHeight="25.0" prefWidth="275.0" />
                                           <HBox spacing="10.0">
                                              <children>
                                                 <Label text="Gender :" />
@@ -128,17 +118,15 @@
                               <HBox spacing="15.0">
                                  <children>
                                     <JFXTextField fx:id="memberidTextField" labelFloat="true" layoutX="20.0" layoutY="389.0" prefHeight="23.0" prefWidth="185.0" promptText="Membership ID" />
-                                    <DatePicker fx:id="membersinceDatePicker" prefHeight="25.0" prefWidth="246.0" promptText="Member Since (MM/DD/YYYY)" />
+                                    <JFXDatePicker fx:id="membersinceDatePicker" prefHeight="25.0" prefWidth="246.0" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
                                     <Label layoutX="20.0" layoutY="269.0" text="Shift :" />
-                                    <JFXComboBox fx:id="starttimeComboBox" prefHeight="25.0" prefWidth="95.0" promptText="Start Time" />
-                                    <JFXComboBox fx:id="starttimeapComboBox" prefHeight="25.0" prefWidth="75.0" promptText="AM/PM" />
+                                    <JFXTimePicker fx:id="startTimePicker" editable="true" promptText="Start Time" />
                                     <Label text="to" />
-                                    <JFXComboBox fx:id="endtimeComboBox" prefHeight="25.0" prefWidth="95.0" promptText="End Time" />
-                                    <JFXComboBox fx:id="endtimeapComboBox" prefHeight="25.0" prefWidth="75.0" promptText="AM/PM" />
+                                    <JFXTimePicker fx:id="endTimePicker" editable="true" promptText="End Time" />
                                  </children>
                               </HBox>
                               <Label layoutX="20.0" layoutY="465.0" text="Payment Information :">
@@ -146,7 +134,7 @@
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <DatePicker fx:id="paymentdateDatePicker" prefHeight="25.0" prefWidth="238.0" promptText="Payment Date (MM/DD/YYYY)" />
+                              <JFXDatePicker fx:id="paymentdateDatePicker" prefHeight="25.0" prefWidth="238.0" />
                               <JFXTextField fx:id="paymentrateTextField" labelFloat="true" promptText="Monthly Rate (Rs.)" />
                               <JFXTextField fx:id="paymentamountTextField" labelFloat="true" promptText="Payment Amount" />
                               <HBox alignment="TOP_RIGHT">

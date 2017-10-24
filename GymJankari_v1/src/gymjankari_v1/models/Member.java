@@ -27,7 +27,8 @@ public class Member {
     private String mobile;
     
     private String mId;
-    private String shift;
+    private String startTime;
+    private String endTime;
     private String memberSince;
     
     private String payDate;
@@ -143,14 +144,6 @@ public class Member {
         this.mId = mId;
     }
 
-    public String getShift() {
-        return shift;
-    }
-
-    public void setShift(String shift) {
-        this.shift = shift;
-    }
-
     public String getMemberSince() {
         return memberSince;
     }
@@ -213,6 +206,22 @@ public class Member {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
     
     

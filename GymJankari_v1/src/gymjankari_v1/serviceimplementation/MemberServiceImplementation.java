@@ -39,7 +39,7 @@ public class MemberServiceImplementation implements MemberService{
     @Override
     public boolean addMember(Member member) {
         try {
-            String write_sql = "insert into gymjankaridb(MemberId,FullName,DateOfBirth,Gender,Height,Weight,Street,VDCMun,WardNo,District,EmailAddress,Landline,Mobile,Shift,MemberSince,PaymentDate,MonthlyRate,PaymentAmount,ExpiryDate,Picture)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String write_sql = "insert into gymjankaridb(MemberId,FullName,DateOfBirth,Gender,Height,Weight,Street,VDCMun,WardNo,District,EmailAddress,Landline,Mobile,StartTime,EndTime,MemberSince,PaymentDate,MonthlyRate,PaymentAmount,ExpiryDate,Picture)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement write_pstm = connect.prepareStatement(write_sql);
             write_pstm.setString(1, member.getmId());
             write_pstm.setString(2, member.getFullName());
@@ -54,13 +54,14 @@ public class MemberServiceImplementation implements MemberService{
             write_pstm.setString(11, member.getEmail());
             write_pstm.setString(12, member.getLandline());
             write_pstm.setString(13, member.getMobile());
-            write_pstm.setString(14, member.getShift());
-            write_pstm.setString(15, member.getMemberSince());
-            write_pstm.setString(16, member.getPayDate());
-            write_pstm.setFloat(17, member.getPayRate());
-            write_pstm.setFloat(18, member.getPayAmount());
-            write_pstm.setString(19, member.getExpiryDate());
-            write_pstm.setString(20, member.getPicture());
+            write_pstm.setString(14, member.getStartTime());
+            write_pstm.setString(15, member.getEndTime());
+            write_pstm.setString(16, member.getMemberSince());
+            write_pstm.setString(17, member.getPayDate());
+            write_pstm.setFloat(18, member.getPayRate());
+            write_pstm.setFloat(19, member.getPayAmount());
+            write_pstm.setString(20, member.getExpiryDate());
+            write_pstm.setString(21, member.getPicture());
             write_pstm.execute();
             return true;
             
@@ -94,7 +95,8 @@ public class MemberServiceImplementation implements MemberService{
                 member.setLandline(rs.getString("Landline"));
                 member.setMobile(rs.getString("Mobile"));
                 member.setMemberSince(rs.getString("MemberSince"));
-                member.setShift(rs.getString("Shift"));   
+                member.setStartTime(rs.getString("StartTime"));
+                member.setEndTime(rs.getString("EndTime"));
                 member.setPayDate(rs.getString("PaymentDate"));
                 member.setPayRate(rs.getFloat("MonthlyRate"));
                 member.setPayAmount(rs.getFloat("PaymentAmount"));
@@ -123,7 +125,7 @@ public class MemberServiceImplementation implements MemberService{
 
     @Override
     public boolean editMember(Member member,String id) {
-        String update_sql = "update gymjankaridb set MemberId=?,FullName=?,DateOfBirth=?,Gender=?,Height=?,Weight=?,Street=?,VDCMun=?,Wardno=?,District=?,EmailAddress=?,Landline=?,Mobile=?,Shift=?,MemberSince=?,MonthlyRate=?,Picture=? where MemberId='"+id+"'";
+        String update_sql = "update gymjankaridb set MemberId=?,FullName=?,DateOfBirth=?,Gender=?,Height=?,Weight=?,Street=?,VDCMun=?,Wardno=?,District=?,EmailAddress=?,Landline=?,Mobile=?,StartTime=?,EndTime=?,MemberSince=?,MonthlyRate=?,Picture=? where MemberId='"+id+"'";
         try {
             PreparedStatement update_pstm = connect.prepareStatement(update_sql);
             update_pstm.setString(1, member.getDisplayId());
@@ -139,9 +141,11 @@ public class MemberServiceImplementation implements MemberService{
             update_pstm.setString(11, member.getEmail());
             update_pstm.setString(12, member.getLandline());
             update_pstm.setString(13, member.getMobile());
-            update_pstm.setString(14, member.getShift());
-            update_pstm.setString(15, member.getMemberSince());
-            update_pstm.setString(16, member.getPicture());
+            update_pstm.setString(14, member.getStartTime());
+            update_pstm.setString(15, member.getEndTime());
+            update_pstm.setString(16, member.getMemberSince());
+            update_pstm.setFloat(17, member.getPayRate());
+            update_pstm.setString(18, member.getPicture());
             update_pstm.execute();
             return true;
         } catch (SQLException ex) {
@@ -173,7 +177,8 @@ public class MemberServiceImplementation implements MemberService{
                 member.setLandline(rs.getString("Landline"));
                 member.setMobile(rs.getString("Mobile"));
                 member.setMemberSince(rs.getString("MemberSince"));
-                member.setShift(rs.getString("Shift"));   
+                member.setStartTime(rs.getString("StartTime"));
+                member.setEndTime(rs.getString("EndTime"));   
                 member.setPayDate(rs.getString("PaymentDate"));
                 member.setPayRate(rs.getFloat("MonthlyRate"));
                 member.setPayAmount(rs.getFloat("PaymentAmount"));
@@ -210,7 +215,8 @@ public class MemberServiceImplementation implements MemberService{
                 member.setLandline(rs.getString("Landline"));
                 member.setMobile(rs.getString("Mobile"));
                 member.setMemberSince(rs.getString("MemberSince"));
-                member.setShift(rs.getString("Shift"));   
+                member.setStartTime(rs.getString("StartTime"));
+                member.setEndTime(rs.getString("EndTime"));  
                 member.setPayDate(rs.getString("PaymentDate"));
                 member.setPayRate(rs.getFloat("MonthlyRate"));
                 member.setPayAmount(rs.getFloat("PaymentAmount"));
@@ -248,7 +254,8 @@ public class MemberServiceImplementation implements MemberService{
                 member.setLandline(rs.getString("Landline"));
                 member.setMobile(rs.getString("Mobile"));
                 member.setMemberSince(rs.getString("MemberSince"));
-                member.setShift(rs.getString("Shift"));   
+                member.setStartTime(rs.getString("StartTime"));
+                member.setEndTime(rs.getString("EndTime"));   
                 member.setPayDate(rs.getString("PaymentDate"));
                 member.setPayRate(rs.getFloat("MonthlyRate"));
                 member.setPayAmount(rs.getFloat("PaymentAmount"));

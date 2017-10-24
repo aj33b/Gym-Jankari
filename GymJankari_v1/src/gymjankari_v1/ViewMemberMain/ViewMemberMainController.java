@@ -8,6 +8,7 @@ package gymjankari_v1.ViewMemberMain;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.JFXTimePicker;
 import static gymjankari_v1.AddMemberPage.AddMemberPageController.encodeImage;
 import gymjankari_v1.Main;
 import gymjankari_v1.models.Member;
@@ -20,8 +21,15 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import static java.time.LocalDate.now;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -91,13 +99,9 @@ public class ViewMemberMainController implements Initializable {
     @FXML
     private DatePicker membersinceDatePicker;
     @FXML
-    private JFXComboBox<Integer> starttimeComboBox;
+    private JFXTimePicker startTimePicker;
     @FXML
-    private JFXComboBox<String> starttimeapComboBox;
-    @FXML
-    private JFXComboBox<Integer> endtimeComboBox;
-    @FXML
-    private JFXComboBox<String> endtimeapComboBox;
+    private JFXTimePicker endTimePicker;
     @FXML
     private JFXTextField paymentrateTextField;
     @FXML
@@ -116,10 +120,12 @@ public class ViewMemberMainController implements Initializable {
     private JFXButton saveButton;
     @FXML
     private ImageView uploadImageView;
+    @FXML 
+    private JFXTextField ageTextField;
     
     private String id;
     private Main main;
-    private String imageDataString;
+    private String imageDataString = null;
     
     @FXML
     private void uploadButtonClicked() throws IOException{
@@ -178,15 +184,9 @@ public class ViewMemberMainController implements Initializable {
         }
         else{
         member.setDisplayId(memberidTextField.getText());
+        member.setStartTime(startTimePicker.getValue().toString());
+        member.setEndTime(endTimePicker.getValue().toString());
         member.setMemberSince(membersinceDatePicker.getValue().toString());
-        //String shift = starttimeComboBox.getSelectionModel().getSelectedItem().toString().concat(starttimeapComboBox.getSelectionModel().getSelectedItem().toString().concat("-")).concat(endtimeComboBox.getSelectionModel().getSelectedItem().toString()).concat(endtimeapComboBox.getSelectionModel().getSelectedItem().toString());
-        String shift = "any";
-        if(shift == null)
-        {
-            member.setShift("not specified!!!");
-        }else{
-            member.setShift(shift);   
-        } 
         member.setPayRate(Float.parseFloat(paymentrateTextField.getText()));
         member.setPicture(imageDataString);
         MemberService memberService = new MemberServiceImplementation();
@@ -233,20 +233,14 @@ public class ViewMemberMainController implements Initializable {
         paymentrateTextField.setEditable(false);
         paymentdateTableColumn.setEditable(false);
         paymentamountTableColumn.setEditable(false);
-        starttimeComboBox.setEditable(false);
-        starttimeapComboBox.setEditable(false);
-        endtimeComboBox.setEditable(false);
-        endtimeapComboBox.setEditable(false);
+        startTimePicker.setEditable(false);
+        endTimePicker.setEditable(false);
         saveButton.setVisible(false);
         uploadImageView.setVisible(false);
         uploadButton.setVisible(false);
         maleRadioButton.setDisable(true);
         femaleRadioButton.setDisable(true);
         otherRadioButton.setDisable(true);
-        starttimeComboBox.setDisable(true);
-        starttimeapComboBox.setDisable(true);
-        endtimeComboBox.setDisable(true);
-        endtimeapComboBox.setDisable(true);
         
     }
 
@@ -255,16 +249,6 @@ public class ViewMemberMainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList<Integer> time = FXCollections.observableArrayList();
-        for(int i=1;i<13;i++)
-        {
-            time.add(i);
-        }
-        ObservableList<String> dayNight = FXCollections.observableArrayList("AM","PM");
-        starttimeComboBox.setItems(time);
-        starttimeapComboBox.setItems(dayNight);
-        endtimeComboBox.setItems(time);
-        endtimeapComboBox.setItems(dayNight);
     }
 
     @FXML
@@ -287,20 +271,14 @@ public class ViewMemberMainController implements Initializable {
         paymentrateTextField.setEditable(true);
         paymentdateTableColumn.setEditable(true);
         paymentamountTableColumn.setEditable(true);
-        starttimeComboBox.setEditable(true);
-        starttimeapComboBox.setEditable(true);
-        endtimeComboBox.setEditable(true);
-        endtimeapComboBox.setEditable(true);
+        startTimePicker.setEditable(false);
+        endTimePicker.setEditable(false);
         saveButton.setVisible(true);
         uploadImageView.setVisible(true);
         uploadButton.setVisible(true);
         maleRadioButton.setDisable(false);
         femaleRadioButton.setDisable(false);
         otherRadioButton.setDisable(false);
-        starttimeComboBox.setDisable(false);
-        starttimeapComboBox.setDisable(false);
-        endtimeComboBox.setDisable(false);
-        endtimeapComboBox.setDisable(false);
     }
 
     @FXML
@@ -347,6 +325,11 @@ public class ViewMemberMainController implements Initializable {
             dobDatePicker.setValue(localDate(member.getDOB()));
             heightTextField.setText(member.getHeight());
             weightTextField.setText(member.getWeight());
+            Calendar calendar = Calendar.getInstance();
+            int year = calendar.get(Calendar.YEAR);
+            int birthYear = dobDatePicker.getValue().getYear();
+            int age = year-birthYear;
+            ageTextField.setText(String.valueOf(age));
             streetTextField.setText(member.getStreet());
             vdcmunTextField.setText(member.getVdcmun());
             wardnoTextField.setText(member.getWard());
@@ -355,14 +338,18 @@ public class ViewMemberMainController implements Initializable {
             landlineTextField.setText(member.getLandline());
             mobileTextField.setText(member.getMobile());
             memberidTextField.setText(member.getDisplayId());
+            startTimePicker.setValue(localTime(member.getStartTime()));
+            endTimePicker.setValue(localTime(member.getEndTime()));
             membersinceDatePicker.setValue(localDate(member.getMemberSince()));
             paymentrateTextField.setText(String.valueOf(member.getPayRate()));
-            String imageDataString = member.getPicture();
+            imageDataString = member.getPicture();
+            if(imageDataString!=null){
             byte[] imageByteArray = decodeImage(imageDataString);
             InputStream inputStream = new ByteArrayInputStream(imageByteArray);
             BufferedImage bufferedImage = ImageIO.read(inputStream);
             Image image= SwingFXUtils.toFXImage(bufferedImage, null);
             photoImageView.setImage(image);
+            }
             saveButton.setVisible(true);
         } catch (IOException ex) {
             Logger.getLogger(ViewMemberMainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -373,6 +360,11 @@ public class ViewMemberMainController implements Initializable {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate localDate = LocalDate.parse(stringDate, formatter);
         return localDate;
+    }
+    
+    public LocalTime localTime(String stringTime){
+        LocalTime time = LocalTime.parse(stringTime);
+        return time;
     }
     
     public void populateTable(){

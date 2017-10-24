@@ -6,9 +6,9 @@
 package gymjankari_v1.ViewMemberMain;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
+import com.sun.glass.ui.Cursor;
 import static gymjankari_v1.AddMemberPage.AddMemberPageController.encodeImage;
 import gymjankari_v1.Main;
 import gymjankari_v1.models.Member;
@@ -21,15 +21,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import static java.time.LocalDate.now;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -107,11 +102,11 @@ public class ViewMemberMainController implements Initializable {
     @FXML
     private ToggleGroup gender;
     @FXML
-    private TableView<String> paymentdetailTableView;
+    private TableView<Member> paymentdetailTableView;
     @FXML
-    private TableColumn<String, String> paymentdateTableColumn;
+    private TableColumn<Member, String> paymentdateTableColumn;
     @FXML
-    private TableColumn<String, String> paymentamountTableColumn;
+    private TableColumn<Member, String> paymentamountTableColumn;
     @FXML
     private JFXButton editButton;
     @FXML
@@ -316,11 +311,6 @@ public class ViewMemberMainController implements Initializable {
         try {
             MemberService memberService = new MemberServiceImplementation();
             Member member = memberService.getById(displayId);
-            ObservableList<String> paymentList = FXCollections.observableArrayList();
-            //String[] paymentInfo = {member.getPayDate()};
-            paymentList.add(member.getPayDate());
-            populateTable();
-            paymentdetailTableView.setItems(paymentList);
             fullnameTextField.setText(member.getFullName());
             dobDatePicker.setValue(localDate(member.getDOB()));
             heightTextField.setText(member.getHeight());
@@ -350,6 +340,10 @@ public class ViewMemberMainController implements Initializable {
             Image image= SwingFXUtils.toFXImage(bufferedImage, null);
             photoImageView.setImage(image);
             }
+            ObservableList<Member> paymentList = FXCollections.observableArrayList();
+            paymentList.add(member);
+            populateTable();
+            paymentdetailTableView.setItems(paymentList);
             saveButton.setVisible(true);
         } catch (IOException ex) {
             Logger.getLogger(ViewMemberMainController.class.getName()).log(Level.SEVERE, null, ex);
@@ -369,7 +363,8 @@ public class ViewMemberMainController implements Initializable {
     
     public void populateTable(){
         paymentdateTableColumn.setCellValueFactory(new PropertyValueFactory<>("payDate"));
-        //paymentamountTableColumn.setCellValueFactory(new PropertyValueFactory<>("payAmount"));
+        paymentamountTableColumn.setCellValueFactory(new PropertyValueFactory<>("payAmount"));
+        
     }
     
     public static byte[] decodeImage(String imageDataString) {

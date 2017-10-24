@@ -91,3 +91,16 @@ Work Completed:
 #END
 _____________________________________________________________________________________________________________________________
 _____________________________________________________________________________________________________________________________
+# Tue October 24 2017 02:56 PM
+Contributor:Amit Shrestha @amit-shrestha
+Work Completed:
+  -Image module completed.
+  -Shift entity completed(Note: ComboBox is replaced by JFXTimePicker).
+  -Age field added in viewmembermain.
+  -Shift column is replaced with Start Time and End Time column in viewmemberpage.
+  -DatePicker is replaced with JFXDatePicker.
+To Ajeeb Rimal @aj33b
+	-Review the whole program.
+#END
+_____________________________________________________________________________________________________________________________
+_____________________________________________________________________________________________________________________________

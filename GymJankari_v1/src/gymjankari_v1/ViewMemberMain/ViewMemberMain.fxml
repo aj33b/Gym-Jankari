@@ -4,6 +4,8 @@
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTimePicker?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
@@ -30,10 +32,33 @@
                      <children>
                         <VBox maxHeight="1050.0" maxWidth="520.0" minHeight="1050.0" minWidth="520.0" prefHeight="1050.0" prefWidth="600.0" spacing="25.0" style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
                            <children>
-                              <HBox alignment="TOP_RIGHT" spacing="25.0">
+                              <HBox spacing="10.0">
                                  <children>
-                                    <JFXButton fx:id="editButton" onAction="#editButtonClicked" prefHeight="34.0" prefWidth="143.0" style="-fx-background-color: #003366;" text="Edit" textFill="WHITE" />
-                                    <JFXButton fx:id="deleteButton" onAction="#deleteButtonClicked" prefHeight="34.0" prefWidth="143.0" style="-fx-background-color: #003366;" text="Delete" textFill="WHITE" />
+                                    <JFXButton fx:id="editButton" onAction="#editButtonClicked" prefHeight="29.0" prefWidth="153.0" stylesheets="@../style/style.css" text="Edit Basic Information">
+                                       <graphic>
+                                          <FontAwesomeIconView glyphName="PENCIL" size="20" />
+                                       </graphic>
+                                       <styleClass>
+                                          <String fx:value="buttonbgcolorchange2" />
+                                          <String fx:value="custombackgrouncolor3" />
+                                       </styleClass></JFXButton>
+                                    <JFXButton fx:id="deleteButton" onAction="#deleteButtonClicked" prefHeight="34.0" prefWidth="143.0" stylesheets="@../style/style.css" text="Delete">
+                                       <graphic>
+                                          <FontAwesomeIconView glyphName="TRASH_ALT" size="20" />
+                                       </graphic>
+                                       <styleClass>
+                                          <String fx:value="buttonbgcolorchange2" />
+                                          <String fx:value="custombackgrouncolor3" />
+                                       </styleClass></JFXButton>
+                                    <JFXButton fx:id="editpdButton" layoutX="219.0" layoutY="10.0" onAction="#editpdButtonClicked" prefHeight="29.0" prefWidth="153.0" stylesheets="@../style/style.css" text="Edit Payment Details">
+                                       <graphic>
+                                          <FontAwesomeIconView glyphName="MONEY" size="20" />
+                                       </graphic>
+                                       <styleClass>
+                                          <String fx:value="buttonbgcolorchange2" />
+                                          <String fx:value="custombackgrouncolor3" />
+                                       </styleClass>
+                                    </JFXButton>
                                  </children>
                               </HBox>
                               <HBox spacing="20.0">
@@ -46,7 +71,7 @@
                                              </font>
                                           </Label>
                                           <JFXTextField fx:id="fullnameTextField" editable="false" labelFloat="true" promptText="Full Name" />
-                                          <JFXDatePicker fx:id="dobDatePicker" prefHeight="25.0" prefWidth="275.0" />
+                                          <JFXDatePicker fx:id="dobDatePicker" defaultColor="#2c3e50" prefHeight="25.0" prefWidth="275.0" promptText="DOB (MM/DD/YYYY)" />
                                           <HBox spacing="10.0">
                                              <children>
                                                 <Label text="Gender :" />
@@ -127,15 +152,15 @@
                               <HBox spacing="15.0">
                                  <children>
                                     <JFXTextField fx:id="memberidTextField" editable="false" labelFloat="true" layoutX="20.0" layoutY="389.0" prefHeight="23.0" prefWidth="185.0" promptText="Membership ID" />
-                                    <JFXDatePicker fx:id="membersinceDatePicker" prefHeight="25.0" prefWidth="246.0" />
+                                    <JFXDatePicker fx:id="membersinceDatePicker" defaultColor="#2c3e50" prefHeight="25.0" prefWidth="246.0" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
                                     <Label layoutX="20.0" layoutY="269.0" text="Shift :" />
-                                    <JFXTimePicker fx:id="startTimePicker" editable="true" promptText="Start Time" />
+                                    <JFXTimePicker fx:id="startTimePicker" defaultColor="#2c3e50" editable="true" promptText="Start Time" />
                                     <Label text="to" />
-                                    <JFXTimePicker fx:id="endTimePicker" editable="true" promptText="End TIme" />
+                                    <JFXTimePicker fx:id="endTimePicker" defaultColor="#2c3e50" editable="true" promptText="End TIme" />
                                  </children>
                               </HBox>
                               <Label layoutX="20.0" layoutY="465.0" text="Payment Information :">
@@ -152,7 +177,14 @@
                               </TableView>
                               <HBox alignment="TOP_RIGHT">
                                  <children>
-                                    <JFXButton fx:id="saveButton" onAction="#saveButtonClicked" prefHeight="34.0" prefWidth="143.0" style="-fx-background-color: #003366;" text="Save" textFill="WHITE" visible="false" />
+                                    <JFXButton fx:id="saveButton" onAction="#saveButtonClicked" prefHeight="34.0" prefWidth="143.0" stylesheets="@../style/style.css" text="Save" visible="false">
+                                       <graphic>
+                                          <FontAwesomeIconView glyphName="SAVE" size="20" />
+                                       </graphic>
+                                       <styleClass>
+                                          <String fx:value="buttonbgcolorchange2" />
+                                          <String fx:value="custombackgrouncolor3" />
+                                       </styleClass></JFXButton>
                                  </children>
                               </HBox>
                            </children>

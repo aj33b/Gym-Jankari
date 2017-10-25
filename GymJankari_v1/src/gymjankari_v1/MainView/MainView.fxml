@@ -1,98 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.image.*?>
-<?import com.jfoenix.controls.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane id="BorderPane" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.MainView.MainViewController">
+<BorderPane id="BorderPane" fx:id="mainwindow" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #ffffff; -fx-border-color: #2c3e50;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.MainView.MainViewController">
    <top>
-      <JFXToolbar style="-fx-background-color: #003366;" BorderPane.alignment="CENTER">
+      <JFXToolbar fx:id="titlebar" onDragDetected="#startMoveWindow" onMouseDragged="#moveWindow" onMouseReleased="#endMoveWindow" style="-fx-background-color: #ffffff;" styleClass="custombackgrouncolor1" stylesheets="@../style/style.css">
+         <right>
+            <HBox alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="minimizeButton" contentDisplay="GRAPHIC_ONLY" onAction="#minimizeButtonClicked" styleClass="buttonbgcolorchange1" stylesheets="@../style/style.css" text="Minimize">
+                     <graphic>
+                        <MaterialDesignIconView glyphName="MINUS" size="20" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="closeButton" contentDisplay="GRAPHIC_ONLY" onAction="#closeButtonClicked" styleClass="buttonbgcolorchange1" stylesheets="@../style/style.css" text="Close">
+                     <graphic>
+                        <MaterialDesignIconView glyphName="CLOSE" size="20" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </right>
+         <left>
+            <Pane prefWidth="200.0" styleClass="custombackgrouncolor1" stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="backButton" contentDisplay="GRAPHIC_ONLY" onAction="#backButtonClicked" styleClass="buttonbgcolorchange1" stylesheets="@../style/style.css" text="Back">
+                     <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="ARROW_LEFT" size="25" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </Pane>
+         </left>
+         <effect>
+            <Blend />
+         </effect>
          <center>
-            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+            <ImageView fitHeight="33.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
                   <Image url="@../images/main_logo.png" />
                </image>
             </ImageView>
          </center>
-         <left>
-            <JFXButton fx:id="backButton" contentDisplay="GRAPHIC_ONLY" onAction="#backButtonClicked" text="Back" BorderPane.alignment="CENTER">
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/back_icon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-         </left>
       </JFXToolbar>
    </top>
    <left>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <center>
-            <VBox style="-fx-background-color: #097054;" BorderPane.alignment="CENTER">
+            <VBox styleClass="custombackgrouncolor1" stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="viewmemberButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="10.0" onAction="#viewmemberButtonClicked" prefHeight="50.0" prefWidth="205.0" text="View Member" textFill="WHITE">
+                  <JFXButton fx:id="viewmemberButton" alignment="TOP_LEFT" ellipsisString="" layoutX="10.0" layoutY="10.0" onAction="#viewmemberButtonClicked" prefHeight="50.0" prefWidth="205.0" stylesheets="@../style/style.css" text="View Member" textFill="WHITE">
                      <font>
-                        <Font name="CapsuulaRegular" size="25.0" />
+                        <Font size="25.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/search_icon.png" />
-                           </image>
-                        </ImageView>
+                        <MaterialDesignIconView fill="WHITE" glyphName="ACCOUNT_SEARCH" size="35" />
                      </graphic>
+                     <styleClass>
+                        <String fx:value="customfont_dense" />
+                        <String fx:value="buttonbgcolorchange1" />
+                     </styleClass>
                   </JFXButton>
-                  <JFXButton fx:id="addmemberButton" alignment="TOP_LEFT" onAction="#addmemberButtonClicked" prefHeight="50.0" prefWidth="205.0" text="Add Member" textFill="WHITE">
-                     <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/add_user_icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
+                  <JFXButton fx:id="addmemberButton" alignment="TOP_LEFT" onAction="#addmemberButtonClicked" prefHeight="50.0" prefWidth="205.0" stylesheets="@../style/style.css" text="Add Member" textFill="WHITE">
                      <font>
                         <Font name="CapsuulaRegular" size="25.0" />
                      </font>
+                     <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="ACCOUNT_PLUS" size="30" />
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="customfont_dense" />
+                        <String fx:value="buttonbgcolorchange1" />
+                     </styleClass>
                   </JFXButton>
-                  <JFXButton fx:id="expirydetailsButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="160.0" onAction="#expirydetailsButtonClicked" prefHeight="50.0" prefWidth="205.0" text="Expiry Details" textFill="WHITE">
+                  <JFXButton fx:id="expirydetailsButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="160.0" onAction="#expirydetailsButtonClicked" prefHeight="50.0" prefWidth="205.0" stylesheets="@../style/style.css" text="Expiry Details" textFill="WHITE">
                      <font>
                         <Font name="CapsuulaRegular" size="25.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/expiry_icon.png" />
-                           </image>
-                        </ImageView>
+                        <MaterialDesignIconView fill="WHITE" glyphName="CLOCK" size="30" />
                      </graphic>
+                     <styleClass>
+                        <String fx:value="customfont_dense" />
+                        <String fx:value="buttonbgcolorchange1" />
+                     </styleClass>
                   </JFXButton>
                </children>
             </VBox>
          </center>
          <bottom>
-            <VBox alignment="BOTTOM_LEFT" prefHeight="387.0" prefWidth="205.0" style="-fx-background-color: #097054;" BorderPane.alignment="CENTER">
+            <VBox alignment="BOTTOM_LEFT" prefHeight="387.0" prefWidth="205.0" styleClass="custombackgrouncolor1" stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="aboutdevButton" alignment="BOTTOM_LEFT" onAction="#aboutdevButtonClicked" prefHeight="50.0" prefWidth="205.0" text="About Developers" textFill="WHITE">
+                  <JFXButton fx:id="aboutdevButton" alignment="BOTTOM_LEFT" onAction="#aboutdevButtonClicked" prefHeight="50.0" prefWidth="205.0" stylesheets="@../style/style.css" text="About Developers" textFill="WHITE">
                      <font>
                         <Font name="CapsuulaRegular" size="22.0" />
                      </font>
                      <graphic>
-                        <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/user_icon.png" />
-                           </image>
-                        </ImageView>
+                        <FontAwesomeIconView fill="WHITE" glyphName="USER" size="30" />
                      </graphic>
+                     <styleClass>
+                        <String fx:value="customfont_dense" />
+                        <String fx:value="buttonbgcolorchange1" />
+                     </styleClass>
                   </JFXButton>
                </children>
             </VBox>

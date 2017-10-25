@@ -1,80 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import impl.org.controlsfx.skin.*?>
-<?import org.controlsfx.control.textfield.*?>
-<?import com.jfoenix.controls.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.AboutDevelopersPage.AboutDevelopersPageController">
+<BorderPane style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.AboutDevelopersPage.AboutDevelopersPageController">
    <center>
-      <TabPane style="-fx-background-color: #097054;" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="About">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Label layoutX="11.0" layoutY="14.0" text="GymJankari V1.0.0">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="TOP_LEFT" layoutX="11.0" layoutY="56.0" prefHeight="69.0" prefWidth="579.0" text="GymJankari® and GymJankari Logo are registered trademarks of Wengineers Inc." textAlignment="JUSTIFY" wrapText="true">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="TOP_LEFT" layoutX="11.0" layoutY="125.0" prefHeight="90.0" prefWidth="579.0" text="GymJankari® was developed by Wengineers Inc. and all the rights is solely reserved by Wengineers Inc. itself. Unnecessary and unethical distribution of copy of this software is illegal. If found being distributed then the distributor and user both are punisable by law." textAlignment="JUSTIFY" wrapText="true">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Contact Information">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="5.0" text="Ajeeb Rimal" textAlignment="JUSTIFY" wrapText="true">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="23.0" text="Contact (Mobile) : 9845580590" textAlignment="JUSTIFY" wrapText="true">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="41.0" text="E-mail : er.ajeebrimal@gmail.com" textAlignment="JUSTIFY" wrapText="true">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="116.0" text="E-mail : er.amitshrestha@gmail.com" textAlignment="JUSTIFY" wrapText="true">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="98.0" text="Contact (Mobile) : 9843444168" textAlignment="JUSTIFY" wrapText="true">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="80.0" text="Amit Shrestha" textAlignment="JUSTIFY" wrapText="true">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
+  <AnchorPane style="-fx-background-color: #ffffff;">
+         <children>
+            <Label alignment="TOP_LEFT" layoutX="9.0" layoutY="12.0" style="-fx-font-size: 50;" styleClass="customfont_dense_abtdev" stylesheets="@../style/style.css" text="Ajeeb Rimal" textAlignment="JUSTIFY" textFill="#2c3e50" wrapText="true" AnchorPane.leftAnchor="50.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="TOP_LEFT" layoutX="9.0" layoutY="64.0" style="-fx-font-size: 25;" styleClass="customfont_dense_abtdev" stylesheets="@../style/style.css" text="Contact (Mobile) : 9845580590" textAlignment="JUSTIFY" textFill="#097054" wrapText="true" AnchorPane.leftAnchor="50.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="TOP_LEFT" layoutX="10.0" layoutY="91.0" style="-fx-font-size: 25;" styleClass="customfont_dense_abtdev" stylesheets="@../style/style.css" text="E-mail : er.ajeebrimal@gmail.com" textAlignment="JUSTIFY" textFill="#097054" wrapText="true" AnchorPane.leftAnchor="50.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="TOP_LEFT" layoutX="21.0" layoutY="143.0" style="-fx-font-size: 50;" styleClass="customfont_dense_abtdev" stylesheets="@../style/style.css" text="Amit Shrestha" textAlignment="JUSTIFY" textFill="#2c3e50" wrapText="true" AnchorPane.leftAnchor="50.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="TOP_LEFT" layoutX="7.0" layoutY="222.0" style="-fx-font-size: 25;" styleClass="customfont_dense_abtdev" stylesheets="@../style/style.css" text="E-mail : er.amitshrestha@gmail.com" textAlignment="JUSTIFY" textFill="#097054" wrapText="true" AnchorPane.leftAnchor="50.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="TOP_LEFT" layoutX="11.0" layoutY="195.0" style="-fx-font-size: 25;" styleClass="customfont_dense_abtdev" stylesheets="@../style/style.css" text="Contact (Mobile) : 9843444168" textAlignment="JUSTIFY" textFill="#097054" wrapText="true" AnchorPane.leftAnchor="50.0">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </center>
 </BorderPane>

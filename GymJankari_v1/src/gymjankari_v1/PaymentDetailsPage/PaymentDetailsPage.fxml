@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.PaymentDetailsPage.PaymentDetailsPageController">
+   <center>
+      <BorderPane prefHeight="600.0" prefWidth="600.0">
+         <center>
+            <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" prefViewportHeight="698.0" prefViewportWidth="468.0" style="-fx-background-color: #ffffff;">
+               <content>
+                  <StackPane alignment="TOP_CENTER" style="-fx-background-color: #ffffff;">
+                     <children>
+                        <VBox maxHeight="600.0" maxWidth="520.0" minHeight="600.0" minWidth="520.0" prefHeight="600.0" prefWidth="600.0" spacing="25.0" style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
+                           <children>
+                              <HBox spacing="25.0">
+                                 <children>
+                                    <JFXTextField fx:id="fullnameTextField" editable="false" labelFloat="true" prefHeight="25.0" prefWidth="306.0" promptText="Full Name" />
+                                    <JFXTextField fx:id="memberidTextField" editable="false" labelFloat="true" prefHeight="23.0" prefWidth="185.0" promptText="Membership ID" />
+                                 </children>
+                              </HBox>
+                              <Label layoutX="20.0" layoutY="465.0" text="Payment Information :">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <JFXTextField fx:id="paymentrateTextField" editable="false" labelFloat="true" promptText="Monthly Rate (Rs.)" />
+                              <HBox spacing="25.0">
+                                 <children>
+                                    <JFXDatePicker fx:id="paymentdateDatePicker" defaultColor="#2c3e50" prefHeight="25.0" prefWidth="247.0" promptText="Payment Date (MM/DD/YYYY)" />
+                                    <JFXTextField fx:id="paymentamountTextField" editable="false" labelFloat="true" prefHeight="25.0" prefWidth="244.0" promptText="Payment Amount (Rs.)" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="TOP_RIGHT">
+                                 <children>
+                                    <JFXButton fx:id="adddetailsButton" onAction="#adddetailsButtonClicked" prefHeight="34.0" prefWidth="143.0" stylesheets="@../style/style.css" text="Add Details">
+                                       <graphic>
+                                          <FontAwesomeIconView glyphName="PLUS" size="20" />
+                                       </graphic>
+                                       <styleClass>
+                                          <String fx:value="buttonbgcolorchange2" />
+                                          <String fx:value="custombackgrouncolor3" />
+                                       </styleClass>
+                                    </JFXButton>
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="paymentdetailTableView" prefHeight="268.0" prefWidth="520.0">
+                                <columns>
+                                  <TableColumn fx:id="paymentdateTableColumn" editable="false" prefWidth="225.0" text="Payment Date" />
+                                  <TableColumn fx:id="paymentamountTableColumn" editable="false" minWidth="0.0" prefWidth="294.0" text="Payment Amount" />
+                                </columns>
+                              </TableView>
+                              <HBox alignment="TOP_RIGHT">
+                                 <children>
+                                    <JFXButton fx:id="saveButton" onAction="#saveButtonClicked" prefHeight="34.0" prefWidth="143.0" stylesheets="@../style/style.css" text="Save">
+                                       <graphic>
+                                          <FontAwesomeIconView glyphName="SAVE" size="20" />
+                                       </graphic>
+                                       <styleClass>
+                                          <String fx:value="buttonbgcolorchange2" />
+                                          <String fx:value="custombackgrouncolor3" />
+                                       </styleClass></JFXButton>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </children>
+                  </StackPane>
+               </content>
+            </ScrollPane>
+         </center>
+      </BorderPane>
+   </center>
+</BorderPane>

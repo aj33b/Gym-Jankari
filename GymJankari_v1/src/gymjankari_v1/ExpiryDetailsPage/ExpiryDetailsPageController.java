@@ -26,6 +26,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -61,6 +62,8 @@ public class ExpiryDetailsPageController implements Initializable {
     private TableColumn<Member, String> phonenoTableColumn;
     @FXML
     private TableColumn<Member, String> expirydateTableColumn;
+    @FXML
+    private ToggleGroup search;
     
     /**
      * Initializes the controller class.
@@ -94,13 +97,17 @@ public class ExpiryDetailsPageController implements Initializable {
     private void searchButtonClicked(ActionEvent event) {
         MemberService memberService = new MemberServiceImplementation();
         populateTable();
+        if(searchTextField.getText().isEmpty()){
+            memberdetailTableView.setItems(memberService.getAllMember());
+        }else{
         if(memberIdRadioButton.isSelected()){  
             memberdetailTableView.setItems(memberService.searchById(searchTextField.getText()));
         }else if(nameRadioButton.isSelected()){
             memberdetailTableView.setItems(memberService.searchByName(searchTextField.getText()));
         }else{ 
             memberdetailTableView.setItems(memberService.getAllMember());
-        }  
+        }
+        }
     }
     
     public void populateTable(){

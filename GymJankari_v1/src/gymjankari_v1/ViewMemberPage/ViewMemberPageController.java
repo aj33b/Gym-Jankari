@@ -26,6 +26,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -61,6 +62,8 @@ public class ViewMemberPageController implements Initializable {
     private TableColumn<Member, String> phonenoTableColumn;
     @FXML
     private TableColumn<Member, String> expirydateTableColumn;
+    @FXML
+    private ToggleGroup search;
     
     /**
      * Initializes the controller class.

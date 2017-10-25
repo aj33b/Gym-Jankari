@@ -2,47 +2,50 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="BorderPane" prefHeight="540.0" prefWidth="790.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.ViewMemberPage.ViewMemberPageController">
+<BorderPane id="BorderPane" prefHeight="540.0" prefWidth="790.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.ExpiryDetailsPage.ExpiryDetailsPageController">
    <top>
       <BorderPane BorderPane.alignment="CENTER">
          <right>
-            <AnchorPane BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_LEFT" prefHeight="29.0" prefWidth="795.0" spacing="15.0">
                <children>
-                  <JFXTextField fx:id="searchTextField" layoutX="529.0" layoutY="15.0" prefHeight="23.0" prefWidth="257.0" promptText="Search" />
-                  <JFXButton fx:id="searchButton" contentDisplay="GRAPHIC_ONLY" defaultButton="true" layoutX="750.0" layoutY="13.0" onAction="#searchButtonClicked" text="Search">
-                     <graphic>
-                        <ImageView fitHeight="23.0" fitWidth="18.0" onMouseClicked="#searchButtonClicked" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../images/search_icon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </JFXButton>
-                  <RadioButton fx:id="nameRadioButton" layoutX="417.0" layoutY="18.0" mnemonicParsing="false" selected="true" text="Name">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="search" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton fx:id="memberIdRadioButton" layoutX="301.0" layoutY="18.0" mnemonicParsing="false" selected="true" text="Member ID" toggleGroup="$search" />
-                  <Label layoutX="216.0" layoutY="18.0" text="Search By:">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="29.0" prefWidth="544.0" spacing="15.0">
+                     <children>
+                        <Label text="Search By:">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <RadioButton fx:id="memberIdRadioButton" mnemonicParsing="false" prefHeight="20.0" prefWidth="81.0" selected="true" text="Member ID">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="search" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="nameRadioButton" mnemonicParsing="false" prefHeight="20.0" prefWidth="53.0" selected="true" text="Name" toggleGroup="$search" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <JFXTextField fx:id="searchTextField" prefHeight="25.0" prefWidth="200.0" promptText="Search" />
+                        <JFXButton fx:id="searchButton" contentDisplay="GRAPHIC_ONLY" defaultButton="true" onAction="#searchButtonClicked" text="Search">
+                           <graphic>
+                              <FontAwesomeIconView glyphName="SEARCH" size="20" />
+                           </graphic>
+                        </JFXButton>
+                     </children>
+                  </HBox>
                </children>
-            </AnchorPane>
+            </HBox>
          </right>
       </BorderPane>
    </top>

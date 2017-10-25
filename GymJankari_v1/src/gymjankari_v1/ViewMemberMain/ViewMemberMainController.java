@@ -123,6 +123,8 @@ public class ViewMemberMainController implements Initializable {
     private String id;
     private Main main;
     private String imageDataString = null;
+    @FXML
+    private JFXButton editpdButton;
     
     @FXML
     private void uploadButtonClicked() throws IOException{
@@ -263,6 +265,11 @@ public class ViewMemberMainController implements Initializable {
 
             }
         });
+    }
+    
+    @FXML
+    private void editpdButtonClicked(ActionEvent event) throws IOException {
+        Main.showpaymentdetailspage();
     }
 
     @FXML

@@ -4,6 +4,8 @@
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTimePicker?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
@@ -38,7 +40,7 @@
                                              </font>
                                           </Label>
                                           <JFXTextField fx:id="fullnameTextField" labelFloat="true" promptText="Full Name" />
-                                          <JFXDatePicker fx:id="dobDatePicker" prefHeight="25.0" prefWidth="275.0" />
+                                          <JFXDatePicker fx:id="dobDatePicker" defaultColor="#2c3e50" prefHeight="25.0" prefWidth="275.0" />
                                           <HBox spacing="10.0">
                                              <children>
                                                 <Label text="Gender :" />
@@ -118,15 +120,15 @@
                               <HBox spacing="15.0">
                                  <children>
                                     <JFXTextField fx:id="memberidTextField" labelFloat="true" layoutX="20.0" layoutY="389.0" prefHeight="23.0" prefWidth="185.0" promptText="Membership ID" />
-                                    <JFXDatePicker fx:id="membersinceDatePicker" prefHeight="25.0" prefWidth="246.0" />
+                                    <JFXDatePicker fx:id="membersinceDatePicker" defaultColor="#2c3e50" prefHeight="25.0" prefWidth="246.0" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
                                     <Label layoutX="20.0" layoutY="269.0" text="Shift :" />
-                                    <JFXTimePicker fx:id="startTimePicker" editable="true" promptText="Start Time" />
+                                    <JFXTimePicker fx:id="startTimePicker" defaultColor="#2c3e50" editable="true" promptText="Start Time" />
                                     <Label text="to" />
-                                    <JFXTimePicker fx:id="endTimePicker" editable="true" promptText="End Time" />
+                                    <JFXTimePicker fx:id="endTimePicker" defaultColor="#2c3e50" editable="true" promptText="End Time" />
                                  </children>
                               </HBox>
                               <Label layoutX="20.0" layoutY="465.0" text="Payment Information :">
@@ -134,12 +136,19 @@
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <JFXDatePicker fx:id="paymentdateDatePicker" prefHeight="25.0" prefWidth="238.0" />
+                              <JFXDatePicker fx:id="paymentdateDatePicker" defaultColor="#2c3e50" prefHeight="25.0" prefWidth="238.0" />
                               <JFXTextField fx:id="paymentrateTextField" labelFloat="true" promptText="Monthly Rate (Rs.)" />
                               <JFXTextField fx:id="paymentamountTextField" labelFloat="true" promptText="Payment Amount" />
                               <HBox alignment="TOP_RIGHT">
                                  <children>
-                                    <JFXButton fx:id="addButton" onAction="#addButtonClicked" prefHeight="34.0" prefWidth="143.0" style="-fx-background-color: #003366;" text="Add" textFill="WHITE" />
+                                    <JFXButton fx:id="addButton" onAction="#addButtonClicked" prefHeight="34.0" prefWidth="143.0" stylesheets="@../style/style.css" text="Add">
+                                       <graphic>
+                                          <FontAwesomeIconView glyphName="PLUS" size="20" />
+                                       </graphic>
+                                       <styleClass>
+                                          <String fx:value="buttonbgcolorchange2" />
+                                          <String fx:value="custombackgrouncolor3" />
+                                       </styleClass></JFXButton>
                                  </children>
                               </HBox>
                            </children>

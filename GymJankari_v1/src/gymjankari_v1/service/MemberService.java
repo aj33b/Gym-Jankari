@@ -6,7 +6,6 @@
 package gymjankari_v1.service;
 
 import gymjankari_v1.models.Member;
-import java.util.List;
 import javafx.collections.ObservableList;
 
 /**
@@ -21,5 +20,5 @@ public interface MemberService {
     public Member getById(String mId);
     public ObservableList<Member> searchById(String mId);
     public ObservableList<Member> searchByName(String fullName);
-    
+    public boolean checkDuplicate(String mId);
 }

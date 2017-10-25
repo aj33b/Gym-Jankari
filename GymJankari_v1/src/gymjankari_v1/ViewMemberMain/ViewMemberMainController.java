@@ -8,7 +8,7 @@ package gymjankari_v1.ViewMemberMain;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
-import com.sun.glass.ui.Cursor;
+import com.jfoenix.validation.RequiredFieldValidator;
 import static gymjankari_v1.AddMemberPage.AddMemberPageController.encodeImage;
 import gymjankari_v1.Main;
 import gymjankari_v1.models.Member;
@@ -28,6 +28,8 @@ import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -147,9 +149,13 @@ public class ViewMemberMainController implements Initializable {
     
     @FXML
     private void saveButtonClicked(){
-  
+        MemberService memberService = new MemberServiceImplementation();
         Member member = new Member();
-        member.setFullName(fullnameTextField.getText());
+         String name = fullnameTextField.getText();
+        if (name.isEmpty()) {
+            nameFieldValidation();
+        } else {
+        member.setFullName(name);
         member.setDOB(dobDatePicker.getValue().toString());
         if(maleRadioButton.isSelected()){
             member.setGender("Male");
@@ -167,24 +173,12 @@ public class ViewMemberMainController implements Initializable {
         member.setEmail(emailTextField.getText());
         member.setLandline(landlineTextField.getText());
         member.setMobile(mobileTextField.getText());
-        String memberId = memberidTextField.getText();
-        if(memberId.isEmpty())
-        {
-            Notifications errorNotifications=Notifications.create()
-            .title("Failed to Add Member")
-            .text("Sorry! Member Id cannot be empty and must be unique!!!")
-            .hideAfter(Duration.seconds(5))
-            .position(Pos.TOP_RIGHT);
-            errorNotifications.showError();
-        }
-        else{
         member.setDisplayId(memberidTextField.getText());
         member.setStartTime(startTimePicker.getValue().toString());
         member.setEndTime(endTimePicker.getValue().toString());
         member.setMemberSince(membersinceDatePicker.getValue().toString());
         member.setPayRate(Float.parseFloat(paymentrateTextField.getText()));
         member.setPicture(imageDataString);
-        MemberService memberService = new MemberServiceImplementation();
         boolean res = memberService.editMember(member,id);
         if(res){
             Image img=new Image("gymjankari_v1/images/checked_icon.png");
@@ -211,7 +205,6 @@ public class ViewMemberMainController implements Initializable {
             Logger.getLogger(ViewMemberMainController.class.getName()).log(Level.SEVERE, null, ex);
         }
         }
-        
         fullnameTextField.setEditable(false);
         dobDatePicker.setEditable(false);
         heightTextField.setEditable(false);
@@ -244,6 +237,32 @@ public class ViewMemberMainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        RequiredFieldValidator idFieldValidator = new RequiredFieldValidator();
+        memberidTextField.getValidators().add(idFieldValidator);
+        idFieldValidator.setMessage("Cannot be empty");
+        memberidTextField.focusedProperty().addListener(new ChangeListener<Boolean>(){
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue)
+            {
+                memberidTextField.validate();
+            }
+
+            }
+        });
+        RequiredFieldValidator nameFieldValidator = new RequiredFieldValidator();
+        fullnameTextField.getValidators().add(nameFieldValidator);
+        nameFieldValidator.setMessage("Cannot be empty");
+        fullnameTextField.focusedProperty().addListener(new ChangeListener<Boolean>(){
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue)
+            {
+                fullnameTextField.validate();
+            }
+
+            }
+        });
     }
 
     @FXML
@@ -261,7 +280,6 @@ public class ViewMemberMainController implements Initializable {
         emailTextField.setEditable(true);
         landlineTextField.setEditable(true);
         mobileTextField.setEditable(true);
-        memberidTextField.setEditable(true);
         membersinceDatePicker.setEditable(true);
         paymentrateTextField.setEditable(true);
         paymentdateTableColumn.setEditable(true);
@@ -369,5 +387,12 @@ public class ViewMemberMainController implements Initializable {
     
     public static byte[] decodeImage(String imageDataString) {
         return Base64.decodeBase64(imageDataString);
+    }
+ 
+    public void nameFieldValidation() {
+        RequiredFieldValidator nameFieldValidator = new RequiredFieldValidator();
+        fullnameTextField.getValidators().add(nameFieldValidator);
+        nameFieldValidator.setMessage("Cannot be empty");
+        fullnameTextField.validate();
     }
  }

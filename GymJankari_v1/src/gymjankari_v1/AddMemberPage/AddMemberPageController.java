@@ -8,6 +8,7 @@ package gymjankari_v1.AddMemberPage;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
+import com.jfoenix.validation.RequiredFieldValidator;
 import gymjankari_v1.Main;
 import gymjankari_v1.models.Member;
 import gymjankari_v1.service.MemberService;
@@ -24,6 +25,8 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -97,145 +100,152 @@ public class AddMemberPageController implements Initializable {
     private JFXButton addButton;
     @FXML
     private ToggleGroup gender;
-    
+
     private Main main;
     private String imageDataString;
-    
+
     @FXML
-    private void uploadButtonClicked() throws IOException{
-    FileChooser fc = new FileChooser();
-    fc.getExtensionFilters().addAll(new ExtensionFilter("Image Files","*.jpg","*.png","*.JPG","*.PNG"),
-                                    new ExtensionFilter("JPEG Files (*.jpg)","*.jpg","*.JPG"),
-                                    new ExtensionFilter("PNG Files (*.png)","*.png","*.PNG"));
-    File selectedFile=fc.showOpenDialog(null); 
-      
-    if(selectedFile != null){
-        BufferedImage bufferedImage= ImageIO.read(selectedFile);
-        Image img= SwingFXUtils.toFXImage(bufferedImage, null);
-        photoImageView.setImage(img);
-        FileInputStream imageInFile = new FileInputStream(selectedFile);
-        byte imageData[] = new byte[(int) selectedFile.length()];
-        imageInFile.read(imageData);
-        imageDataString = encodeImage(imageData);
+    private void uploadButtonClicked() throws IOException {
+        FileChooser fc = new FileChooser();
+        fc.getExtensionFilters().addAll(new ExtensionFilter("Image Files", "*.jpg", "*.png", "*.JPG", "*.PNG"),
+                new ExtensionFilter("JPEG Files (*.jpg)", "*.jpg", "*.JPG"),
+                new ExtensionFilter("PNG Files (*.png)", "*.png", "*.PNG"));
+        File selectedFile = fc.showOpenDialog(null);
+
+        if (selectedFile != null) {
+            BufferedImage bufferedImage = ImageIO.read(selectedFile);
+            Image img = SwingFXUtils.toFXImage(bufferedImage, null);
+            photoImageView.setImage(img);
+            FileInputStream imageInFile = new FileInputStream(selectedFile);
+            byte imageData[] = new byte[(int) selectedFile.length()];
+            imageInFile.read(imageData);
+            imageDataString = encodeImage(imageData);
+        } else {
+            System.out.println("File is not valid!!");
+        }
+
     }
-    else{
-        System.out.println("File is not valid!!");    
-    }
-    
-    }
-    
+
     @FXML
-    private void addButtonClicked(){
-        Member member = new Member();
-        member.setFullName(fullnameTextField.getText());
-        LocalDate dob= dobDatePicker.getValue();
-        if(dob==null){
-            LocalDate date = LocalDate.now();
-            member.setDOB(date.toString());
-        }else{
-        member.setDOB(dobDatePicker.getValue().toString());
-        }
-        if(maleRadioButton.isSelected()){
-            member.setGender("Male");
-        }else if(femaleRadioButton.isSelected()){
-            member.setGender("Female");
-        }else if(otherRadioButton.isSelected()){
-            member.setGender("Other");
-        }  
-        member.setHeight(heightTextField.getText());
-        member.setWeight(weightTextField.getText());
-        member.setStreet(streetTextField.getText());
-        member.setVdcmun(vdcmunTextField.getText());
-        member.setWard(wardnoTextField.getText());
-        member.setDistrict(districtTextField.getText());
-        member.setEmail(emailTextField.getText());
-        member.setLandline(landlineTextField.getText());
-        member.setMobile(mobileTextField.getText());
-        String memberId = memberidTextField.getText();
-        if(memberId.isEmpty())
-        {
-            Notifications errorNotifications=Notifications.create()
-            .title("Failed to Add Member")
-            .text("Sorry! Member Id cannot be empty and must be unique!!!")
-            .hideAfter(Duration.seconds(5))
-            .position(Pos.TOP_RIGHT);
-            errorNotifications.showError();
-        }
-        else{
-        member.setmId(memberId);
-        LocalDate memberSince= membersinceDatePicker.getValue();
-        if(memberSince==null){
-            LocalDate date = LocalDate.now();
-            member.setMemberSince(date.toString());
-        }else{
-            member.setMemberSince(membersinceDatePicker.getValue().toString());
-        }
-        
-        LocalTime startTime = startTimePicker.getValue();
-        if(startTime==null){
-            LocalTime time = LocalTime.now();
-            member.setStartTime(time.toString());
-        }else{
-        member.setStartTime(String.valueOf(startTimePicker.getValue()));
-        }
-        LocalTime endTime = endTimePicker.getValue();
-        if(endTime==null){
-            LocalTime time = LocalTime.now();
-            member.setEndTime(time.toString());
-        }else{
-            member.setEndTime(String.valueOf(endTimePicker.getValue()));
-        }
-        LocalDate payDate= paymentdateDatePicker.getValue();
-        if(payDate==null){
-            LocalDate date = LocalDate.now();
-            member.setPayDate(date.toString());
-        }else{
-        member.setPayDate(paymentdateDatePicker.getValue().toString());
-        }
-        String payRate =  paymentrateTextField.getText();
-        if(payRate.isEmpty()){
-            member.setPayRate(0);
-        }else{
-        member.setPayRate(Float.parseFloat(paymentrateTextField.getText()));
-        }
-         String payAmount =  paymentamountTextField.getText();
-        if(payAmount.isEmpty()){
-            member.setPayAmount(0);
-        }else{
-        member.setPayAmount(Float.parseFloat(paymentamountTextField.getText()));
-        }
-        Date date = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.add(Calendar.MONTH, 1);
-        java.util.Date expiryDate = calendar.getTime();
-        member.setExpiryDate(expiryDate.toString());
-        member.setPicture(imageDataString);
+    private void addButtonClicked() {
         MemberService memberService = new MemberServiceImplementation();
-        boolean res = memberService.addMember(member);
-        if(res){
-            Image img=new Image("gymjankari_v1/images/checked_icon.png");
-            Notifications addedNotifications = Notifications.create()
-            .title("Member Added")
-            .text("The information has been added successfully.")
-            .graphic(new ImageView(img))
-            .hideAfter(Duration.seconds(5))
-            .position(Pos.TOP_RIGHT);
-            addedNotifications.show();
-                    
-        }else{
-            Notifications errorNotifications=Notifications.create()
-            .title("Failed to Add Member")
-            .text("Sorry! The information has not been added due to some error.")
-            .graphic(null)
-            .hideAfter(Duration.seconds(5))
-            .position(Pos.TOP_RIGHT);
-            errorNotifications.showError();
-        }
-        try {
-            Main.showviewmemberpage();
-        } catch (IOException ex) {
-            Logger.getLogger(AddMemberPageController.class.getName()).log(Level.SEVERE, null, ex);
+        Member member = new Member();
+        String name = fullnameTextField.getText();
+        if (name.isEmpty()) {
+            nameFieldValidation();
+        } else {
+            member.setFullName(name);
+            LocalDate dob = dobDatePicker.getValue();
+            if (dob == null) {
+                LocalDate date = LocalDate.now();
+                member.setDOB(date.toString());
+            } else {
+                member.setDOB(dobDatePicker.getValue().toString());
+            }
+            if (maleRadioButton.isSelected()) {
+                member.setGender("Male");
+            } else if (femaleRadioButton.isSelected()) {
+                member.setGender("Female");
+            } else if (otherRadioButton.isSelected()) {
+                member.setGender("Other");
+            }
+            member.setHeight(heightTextField.getText());
+            member.setWeight(weightTextField.getText());
+            member.setStreet(streetTextField.getText());
+            member.setVdcmun(vdcmunTextField.getText());
+            member.setWard(wardnoTextField.getText());
+            member.setDistrict(districtTextField.getText());
+            member.setEmail(emailTextField.getText());
+            member.setLandline(landlineTextField.getText());
+            member.setMobile(mobileTextField.getText());
+            String memberId = memberidTextField.getText();
+            if (memberId.isEmpty()) {
+                memberIdFieldValidation();
+            } else {
+                if(memberService.checkDuplicate(memberId)){
+                      Notifications errorNotifications = Notifications.create()
+                            .title("Failed to Add Member")
+                            .text("Sorry! MemberId already in use!!!")
+                            .graphic(null)
+                            .hideAfter(Duration.seconds(5))
+                            .position(Pos.TOP_RIGHT);
+                    errorNotifications.showError();
+                }else{
+                member.setmId(memberId);
+                LocalDate memberSince = membersinceDatePicker.getValue();
+                if (memberSince == null) {
+                    LocalDate date = LocalDate.now();
+                    member.setMemberSince(date.toString());
+                } else {
+                    member.setMemberSince(membersinceDatePicker.getValue().toString());
+                }
+
+                LocalTime startTime = startTimePicker.getValue();
+                if (startTime == null) {
+                    LocalTime time = LocalTime.now();
+                    member.setStartTime(time.toString());
+                } else {
+                    member.setStartTime(String.valueOf(startTimePicker.getValue()));
+                }
+                LocalTime endTime = endTimePicker.getValue();
+                if (endTime == null) {
+                    LocalTime time = LocalTime.now();
+                    member.setEndTime(time.toString());
+                } else {
+                    member.setEndTime(String.valueOf(endTimePicker.getValue()));
+                }
+                LocalDate payDate = paymentdateDatePicker.getValue();
+                if (payDate == null) {
+                    LocalDate date = LocalDate.now();
+                    member.setPayDate(date.toString());
+                } else {
+                    member.setPayDate(paymentdateDatePicker.getValue().toString());
+                }
+                String payRate = paymentrateTextField.getText();
+                if (payRate.isEmpty()) {
+                    member.setPayRate(0);
+                } else {
+                    member.setPayRate(Float.parseFloat(paymentrateTextField.getText()));
+                }
+                String payAmount = paymentamountTextField.getText();
+                if (payAmount.isEmpty()) {
+                    member.setPayAmount(0);
+                } else {
+                    member.setPayAmount(Float.parseFloat(paymentamountTextField.getText()));
+                }
+                Date date = new Date();
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date);
+                calendar.add(Calendar.MONTH, 1);
+                java.util.Date expiryDate = calendar.getTime();
+                member.setExpiryDate(expiryDate.toString());
+                member.setPicture(imageDataString);
+                boolean res = memberService.addMember(member);
+                if (res) {
+                    Image img = new Image("gymjankari_v1/images/checked_icon.png");
+                    Notifications addedNotifications = Notifications.create()
+                            .title("Member Added")
+                            .text("The information has been added successfully.")
+                            .graphic(new ImageView(img))
+                            .hideAfter(Duration.seconds(5))
+                            .position(Pos.TOP_RIGHT);
+                    addedNotifications.show();
+
+                } else {
+                    Notifications errorNotifications = Notifications.create()
+                            .title("Failed to Add Member")
+                            .text("Sorry! The information has not been added due to some error.")
+                            .graphic(null)
+                            .hideAfter(Duration.seconds(5))
+                            .position(Pos.TOP_RIGHT);
+                    errorNotifications.showError();
+                }
+                try {
+                    Main.showviewmemberpage();
+                } catch (IOException ex) {
+                    Logger.getLogger(AddMemberPageController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
         }
     }
@@ -245,9 +255,50 @@ public class AddMemberPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        RequiredFieldValidator idFieldValidator = new RequiredFieldValidator();
+        memberidTextField.getValidators().add(idFieldValidator);
+        idFieldValidator.setMessage("Cannot be empty");
+        memberidTextField.focusedProperty().addListener(new ChangeListener<Boolean>(){
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue)
+            {
+                memberidTextField.validate();
+            }
+
+            }
+        });
+        RequiredFieldValidator nameFieldValidator = new RequiredFieldValidator();
+        fullnameTextField.getValidators().add(nameFieldValidator);
+        nameFieldValidator.setMessage("Cannot be empty");
+        fullnameTextField.focusedProperty().addListener(new ChangeListener<Boolean>(){
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(!newValue)
+            {
+                fullnameTextField.validate();
+            }
+
+            }
+        });
     }
-    
+
     public static String encodeImage(byte[] imageByteArray) {
         return Base64.encodeBase64URLSafeString(imageByteArray);
     }
+
+    public void memberIdFieldValidation() {
+        RequiredFieldValidator idFieldValidator = new RequiredFieldValidator();
+        memberidTextField.getValidators().add(idFieldValidator);
+        idFieldValidator.setMessage("Cannot be empty");
+        memberidTextField.validate();
+    }
+
+    public void nameFieldValidation() {
+        RequiredFieldValidator nameFieldValidator = new RequiredFieldValidator();
+        fullnameTextField.getValidators().add(nameFieldValidator);
+        nameFieldValidator.setMessage("Cannot be empty");
+        fullnameTextField.validate();
+    }
+ 
 }

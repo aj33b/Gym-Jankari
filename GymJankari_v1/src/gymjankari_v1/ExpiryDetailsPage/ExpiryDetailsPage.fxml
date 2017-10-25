@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import com.jfoenix.validation.*?>
-<?import com.jfoenix.controls.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
@@ -19,7 +14,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="BorderPane" prefHeight="540.0" prefWidth="790.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.ExpiryDetailsPage.ExpiryDetailsPageController">
+<BorderPane id="BorderPane" prefHeight="540.0" prefWidth="790.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.ViewMemberPage.ViewMemberPageController">
    <top>
       <BorderPane BorderPane.alignment="CENTER">
          <right>
@@ -59,10 +54,11 @@
                   <TableView fx:id="memberdetailTableView" layoutX="14.0" layoutY="84.0">
                     <columns>
                         <TableColumn fx:id="memberidTableColumn" prefWidth="110.0" text="Member ID" />
-                      <TableColumn fx:id="fullnameTableColumn" prefWidth="277.0" text="Full Name" />
-                      <TableColumn fx:id="shiftTableColumn" minWidth="0.0" prefWidth="112.0" text="Shift" />
-                        <TableColumn fx:id="phonenoTableColumn" minWidth="0.0" prefWidth="147.0" text="Phone No." />
-                        <TableColumn fx:id="expirydateTableColumn" prefWidth="151.0" text="Expiry Date" />
+                      <TableColumn fx:id="fullnameTableColumn" prefWidth="205.0" text="Full Name" />
+                      <TableColumn fx:id="startTimeTableColumn" minWidth="0.0" prefWidth="109.0" text="Start Time" />
+                        <TableColumn fx:id="endTimeTableColumn" minWidth="0.0" prefWidth="91.0" text="End Time" />
+                        <TableColumn fx:id="phonenoTableColumn" minWidth="0.0" prefWidth="125.0" text="Phone No." />
+                        <TableColumn fx:id="expirydateTableColumn" prefWidth="148.0" text="Expiry Date" />
                     </columns>
                   </TableView>
                </content>

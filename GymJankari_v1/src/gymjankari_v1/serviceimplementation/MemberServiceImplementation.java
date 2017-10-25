@@ -5,21 +5,14 @@
  */
 package gymjankari_v1.serviceimplementation;
 
-import gymjankari_v1.AddMemberPage.AddMemberPageController;
 import gymjankari_v1.dbconnection.DBConnection;
 import gymjankari_v1.models.Member;
 import gymjankari_v1.service.MemberService;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -32,8 +25,10 @@ import javafx.collections.ObservableList;
 public class MemberServiceImplementation implements MemberService{
     
     Connection connect = null;
+    Connection connect1 = null;
     public MemberServiceImplementation(){
         connect = DBConnection.Connector();
+        connect1 = DBConnection.Connector();
     }
 
     @Override
@@ -267,6 +262,31 @@ public class MemberServiceImplementation implements MemberService{
             Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return memberList;
+    }
+
+    @Override
+    public boolean checkDuplicate(String mId) {
+        String read_sql = "select MemberId from gymjankaridb";
+        try {
+            Statement read_stm = connect1.createStatement();
+            ResultSet rs = read_stm.executeQuery(read_sql);
+            while(rs.next()){
+                String id = rs.getString("MemberId");
+                if(id.equalsIgnoreCase(mId)){
+                    return true;
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            try {
+                connect1.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return false;
     }
     
 }

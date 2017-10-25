@@ -5,7 +5,6 @@
  */
 package gymjankari_v1.models;
 
-import javafx.scene.image.Image;
 
 /**
  *

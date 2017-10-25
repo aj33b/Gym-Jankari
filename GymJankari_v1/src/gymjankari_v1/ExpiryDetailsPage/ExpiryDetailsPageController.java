@@ -54,7 +54,9 @@ public class ExpiryDetailsPageController implements Initializable {
     @FXML
     private TableColumn<Member, String> fullnameTableColumn;
     @FXML
-    private TableColumn<Member, String> shiftTableColumn;
+    private TableColumn<Member, String> startTimeTableColumn;
+    @FXML
+    private TableColumn<Member, String> endTimeTableColumn;
     @FXML
     private TableColumn<Member, String> phonenoTableColumn;
     @FXML
@@ -104,7 +106,8 @@ public class ExpiryDetailsPageController implements Initializable {
     public void populateTable(){
         memberidTableColumn.setCellValueFactory(new PropertyValueFactory<>("displayId"));
         fullnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("fullName"));
-        shiftTableColumn.setCellValueFactory(new PropertyValueFactory<>("shift"));
+        startTimeTableColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
+        endTimeTableColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         phonenoTableColumn.setCellValueFactory(new PropertyValueFactory<>("mobile"));
         expirydateTableColumn.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
     }

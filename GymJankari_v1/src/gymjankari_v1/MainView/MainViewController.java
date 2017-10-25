@@ -40,22 +40,22 @@ public class MainViewController implements Initializable {
     
     @FXML
     private void addmemberButtonClicked() throws IOException{
-    main.showaddmemberpage();
+    Main.showaddmemberpage();
     }
     
     @FXML
     private void viewmemberButtonClicked() throws IOException{
-    main.showviewmemberpage();
+    Main.showviewmemberpage();
     }
     
     @FXML
     private void expirydetailsButtonClicked() throws IOException{
-    main.showexpirydetailspage();
+    Main.showexpirydetailspage();
     }
     
     @FXML
     private void aboutdevButtonClicked() throws IOException{
-    main.showaboutdeveloperspage();
+    Main.showaboutdeveloperspage();
     }    
 
     /**

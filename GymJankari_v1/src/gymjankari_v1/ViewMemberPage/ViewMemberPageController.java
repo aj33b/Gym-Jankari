@@ -37,9 +37,9 @@ import javafx.scene.layout.BorderPane;
  * @author aj33b
  */
 public class ViewMemberPageController implements Initializable {
-    
+
     private Main main;
-    
+
     @FXML
     private RadioButton memberIdRadioButton;
     @FXML
@@ -64,9 +64,10 @@ public class ViewMemberPageController implements Initializable {
     private TableColumn<Member, String> expirydateTableColumn;
     @FXML
     private ToggleGroup search;
-    
+
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
@@ -75,13 +76,13 @@ public class ViewMemberPageController implements Initializable {
         MemberService memberService = new MemberServiceImplementation();
         populateTable();
         memberdetailTableView.setItems(memberService.getAllMember());
-        memberdetailTableView.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        memberdetailTableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 FXMLLoader loader = new FXMLLoader();
                 try {
                     loader.setLocation(Main.class.getResource("ViewMemberMain/ViewMemberMain.fxml"));
-                    BorderPane homepageLayout=loader.load();
+                    BorderPane homepageLayout = loader.load();
                     mainLayout.setCenter(homepageLayout);
                 } catch (IOException ex) {
                     Logger.getLogger(ViewMemberPageController.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,28 +90,28 @@ public class ViewMemberPageController implements Initializable {
                 ViewMemberMainController viewMemberController = loader.getController();
                 viewMemberController.setData(memberdetailTableView.getSelectionModel().getSelectedItem().getDisplayId());
             }
-            
+
         });
-    }    
+    }
 
     @FXML
     private void searchButtonClicked(ActionEvent event) {
         MemberService memberService = new MemberServiceImplementation();
         populateTable();
-        if(searchTextField.getText().isEmpty()){
+        if (searchTextField.getText().isEmpty()) {
             memberdetailTableView.setItems(memberService.getAllMember());
-        }else{
-        if(memberIdRadioButton.isSelected()){  
-            memberdetailTableView.setItems(memberService.searchById(searchTextField.getText()));
-        }else if(nameRadioButton.isSelected()){
-            memberdetailTableView.setItems(memberService.searchByName(searchTextField.getText()));
-        }else{ 
-            memberdetailTableView.setItems(memberService.getAllMember());
-        }
+        } else {
+            if (memberIdRadioButton.isSelected()) {
+                memberdetailTableView.setItems(memberService.searchById(searchTextField.getText()));
+            } else if (nameRadioButton.isSelected()) {
+                memberdetailTableView.setItems(memberService.searchByName(searchTextField.getText()));
+            } else {
+                memberdetailTableView.setItems(memberService.getAllMember());
+            }
         }
     }
-    
-    public void populateTable(){
+
+    public void populateTable() {
         memberidTableColumn.setCellValueFactory(new PropertyValueFactory<>("displayId"));
         fullnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         startTimeTableColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
@@ -118,5 +119,5 @@ public class ViewMemberPageController implements Initializable {
         phonenoTableColumn.setCellValueFactory(new PropertyValueFactory<>("mobile"));
         expirydateTableColumn.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
     }
-    
+
 }

@@ -22,11 +22,12 @@ import javafx.collections.ObservableList;
  *
  * @author AmitShrestha
  */
-public class MemberServiceImplementation implements MemberService{
-    
+public class MemberServiceImplementation implements MemberService {
+
     Connection connect = null;
     Connection connect1 = null;
-    public MemberServiceImplementation(){
+
+    public MemberServiceImplementation() {
         connect = DBConnection.Connector();
         connect1 = DBConnection.Connector();
     }
@@ -35,7 +36,9 @@ public class MemberServiceImplementation implements MemberService{
     public boolean addMember(Member member) {
         try {
             String write_sql = "insert into gymjankaridb(MemberId,FullName,DateOfBirth,Gender,Height,Weight,Street,VDCMun,WardNo,District,EmailAddress,Landline,Mobile,StartTime,EndTime,MemberSince,PaymentDate,MonthlyRate,PaymentAmount,ExpiryDate,Picture)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String write_sql1 = "insert into paymentdetailsdb(MemberId,PaymentDate,PaymentAmount)values(?,?,?)";
             PreparedStatement write_pstm = connect.prepareStatement(write_sql);
+            PreparedStatement write_pstm1 = connect.prepareStatement(write_sql1);
             write_pstm.setString(1, member.getmId());
             write_pstm.setString(2, member.getFullName());
             write_pstm.setString(3, member.getDOB());
@@ -58,8 +61,12 @@ public class MemberServiceImplementation implements MemberService{
             write_pstm.setString(20, member.getExpiryDate());
             write_pstm.setString(21, member.getPicture());
             write_pstm.execute();
+            write_pstm1.setString(1, member.getmId());
+            write_pstm1.setString(2, member.getPayDate());
+            write_pstm1.setFloat(3, member.getPayAmount());
+            write_pstm1.execute();
             return true;
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -73,7 +80,7 @@ public class MemberServiceImplementation implements MemberService{
         try {
             Statement read_stm = connect.createStatement();
             ResultSet rs = read_stm.executeQuery(read_sql);
-            while(rs.next()){
+            while (rs.next()) {
                 Member member = new Member();
                 member.setPrimaryId("PrimaryId");
                 member.setDisplayId(rs.getString("MemberId"));
@@ -107,10 +114,13 @@ public class MemberServiceImplementation implements MemberService{
 
     @Override
     public boolean deleteMember(String id) {
-        String delete_sql = "delete from gymjankaridb where MemberId='"+id+"'";
+        String delete_sql = "delete from gymjankaridb where MemberId='" + id + "'";
+        String delete_sql1 = "delete from paymentdetailsdb where MemberId='" + id + "'";
         try {
             Statement delete_stm = connect.createStatement();
+            Statement delete_stm1 = connect.createStatement();
             delete_stm.execute(delete_sql);
+            delete_stm1.execute(delete_sql1);
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
@@ -119,8 +129,8 @@ public class MemberServiceImplementation implements MemberService{
     }
 
     @Override
-    public boolean editMember(Member member,String id) {
-        String update_sql = "update gymjankaridb set MemberId=?,FullName=?,DateOfBirth=?,Gender=?,Height=?,Weight=?,Street=?,VDCMun=?,Wardno=?,District=?,EmailAddress=?,Landline=?,Mobile=?,StartTime=?,EndTime=?,MemberSince=?,MonthlyRate=?,Picture=? where MemberId='"+id+"'";
+    public boolean editMember(Member member, String id) {
+        String update_sql = "update gymjankaridb set MemberId=?,FullName=?,DateOfBirth=?,Gender=?,Height=?,Weight=?,Street=?,VDCMun=?,Wardno=?,District=?,EmailAddress=?,Landline=?,Mobile=?,StartTime=?,EndTime=?,MemberSince=?,MonthlyRate=?,Picture=? where MemberId='" + id + "'";
         try {
             PreparedStatement update_pstm = connect.prepareStatement(update_sql);
             update_pstm.setString(1, member.getDisplayId());
@@ -152,11 +162,11 @@ public class MemberServiceImplementation implements MemberService{
     @Override
     public Member getById(String displayId) {
         Member member = new Member();
-        String read_sql = "select * from gymjankaridb where MemberId='"+displayId+"'";
+        String read_sql = "select * from gymjankaridb where MemberId='" + displayId + "'";
         try {
             Statement read_stm = connect.createStatement();
             ResultSet rs = read_stm.executeQuery(read_sql);
-            while(rs.next()){
+            while (rs.next()) {
                 member.setPrimaryId(rs.getString("PrimaryId"));
                 member.setDisplayId(rs.getString("MemberId"));
                 member.setFullName(rs.getString("FullName"));
@@ -173,7 +183,7 @@ public class MemberServiceImplementation implements MemberService{
                 member.setMobile(rs.getString("Mobile"));
                 member.setMemberSince(rs.getString("MemberSince"));
                 member.setStartTime(rs.getString("StartTime"));
-                member.setEndTime(rs.getString("EndTime"));   
+                member.setEndTime(rs.getString("EndTime"));
                 member.setPayDate(rs.getString("PaymentDate"));
                 member.setPayRate(rs.getFloat("MonthlyRate"));
                 member.setPayAmount(rs.getFloat("PaymentAmount"));
@@ -189,11 +199,11 @@ public class MemberServiceImplementation implements MemberService{
     @Override
     public ObservableList<Member> searchById(String mId) {
         ObservableList<Member> memberList = FXCollections.observableArrayList();
-        String read_sql = "select * from gymjankaridb where MemberId='"+mId+"'";
+        String read_sql = "select * from gymjankaridb where MemberId='" + mId + "'";
         try {
             Statement read_stm = connect.createStatement();
             ResultSet rs = read_stm.executeQuery(read_sql);
-            while(rs.next()){
+            while (rs.next()) {
                 Member member = new Member();
                 member.setPrimaryId(rs.getString("PrimaryId"));
                 member.setDisplayId(rs.getString("MemberId"));
@@ -211,7 +221,7 @@ public class MemberServiceImplementation implements MemberService{
                 member.setMobile(rs.getString("Mobile"));
                 member.setMemberSince(rs.getString("MemberSince"));
                 member.setStartTime(rs.getString("StartTime"));
-                member.setEndTime(rs.getString("EndTime"));  
+                member.setEndTime(rs.getString("EndTime"));
                 member.setPayDate(rs.getString("PaymentDate"));
                 member.setPayRate(rs.getFloat("MonthlyRate"));
                 member.setPayAmount(rs.getFloat("PaymentAmount"));
@@ -228,11 +238,11 @@ public class MemberServiceImplementation implements MemberService{
     @Override
     public ObservableList<Member> searchByName(String fullName) {
         ObservableList<Member> memberList = FXCollections.observableArrayList();
-        String read_sql = "select * from gymjankaridb where FullName='"+fullName+"'";
+        String read_sql = "select * from gymjankaridb where FullName='" + fullName + "'";
         try {
             Statement read_stm = connect.createStatement();
             ResultSet rs = read_stm.executeQuery(read_sql);
-            while(rs.next()){
+            while (rs.next()) {
                 Member member = new Member();
                 member.setPrimaryId(rs.getString("PrimaryId"));
                 member.setDisplayId(rs.getString("MemberId"));
@@ -250,7 +260,7 @@ public class MemberServiceImplementation implements MemberService{
                 member.setMobile(rs.getString("Mobile"));
                 member.setMemberSince(rs.getString("MemberSince"));
                 member.setStartTime(rs.getString("StartTime"));
-                member.setEndTime(rs.getString("EndTime"));   
+                member.setEndTime(rs.getString("EndTime"));
                 member.setPayDate(rs.getString("PaymentDate"));
                 member.setPayRate(rs.getFloat("MonthlyRate"));
                 member.setPayAmount(rs.getFloat("PaymentAmount"));
@@ -270,16 +280,15 @@ public class MemberServiceImplementation implements MemberService{
         try {
             Statement read_stm = connect1.createStatement();
             ResultSet rs = read_stm.executeQuery(read_sql);
-            while(rs.next()){
+            while (rs.next()) {
                 String id = rs.getString("MemberId");
-                if(id.equalsIgnoreCase(mId)){
+                if (id.equalsIgnoreCase(mId)) {
                     return true;
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
+        } finally {
             try {
                 connect1.close();
             } catch (SQLException ex) {
@@ -288,5 +297,49 @@ public class MemberServiceImplementation implements MemberService{
         }
         return false;
     }
-    
+
+    @Override
+    public ObservableList<Member> getPaymentDetails(String mId) {
+        ObservableList<Member> paymentDetails = FXCollections.observableArrayList();
+        String read_sql = "select * from paymentdetailsdb where MemberId='" + mId + "'";
+        try {
+            Statement read_stm = connect.createStatement();
+            ResultSet rs = read_stm.executeQuery(read_sql);
+            while (rs.next()) {
+                Member member = new Member();
+                member.setPrimaryId("PrimaryId");
+                member.setDisplayId(rs.getString("MemberId"));
+                member.setPayDate(rs.getString("PaymentDate"));
+                member.setPayAmount(rs.getFloat("PaymentAmount"));
+                paymentDetails.add(member);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return paymentDetails;
+    }
+
+    @Override
+    public boolean updatePaymentDetails(Member member, String displayId) {
+        try {
+            String update_sql = "update gymjankaridb set PaymentDate=?,PaymentAmount=?,ExpiryDate=? where MemberId='" + displayId + "'";
+            String write_sql1 = "insert into paymentdetailsdb(MemberId,PaymentDate,PaymentAmount)values(?,?,?)";
+            PreparedStatement update_pstm = connect.prepareStatement(update_sql);
+            PreparedStatement write_pstm1 = connect.prepareStatement(write_sql1);
+            update_pstm.setString(1, member.getPayDate());
+            update_pstm.setFloat(2, member.getPayAmount());
+            update_pstm.setString(3, member.getExpiryDate());
+            update_pstm.execute();
+            write_pstm1.setString(1, displayId);
+            write_pstm1.setString(2, member.getPayDate());
+            write_pstm1.setFloat(3, member.getPayAmount());
+            write_pstm1.execute();
+            return true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
 }

@@ -14,7 +14,8 @@ import java.sql.SQLException;
  * @author AmitShrestha
  */
 public class DBConnection {
-    public static Connection Connector(){
+
+    public static Connection Connector() {
         try {
             Class.forName("org.sqlite.JDBC");
             Connection connect = DriverManager.getConnection("jdbc:sqlite:GymJankariDB.db");
@@ -23,5 +24,5 @@ public class DBConnection {
             System.out.println(e);
             return null;
         }
-    } 
+    }
 }

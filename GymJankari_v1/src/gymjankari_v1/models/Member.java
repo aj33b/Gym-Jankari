@@ -5,18 +5,18 @@
  */
 package gymjankari_v1.models;
 
-
 /**
  *
  * @author AmitShrestha
  */
 public class Member {
+
     private String fullName;
     private String DOB;
     private String gender;
     private String height;
     private String weight;
-    
+
     private String street;
     private String vdcmun;
     private String ward;
@@ -24,17 +24,17 @@ public class Member {
     private String email;
     private String landline;
     private String mobile;
-    
+
     private String mId;
     private String startTime;
     private String endTime;
     private String memberSince;
-    
+
     private String payDate;
     private float payRate;
     private float payAmount;
     private String expiryDate;
-    
+
     private String displayId;
     private String primaryId;
     private String picture;
@@ -222,6 +222,5 @@ public class Member {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
-    
-    
+
 }

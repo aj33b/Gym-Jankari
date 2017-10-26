@@ -34,7 +34,7 @@
                            <children>
                               <HBox spacing="10.0">
                                  <children>
-                                    <JFXButton fx:id="editButton" onAction="#editButtonClicked" prefHeight="29.0" prefWidth="153.0" stylesheets="@../style/style.css" text="Edit Basic Information">
+                                    <JFXButton fx:id="editButton" onAction="#editButtonClicked" prefHeight="29.0" prefWidth="175.0" stylesheets="@../style/style.css" text="Edit Basic Information">
                                        <graphic>
                                           <FontAwesomeIconView glyphName="PENCIL" size="20" />
                                        </graphic>
@@ -42,7 +42,7 @@
                                           <String fx:value="buttonbgcolorchange2" />
                                           <String fx:value="custombackgrouncolor3" />
                                        </styleClass></JFXButton>
-                                    <JFXButton fx:id="deleteButton" onAction="#deleteButtonClicked" prefHeight="34.0" prefWidth="143.0" stylesheets="@../style/style.css" text="Delete">
+                                    <JFXButton fx:id="deleteButton" onAction="#deleteButtonClicked" prefHeight="34.0" prefWidth="150.0" stylesheets="@../style/style.css" text="Delete">
                                        <graphic>
                                           <FontAwesomeIconView glyphName="TRASH_ALT" size="20" />
                                        </graphic>
@@ -50,7 +50,7 @@
                                           <String fx:value="buttonbgcolorchange2" />
                                           <String fx:value="custombackgrouncolor3" />
                                        </styleClass></JFXButton>
-                                    <JFXButton fx:id="editpdButton" layoutX="219.0" layoutY="10.0" onAction="#editpdButtonClicked" prefHeight="29.0" prefWidth="153.0" stylesheets="@../style/style.css" text="Edit Payment Details">
+                                    <JFXButton fx:id="editpdButton" layoutX="219.0" layoutY="10.0" onAction="#editpdButtonClicked" prefHeight="29.0" prefWidth="170.0" stylesheets="@../style/style.css" text="Update Payment">
                                        <graphic>
                                           <FontAwesomeIconView glyphName="MONEY" size="20" />
                                        </graphic>
@@ -71,7 +71,7 @@
                                              </font>
                                           </Label>
                                           <JFXTextField fx:id="fullnameTextField" editable="false" labelFloat="true" promptText="Full Name" />
-                                          <JFXDatePicker fx:id="dobDatePicker" defaultColor="#2c3e50" prefHeight="25.0" prefWidth="275.0" promptText="DOB (MM/DD/YYYY)" />
+                                          <JFXDatePicker fx:id="dobDatePicker" defaultColor="#2c3e50" prefHeight="25.0" prefWidth="275.0" promptText="Date Of Birth" />
                                           <HBox spacing="10.0">
                                              <children>
                                                 <Label text="Gender :" />
@@ -152,7 +152,7 @@
                               <HBox spacing="15.0">
                                  <children>
                                     <JFXTextField fx:id="memberidTextField" editable="false" labelFloat="true" layoutX="20.0" layoutY="389.0" prefHeight="23.0" prefWidth="185.0" promptText="Membership ID" />
-                                    <JFXDatePicker fx:id="membersinceDatePicker" defaultColor="#2c3e50" prefHeight="25.0" prefWidth="246.0" />
+                                    <JFXDatePicker fx:id="membersinceDatePicker" defaultColor="#2c3e50" prefHeight="25.0" prefWidth="246.0" promptText="Member Since" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="15.0">

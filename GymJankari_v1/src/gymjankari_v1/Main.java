@@ -70,13 +70,6 @@ public class Main extends Application {
         mainLayout.setCenter(addmemberpageLayout);
     }
      
-     public static void showpaymentdetailspage() throws IOException {
-        FXMLLoader loader= new FXMLLoader();
-        loader.setLocation(Main.class.getResource("PaymentDetailsPage/PaymentDetailsPage.fxml"));
-        BorderPane paymentdetailspageLayout=loader.load();
-        mainLayout.setCenter(paymentdetailspageLayout);
-    }
-     
      public static void showaboutdeveloperspage() throws IOException{
         FXMLLoader loader= new FXMLLoader();
         loader.setLocation(Main.class.getResource("AboutDevelopersPage/AboutDevelopersPage.fxml"));

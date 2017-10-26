@@ -5,31 +5,25 @@
  */
 package gymjankari_v1.ExpiryDetailsPage;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextField;
 import gymjankari_v1.Main;
-import static gymjankari_v1.Main.mainLayout;
-import gymjankari_v1.ViewMemberMain.ViewMemberMainController;
 import gymjankari_v1.models.Member;
 import gymjankari_v1.service.MemberService;
 import gymjankari_v1.serviceimplementation.MemberServiceImplementation;
-import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 
 /**
  * FXML Controller class
@@ -37,17 +31,8 @@ import javafx.scene.layout.BorderPane;
  * @author aj33b
  */
 public class ExpiryDetailsPageController implements Initializable {
-    
+
     private Main main;
-    
-    @FXML
-    private RadioButton memberIdRadioButton;
-    @FXML
-    private RadioButton nameRadioButton;
-    @FXML
-    private JFXTextField searchTextField;
-    @FXML
-    private JFXButton searchButton;
     @FXML
     private TableView<Member> memberdetailTableView;
     @FXML
@@ -62,55 +47,38 @@ public class ExpiryDetailsPageController implements Initializable {
     private TableColumn<Member, String> phonenoTableColumn;
     @FXML
     private TableColumn<Member, String> expirydateTableColumn;
-    @FXML
-    private ToggleGroup search;
-    
+
     /**
      * Initializes the controller class.
+     *
      * @param url
      * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         MemberService memberService = new MemberServiceImplementation();
-        populateTable();
-        memberdetailTableView.setItems(memberService.getAllMember());
-        memberdetailTableView.setOnMouseClicked(new EventHandler<MouseEvent>(){
+        ObservableList<Member> expiryDetailsList = FXCollections.observableArrayList();
+        expiryDetailsList = memberService.getAllMember();
+        FXCollections.sort(expiryDetailsList, new Comparator<Member>() {
             @Override
-            public void handle(MouseEvent event) {
-                FXMLLoader loader = new FXMLLoader();
+            public int compare(Member o1, Member o2) {
+                Date date1 = null;
+                Date date2 = null;
                 try {
-                    loader.setLocation(Main.class.getResource("ViewMemberMain/ViewMemberMain.fxml"));
-                    BorderPane homepageLayout=loader.load();
-                    mainLayout.setCenter(homepageLayout);
-                } catch (IOException ex) {
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    date1 = sdf.parse(o1.getExpiryDate());
+                    date2 = sdf.parse(o2.getExpiryDate());
+                } catch (ParseException ex) {
                     Logger.getLogger(ExpiryDetailsPageController.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                ViewMemberMainController viewMemberController = loader.getController();
-                viewMemberController.setData(memberdetailTableView.getSelectionModel().getSelectedItem().getDisplayId());
+                return date1.compareTo(date2);
             }
-            
         });
-    }    
-
-    @FXML
-    private void searchButtonClicked(ActionEvent event) {
-        MemberService memberService = new MemberServiceImplementation();
         populateTable();
-        if(searchTextField.getText().isEmpty()){
-            memberdetailTableView.setItems(memberService.getAllMember());
-        }else{
-        if(memberIdRadioButton.isSelected()){  
-            memberdetailTableView.setItems(memberService.searchById(searchTextField.getText()));
-        }else if(nameRadioButton.isSelected()){
-            memberdetailTableView.setItems(memberService.searchByName(searchTextField.getText()));
-        }else{ 
-            memberdetailTableView.setItems(memberService.getAllMember());
-        }
-        }
+        memberdetailTableView.setItems(expiryDetailsList);
     }
-    
-    public void populateTable(){
+
+    public void populateTable() {
         memberidTableColumn.setCellValueFactory(new PropertyValueFactory<>("displayId"));
         fullnameTableColumn.setCellValueFactory(new PropertyValueFactory<>("fullName"));
         startTimeTableColumn.setCellValueFactory(new PropertyValueFactory<>("startTime"));
@@ -118,5 +86,5 @@ public class ExpiryDetailsPageController implements Initializable {
         phonenoTableColumn.setCellValueFactory(new PropertyValueFactory<>("mobile"));
         expirydateTableColumn.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
     }
-    
+
 }

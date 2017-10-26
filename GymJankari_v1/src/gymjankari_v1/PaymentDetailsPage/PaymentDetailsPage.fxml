@@ -39,21 +39,8 @@
                               <JFXTextField fx:id="paymentrateTextField" editable="false" labelFloat="true" promptText="Monthly Rate (Rs.)" />
                               <HBox spacing="25.0">
                                  <children>
-                                    <JFXDatePicker fx:id="paymentdateDatePicker" defaultColor="#2c3e50" prefHeight="25.0" prefWidth="247.0" promptText="Payment Date (MM/DD/YYYY)" />
-                                    <JFXTextField fx:id="paymentamountTextField" editable="false" labelFloat="true" prefHeight="25.0" prefWidth="244.0" promptText="Payment Amount (Rs.)" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="TOP_RIGHT">
-                                 <children>
-                                    <JFXButton fx:id="adddetailsButton" onAction="#adddetailsButtonClicked" prefHeight="34.0" prefWidth="143.0" stylesheets="@../style/style.css" text="Add Details">
-                                       <graphic>
-                                          <FontAwesomeIconView glyphName="PLUS" size="20" />
-                                       </graphic>
-                                       <styleClass>
-                                          <String fx:value="buttonbgcolorchange2" />
-                                          <String fx:value="custombackgrouncolor3" />
-                                       </styleClass>
-                                    </JFXButton>
+                                    <JFXDatePicker fx:id="paymentdateDatePicker" defaultColor="#2c3e50" prefHeight="25.0" prefWidth="247.0" promptText="Payment Date" />
+                                    <JFXTextField fx:id="paymentamountTextField" labelFloat="true" prefHeight="25.0" prefWidth="244.0" promptText="Payment Amount (Rs.)" />
                                  </children>
                               </HBox>
                               <TableView fx:id="paymentdetailTableView" prefHeight="268.0" prefWidth="520.0">

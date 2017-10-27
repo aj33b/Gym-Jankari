@@ -26,6 +26,11 @@
                         <MaterialDesignIconView glyphName="MINUS" size="20" />
                      </graphic>
                   </JFXButton>
+                  <JFXButton fx:id="maximizeButton" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" onAction="#maximizeButtonClicked" styleClass="buttonbgcolorchange1" stylesheets="@../style/style.css" text="Maximize">
+                     <graphic>
+                        <FontAwesomeIconView glyphName="EXPAND" size="15" />
+                     </graphic>
+                  </JFXButton>
                   <JFXButton fx:id="closeButton" contentDisplay="GRAPHIC_ONLY" onAction="#closeButtonClicked" styleClass="buttonbgcolorchange1" stylesheets="@../style/style.css" text="Close">
                      <graphic>
                         <MaterialDesignIconView glyphName="CLOSE" size="20" />

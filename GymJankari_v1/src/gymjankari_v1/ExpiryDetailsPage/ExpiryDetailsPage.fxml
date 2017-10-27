@@ -24,6 +24,9 @@
                         <TableColumn fx:id="daysTableColumn" minWidth="0.0" prefWidth="128.0" text="Days Remaining" />
                         <TableColumn fx:id="expirydateTableColumn" prefWidth="300.0" text="Expiry Date" />
                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                   </TableView>
                </content>
             </ScrollPane>

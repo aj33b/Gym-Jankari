@@ -7,12 +7,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
+import javafx.stage.Screen;
 import javafx.stage.Window;
 
 public class MainViewController implements Initializable {
@@ -22,6 +26,10 @@ public class MainViewController implements Initializable {
     private Boolean dragging = false;
     private Rectangle moveTrackingRect;
     private Popup moveTrackingPopup;
+    private double lastX = 0.0d;
+    private double lastY = 0.0d;
+    private double lastWidth = 0.0d;
+    private double lastHeight = 0.0d;
 
     @FXML
     private JFXButton backButton;
@@ -41,6 +49,8 @@ public class MainViewController implements Initializable {
     private BorderPane mainwindow;
     @FXML
     private JFXButton minimizeButton;
+    @FXML
+    private JFXButton maximizeButton;
 
     @FXML
     private void backButtonClicked() throws IOException {
@@ -75,6 +85,49 @@ public class MainViewController implements Initializable {
     @FXML
     private void minimizeButtonClicked() {
         Main.minimizewindow();
+    }
+
+    @FXML
+    private void maximizeButtonClicked(ActionEvent evt) {
+
+        Node n = (Node) evt.getSource();
+
+        Window w = n.getScene().getWindow();
+
+        double currentX = w.getX();
+        double currentY = w.getY();
+        double currentWidth = w.getWidth();
+        double currentHeight = w.getHeight();
+
+        Screen screen = Screen.getPrimary();
+        Rectangle2D bounds = screen.getVisualBounds();
+
+        if (currentX != bounds.getMinX()
+                && currentY != bounds.getMinY()
+                && currentWidth != bounds.getWidth()
+                && currentHeight != bounds.getHeight()) {
+
+            w.setX(bounds.getMinX());
+            w.setY(bounds.getMinY());
+            w.setWidth(bounds.getWidth());
+            w.setHeight(bounds.getHeight());
+
+            lastX = currentX; // save old dimensions
+            lastY = currentY;
+            lastWidth = currentWidth;
+            lastHeight = currentHeight;
+
+        } else {
+
+            // de-maximize the window (not same as minimize)
+            w.setX(lastX);
+            w.setY(lastY);
+            w.setWidth(lastWidth);
+            w.setHeight(lastHeight);
+        }
+
+        evt.consume(); // don't bubble up to title bar
+
     }
 
     @Override

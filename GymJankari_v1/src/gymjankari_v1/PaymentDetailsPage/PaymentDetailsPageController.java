@@ -52,8 +52,6 @@ public class PaymentDetailsPageController implements Initializable {
     @FXML
     private JFXTextField paymentamountTextField;
     @FXML
-    private JFXButton adddetailsButton;
-    @FXML
     private TableView<Member> paymentdetailTableView;
     @FXML
     private TableColumn<Member, String> paymentdateTableColumn;
@@ -69,11 +67,7 @@ public class PaymentDetailsPageController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
     }
-
-    @FXML
-    private void adddetailsButtonClicked(ActionEvent event) {
-    }
-
+    
     @FXML
     private void saveButtonClicked(ActionEvent event) {
         MemberService memberService = new MemberServiceImplementation();

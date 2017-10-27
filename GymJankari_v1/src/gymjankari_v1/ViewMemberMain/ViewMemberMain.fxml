@@ -30,7 +30,7 @@
                <content>
                   <StackPane alignment="TOP_CENTER" style="-fx-background-color: #ffffff;">
                      <children>
-                        <VBox maxHeight="1050.0" maxWidth="520.0" minHeight="1050.0" minWidth="520.0" prefHeight="1050.0" prefWidth="600.0" spacing="25.0" style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
+                        <VBox maxHeight="1150.0" maxWidth="520.0" minHeight="1150.0" minWidth="520.0" prefHeight="1150.0" prefWidth="600.0" spacing="25.0" style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
                            <children>
                               <HBox spacing="10.0">
                                  <children>
@@ -71,7 +71,7 @@
                                              </font>
                                           </Label>
                                           <JFXTextField fx:id="fullnameTextField" editable="false" labelFloat="true" promptText="Full Name" />
-                                          <JFXDatePicker fx:id="dobDatePicker" defaultColor="#2c3e50" prefHeight="25.0" prefWidth="275.0" promptText="Date Of Birth" />
+                                          <JFXDatePicker fx:id="dobDatePicker" defaultColor="#4CAF50" prefHeight="25.0" prefWidth="275.0" promptText="Date Of Birth" />
                                           <HBox spacing="10.0">
                                              <children>
                                                 <Label text="Gender :" />
@@ -152,15 +152,15 @@
                               <HBox spacing="15.0">
                                  <children>
                                     <JFXTextField fx:id="memberidTextField" editable="false" labelFloat="true" layoutX="20.0" layoutY="389.0" prefHeight="23.0" prefWidth="185.0" promptText="Membership ID" />
-                                    <JFXDatePicker fx:id="membersinceDatePicker" defaultColor="#2c3e50" prefHeight="25.0" prefWidth="246.0" promptText="Member Since" />
+                                    <JFXDatePicker fx:id="membersinceDatePicker" defaultColor="#4CAF50" prefHeight="25.0" prefWidth="246.0" promptText="Member Since" />
                                  </children>
                               </HBox>
                               <HBox alignment="CENTER_LEFT" spacing="15.0">
                                  <children>
                                     <Label layoutX="20.0" layoutY="269.0" text="Shift :" />
-                                    <JFXTimePicker fx:id="startTimePicker" defaultColor="#2c3e50" editable="true" promptText="Start Time" />
+                                    <JFXTimePicker fx:id="startTimePicker" defaultColor="#4CAF50" editable="true" promptText="Start Time" />
                                     <Label text="to" />
-                                    <JFXTimePicker fx:id="endTimePicker" defaultColor="#2c3e50" editable="true" promptText="End TIme" />
+                                    <JFXTimePicker fx:id="endTimePicker" defaultColor="#4CAF50" editable="true" promptText="End TIme" />
                                  </children>
                               </HBox>
                               <Label layoutX="20.0" layoutY="465.0" text="Payment Information :">
@@ -169,7 +169,7 @@
                                  </font>
                               </Label>
                               <JFXTextField fx:id="paymentrateTextField" editable="false" labelFloat="true" promptText="Monthly Rate (Rs.)" />
-                              <TableView fx:id="paymentdetailTableView" prefHeight="134.0" prefWidth="520.0">
+                              <TableView fx:id="paymentdetailTableView" prefHeight="300.0" prefWidth="520.0" stylesheets="@../style/tableviewstyle.css">
                                 <columns>
                                   <TableColumn fx:id="paymentdateTableColumn" editable="false" prefWidth="225.0" text="Payment Date" />
                                   <TableColumn fx:id="paymentamountTableColumn" editable="false" minWidth="0.0" prefWidth="294.0" text="Payment Amount" />

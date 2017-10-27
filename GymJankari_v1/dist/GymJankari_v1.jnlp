@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="GymJankari_v1.jar" size="216700" download="eager" />
+    <jar href="GymJankari_v1.jar" size="191763" download="eager" />
     <jar href="lib\commons-codec-1.10.jar" size="284184" download="eager" />
     <jar href="lib\controlsfx-8.40.14.jar" size="1215643" download="eager" />
     <jar href="lib\fontawesomefx-8.9.jar" size="571068" download="eager" />

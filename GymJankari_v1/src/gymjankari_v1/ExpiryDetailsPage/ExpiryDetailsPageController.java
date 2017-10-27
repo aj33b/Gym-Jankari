@@ -120,7 +120,7 @@ public class ExpiryDetailsPageController implements Initializable {
            return Color.YELLOW;   
         }
         else{
-            return Color.rgb(139,195,74);
+            return Color.WHITE;
         }
     }
 

@@ -43,7 +43,7 @@
                                     <JFXTextField fx:id="paymentamountTextField" labelFloat="true" prefHeight="25.0" prefWidth="244.0" promptText="Payment Amount (Rs.)" />
                                  </children>
                               </HBox>
-                              <TableView fx:id="paymentdetailTableView" prefHeight="268.0" prefWidth="520.0">
+                              <TableView fx:id="paymentdetailTableView" prefHeight="268.0" prefWidth="520.0" stylesheets="@../style/tableviewstyle.css">
                                 <columns>
                                   <TableColumn fx:id="paymentdateTableColumn" editable="false" prefWidth="225.0" text="Payment Date" />
                                   <TableColumn fx:id="paymentamountTableColumn" editable="false" minWidth="0.0" prefWidth="294.0" text="Payment Amount" />

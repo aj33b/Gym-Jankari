@@ -14,7 +14,7 @@
          <center>
             <ScrollPane fitToHeight="true" fitToWidth="true" prefViewportHeight="511.0" prefViewportWidth="777.0" BorderPane.alignment="CENTER">
                <content>
-                  <TableView fx:id="memberdetailTableView" layoutX="14.0" layoutY="84.0" stylesheets="@../style/style.css">
+                  <TableView fx:id="memberdetailTableView" layoutX="14.0" layoutY="84.0" stylesheets="@../style/tableviewstyle.css">
                     <columns>
                         <TableColumn fx:id="memberidTableColumn" prefWidth="135.0" text="Member ID" />
                       <TableColumn fx:id="fullnameTableColumn" prefWidth="161.0" text="Full Name" />

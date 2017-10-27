@@ -54,7 +54,7 @@
          <center>
             <ScrollPane fitToHeight="true" fitToWidth="true" prefViewportHeight="511.0" prefViewportWidth="777.0" BorderPane.alignment="CENTER">
                <content>
-                  <TableView fx:id="memberdetailTableView" layoutX="14.0" layoutY="84.0">
+                  <TableView fx:id="memberdetailTableView" layoutX="14.0" layoutY="84.0" stylesheets="@../style/tableviewstyle.css">
                     <columns>
                         <TableColumn fx:id="memberidTableColumn" prefWidth="110.0" text="Member ID" />
                       <TableColumn fx:id="fullnameTableColumn" prefWidth="205.0" text="Full Name" />
@@ -63,6 +63,9 @@
                         <TableColumn fx:id="phonenoTableColumn" minWidth="0.0" prefWidth="125.0" text="Phone No." />
                         <TableColumn fx:id="expirydateTableColumn" prefWidth="200.0" text="Expiry Date" />
                     </columns>
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                   </TableView>
                </content>
             </ScrollPane>

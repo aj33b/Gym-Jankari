@@ -25,7 +25,7 @@
                      <children>
                         <VBox maxHeight="600.0" maxWidth="520.0" minHeight="600.0" minWidth="520.0" prefHeight="600.0" prefWidth="600.0" spacing="25.0" style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
                            <children>
-                              <HBox spacing="25.0">
+                              <HBox alignment="BOTTOM_LEFT" prefHeight="43.0" prefWidth="520.0" spacing="25.0">
                                  <children>
                                     <JFXTextField fx:id="fullnameTextField" editable="false" labelFloat="true" prefHeight="25.0" prefWidth="306.0" promptText="Full Name" />
                                     <JFXTextField fx:id="memberidTextField" editable="false" labelFloat="true" prefHeight="23.0" prefWidth="185.0" promptText="Membership ID" />

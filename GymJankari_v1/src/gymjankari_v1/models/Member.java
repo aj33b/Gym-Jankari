@@ -38,6 +38,7 @@ public class Member {
     private String displayId;
     private String primaryId;
     private String picture;
+    private int day;
 
     public String getFullName() {
         return fullName;
@@ -223,4 +224,13 @@ public class Member {
         this.endTime = endTime;
     }
 
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    
 }

@@ -64,7 +64,8 @@ public class ViewMemberPageController implements Initializable {
     private TableColumn<Member, String> expirydateTableColumn;
     @FXML
     private ToggleGroup search;
-
+    
+    private String id = null;
     /**
      * Initializes the controller class.
      *
@@ -79,18 +80,20 @@ public class ViewMemberPageController implements Initializable {
         memberdetailTableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                FXMLLoader loader = new FXMLLoader();
-                try {
-                    loader.setLocation(Main.class.getResource("ViewMemberMain/ViewMemberMain.fxml"));
-                    BorderPane homepageLayout = loader.load();
-                    mainLayout.setCenter(homepageLayout);
-                } catch (IOException ex) {
-                    Logger.getLogger(ViewMemberPageController.class.getName()).log(Level.SEVERE, null, ex);
+                id = memberdetailTableView.getSelectionModel().getSelectedItem().getDisplayId();
+                if (id != null) {
+                    FXMLLoader loader = new FXMLLoader();
+                    try {
+                        loader.setLocation(Main.class.getResource("ViewMemberMain/ViewMemberMain.fxml"));
+                        BorderPane homepageLayout = loader.load();
+                        mainLayout.setCenter(homepageLayout);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ViewMemberPageController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    ViewMemberMainController viewMemberController = loader.getController();
+                    viewMemberController.setData(id);
                 }
-                ViewMemberMainController viewMemberController = loader.getController();
-                viewMemberController.setData(memberdetailTableView.getSelectionModel().getSelectedItem().getDisplayId());
             }
-
         });
     }
 

@@ -48,7 +48,7 @@ public class SplashScreenController implements Initializable {
             StackPane splashscreenLayout = FXMLLoader.load(getClass().getResource("SplashScreen.fxml"));
             root.getChildren().setAll(splashscreenLayout);
 
-            FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), splashscreenLayout);
+            FadeTransition fadeIn = new FadeTransition(Duration.seconds(2), splashscreenLayout);
             fadeIn.setFromValue(0);
             fadeIn.setToValue(1);
             fadeIn.setCycleCount(1);

@@ -14,13 +14,14 @@
          <center>
             <ScrollPane fitToHeight="true" fitToWidth="true" prefViewportHeight="511.0" prefViewportWidth="777.0" BorderPane.alignment="CENTER">
                <content>
-                  <TableView fx:id="memberdetailTableView" layoutX="14.0" layoutY="84.0">
+                  <TableView fx:id="memberdetailTableView" layoutX="14.0" layoutY="84.0" stylesheets="@../style/style.css">
                     <columns>
                         <TableColumn fx:id="memberidTableColumn" prefWidth="135.0" text="Member ID" />
                       <TableColumn fx:id="fullnameTableColumn" prefWidth="161.0" text="Full Name" />
                       <TableColumn fx:id="startTimeTableColumn" minWidth="0.0" prefWidth="103.0" text="Start Time" />
                         <TableColumn fx:id="endTimeTableColumn" minWidth="0.0" prefWidth="99.0" text="End Time" />
                         <TableColumn fx:id="phonenoTableColumn" minWidth="0.0" prefWidth="128.0" text="Phone No." />
+                        <TableColumn fx:id="daysTableColumn" minWidth="0.0" prefWidth="128.0" text="Days Remaining" />
                         <TableColumn fx:id="expirydateTableColumn" prefWidth="300.0" text="Expiry Date" />
                     </columns>
                   </TableView>

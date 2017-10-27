@@ -47,3 +47,7 @@
 .custombackgrouncolor3{
     -fx-background-color: #eeeeee;
 }
+
+.table-row-cell {
+    -fx-control-inner-background: #2c3e50;
+}

@@ -35,7 +35,7 @@ public class MemberServiceImplementation implements MemberService {
     @Override
     public boolean addMember(Member member) {
         try {
-            String write_sql = "insert into gymjankaridb(MemberId,FullName,DateOfBirth,Gender,Height,Weight,Street,VDCMun,WardNo,District,EmailAddress,Landline,Mobile,StartTime,EndTime,MemberSince,PaymentDate,MonthlyRate,PaymentAmount,ExpiryDate,Picture)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String write_sql = "insert into gymjankaridb(MemberId,FullName,DateOfBirth,Gender,Height,Weight,Street,VDCMun,WardNo,District,EmailAddress,Landline,Mobile,StartTime,EndTime,MemberSince,PaymentDate,MonthlyRate,PaymentAmount,ExpiryDate,Picture,DaysRemaining)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             String write_sql1 = "insert into paymentdetailsdb(MemberId,PaymentDate,PaymentAmount)values(?,?,?)";
             PreparedStatement write_pstm = connect.prepareStatement(write_sql);
             PreparedStatement write_pstm1 = connect.prepareStatement(write_sql1);
@@ -60,6 +60,7 @@ public class MemberServiceImplementation implements MemberService {
             write_pstm.setFloat(19, member.getPayAmount());
             write_pstm.setString(20, member.getExpiryDate());
             write_pstm.setString(21, member.getPicture());
+            write_pstm.setLong(22, member.getDay());
             write_pstm.execute();
             write_pstm1.setString(1, member.getmId());
             write_pstm1.setString(2, member.getPayDate());
@@ -104,6 +105,7 @@ public class MemberServiceImplementation implements MemberService {
                 member.setPayAmount(rs.getFloat("PaymentAmount"));
                 member.setExpiryDate(rs.getString("ExpiryDate"));
                 member.setPicture(rs.getString("Picture"));
+                member.setDay(rs.getInt("DaysRemaining"));
                 memberList.add(member);
             }
         } catch (SQLException ex) {

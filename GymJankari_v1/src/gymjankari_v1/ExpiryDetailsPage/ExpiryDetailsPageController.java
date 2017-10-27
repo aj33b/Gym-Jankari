@@ -12,18 +12,28 @@ import gymjankari_v1.serviceimplementation.MemberServiceImplementation;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.StringBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 
 /**
  * FXML Controller class
@@ -47,6 +57,8 @@ public class ExpiryDetailsPageController implements Initializable {
     private TableColumn<Member, String> phonenoTableColumn;
     @FXML
     private TableColumn<Member, String> expirydateTableColumn;
+    @FXML
+    private TableColumn<Member, Integer> daysTableColumn;
 
     /**
      * Initializes the controller class.
@@ -85,6 +97,36 @@ public class ExpiryDetailsPageController implements Initializable {
         endTimeTableColumn.setCellValueFactory(new PropertyValueFactory<>("endTime"));
         phonenoTableColumn.setCellValueFactory(new PropertyValueFactory<>("mobile"));
         expirydateTableColumn.setCellValueFactory(new PropertyValueFactory<>("expiryDate"));
+        daysTableColumn.setCellValueFactory(new PropertyValueFactory<>("day"));
+        memberdetailTableView.setRowFactory(tv -> {
+            TableRow<Member> row = new TableRow<>();
+            StringBinding typeBinding = Bindings.selectString(row.itemProperty(), "day");
+            row.backgroundProperty().bind(Bindings.createObjectBinding(()
+                    -> new Background(new BackgroundFill(typeToColor(typeBinding.get()), CornerRadii.EMPTY, Insets.EMPTY)), typeBinding));
+            return row;
+        });
+
+        memberdetailTableView.getColumns();
     }
 
+    public static Color typeToColor(String day) {
+        if (day == null) {
+            return Color.WHITESMOKE;
+        }
+        if (Integer.parseInt(day)<=0) {
+            return Color.rgb(229,115,115);
+        }
+        else if(Integer.parseInt(day)>0 && Integer.parseInt(day)<=7){
+           return Color.YELLOW;   
+        }
+        else{
+            return Color.rgb(139,195,74);
+        }
+    }
+
+    public static LocalDate localDate(String stringDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(stringDate, formatter);
+        return localDate;
+    }
 }

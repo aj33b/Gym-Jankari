@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -60,6 +61,8 @@ public class PaymentDetailsPageController implements Initializable {
     @FXML
     private JFXButton saveButton;
 
+    private LocalDate expiryDateFromDB;
+
     /**
      * Initializes the controller class.
      */
@@ -67,7 +70,7 @@ public class PaymentDetailsPageController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
     }
-    
+
     @FXML
     private void saveButtonClicked(ActionEvent event) {
         MemberService memberService = new MemberServiceImplementation();
@@ -86,15 +89,15 @@ public class PaymentDetailsPageController implements Initializable {
             member.setPayAmount(Float.parseFloat(paymentamountTextField.getText()));
             int day = expiryDateCalculation(paymentrateTextField.getText(), payAmount);
             if (day != 0) {
-                Date date = java.sql.Date.valueOf(member.getPayDate());
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(date);
-                calendar.add(Calendar.DAY_OF_MONTH, day);
-                Date expiryDate = calendar.getTime();
-                String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(expiryDate);
-                member.setExpiryDate(formattedDate);
+
+                if (LocalDate.now().compareTo(expiryDateFromDB) < 0) {
+                    member.setExpiryDate(calculateExpiryDate(expiryDateFromDB.toString(), day));
+                }else{
+                    member.setExpiryDate(calculateExpiryDate(paymentdateDatePicker.getValue().toString(), day));
+                }
+
             } else {
-                member.setExpiryDate(LocalDate.now().toString());
+                member.setExpiryDate(expiryDateFromDB.toString());
             }
             if (memberService.updatePaymentDetails(member, memberidTextField.getText())) {
                 Image img = new Image("gymjankari_v1/images/checked_icon.png");
@@ -128,6 +131,7 @@ public class PaymentDetailsPageController implements Initializable {
         fullnameTextField.setText(member.getFullName());
         memberidTextField.setText(member.getDisplayId());
         paymentrateTextField.setText(String.valueOf(member.getPayRate()));
+        expiryDateFromDB = localDate(member.getExpiryDate());
         populateTable();
         paymentdetailTableView.setItems(memberService.getPaymentDetails(displayId));
     }
@@ -148,6 +152,22 @@ public class PaymentDetailsPageController implements Initializable {
         float ratePerDay = Float.parseFloat(payRate) / 30;
         float validDays = Float.parseFloat(payAmount) / ratePerDay;
         return (int) validDays;
+    }
+
+    public LocalDate localDate(String stringDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate localDate = LocalDate.parse(stringDate, formatter);
+        return localDate;
+    }
+
+    public String calculateExpiryDate(String initialDate,int day) {
+        Date date = java.sql.Date.valueOf(initialDate);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, day);
+        Date expiryDate = calendar.getTime();
+        String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(expiryDate);
+        return formattedDate;
     }
 
 }

@@ -324,13 +324,14 @@ public class MemberServiceImplementation implements MemberService {
     @Override
     public boolean updatePaymentDetails(Member member, String displayId) {
         try {
-            String update_sql = "update gymjankaridb set PaymentDate=?,PaymentAmount=?,ExpiryDate=? where MemberId='" + displayId + "'";
+            String update_sql = "update gymjankaridb set PaymentDate=?,PaymentAmount=?,ExpiryDate=?,DaysRemaining=? where MemberId='" + displayId + "'";
             String write_sql1 = "insert into paymentdetailsdb(MemberId,PaymentDate,PaymentAmount)values(?,?,?)";
             PreparedStatement update_pstm = connect.prepareStatement(update_sql);
             PreparedStatement write_pstm1 = connect.prepareStatement(write_sql1);
             update_pstm.setString(1, member.getPayDate());
             update_pstm.setFloat(2, member.getPayAmount());
             update_pstm.setString(3, member.getExpiryDate());
+            update_pstm.setInt(4, member.getDay());
             update_pstm.execute();
             write_pstm1.setString(1, displayId);
             write_pstm1.setString(2, member.getPayDate());

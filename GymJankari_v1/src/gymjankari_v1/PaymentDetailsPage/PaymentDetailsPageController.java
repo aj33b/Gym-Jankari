@@ -15,12 +15,14 @@ import gymjankari_v1.service.MemberService;
 import gymjankari_v1.serviceimplementation.MemberServiceImplementation;
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -99,6 +101,8 @@ public class PaymentDetailsPageController implements Initializable {
             } else {
                 member.setExpiryDate(expiryDateFromDB.toString());
             }
+            int daysRemaining = calculateDays(member.getExpiryDate());
+            member.setDay(daysRemaining);
             if (memberService.updatePaymentDetails(member, memberidTextField.getText())) {
                 Image img = new Image("gymjankari_v1/images/checked_icon.png");
                 Notifications addedNotifications = Notifications.create()
@@ -168,6 +172,19 @@ public class PaymentDetailsPageController implements Initializable {
         Date expiryDate = calendar.getTime();
         String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(expiryDate);
         return formattedDate;
+    }
+    
+    public int calculateDays(String string1){
+        long diff=0;
+        try {
+            SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date1 = myFormat.parse(string1);
+            Date date2 = myFormat.parse(LocalDate.now().toString());
+            diff = date1.getTime() - date2.getTime();
+                    } catch (ParseException ex) {
+            Logger.getLogger(PaymentDetailsPageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return (int)TimeUnit.DAYS.convert(diff,TimeUnit.MILLISECONDS);
     }
 
 }

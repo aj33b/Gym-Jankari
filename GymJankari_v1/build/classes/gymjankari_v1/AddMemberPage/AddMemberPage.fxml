@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.AddMemberPage.AddMemberPageController">
+<BorderPane style="-fx-background-color: #ffffff;" stylesheets="@../style/formstyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.AddMemberPage.AddMemberPageController">
    <center>
       <BorderPane>
          <center>
@@ -28,13 +28,13 @@
                <content>
                   <StackPane alignment="TOP_CENTER" style="-fx-background-color: #ffffff;">
                      <children>
-                        <VBox maxHeight="950.0" maxWidth="520.0" minHeight="950.0" minWidth="520.0" prefHeight="950.0" prefWidth="520.0" spacing="25.0" style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
+                        <VBox maxWidth="520.0" minWidth="520.0" prefWidth="520.0" spacing="25.0" style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
                            <children>
                               <HBox spacing="20.0">
                                  <children>
                                     <VBox spacing="25.0">
                                        <children>
-                                          <Label text="Basic Information :">
+                                          <Label styleClass="label_big" text="Basic Information :">
                                              <font>
                                                 <Font name="System Bold" size="13.0" />
                                              </font>
@@ -43,7 +43,7 @@
                                           <JFXDatePicker fx:id="dobDatePicker" defaultColor="#4CAF50" prefHeight="25.0" prefWidth="275.0" promptText="Date Of Birth" />
                                           <HBox spacing="10.0">
                                              <children>
-                                                <Label text="Gender :" />
+                                                <Label styleClass="label_small" text="Gender :" />
                                                 <RadioButton fx:id="maleRadioButton" mnemonicParsing="false" selected="true" text="Male">
                                                    <toggleGroup>
                                                       <ToggleGroup fx:id="gender" />
@@ -61,18 +61,13 @@
                                        <children>
                                           <Pane nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #ffffff;">
                                              <children>
-                                                <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fx:id="uploadImageView" fitHeight="200.0" fitWidth="200.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
                                                       <Image url="@../images/upload_image.png" />
                                                    </image>
                                                 </ImageView>
-                                                <ImageView fx:id="photoImageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" />
-                                                <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../images/circle.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <JFXButton fx:id="uploadButton" contentDisplay="GRAPHIC_ONLY" layoutX="54.0" layoutY="58.0" onAction="#uploadButtonClicked">
+                                                <ImageView fx:id="photoImageView" fitHeight="200.0" fitWidth="200.0" layoutY="37.0" pickOnBounds="true" />
+                                                <JFXButton fx:id="uploadButton" contentDisplay="GRAPHIC_ONLY" layoutX="54.0" layoutY="95.0" onAction="#uploadButtonClicked">
                                                    <graphic>
                                                       <ImageView fitHeight="75.0" fitWidth="75.0" opacity="0.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
@@ -87,12 +82,12 @@
                                     </HBox>
                                  </children>
                               </HBox>
-                              <Label text="Contact Information :">
+                              <Label styleClass="label_big" text="Contact Information :">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="20.0" layoutY="238.0" text="Address :" />
+                              <Label layoutX="20.0" layoutY="238.0" styleClass="label_small" text="Address :" />
                               <HBox spacing="15.0">
                                  <children>
                                     <JFXTextField fx:id="streetTextField" labelFloat="true" prefWidth="250.0" promptText="Street" />
@@ -112,7 +107,7 @@
                                  </children>
                               </HBox>
                               <JFXTextField fx:id="emailTextField" labelFloat="true" promptText="E-mail Address" />
-                              <Label layoutX="20.0" layoutY="238.0" text="Membership Information :">
+                              <Label layoutX="20.0" layoutY="238.0" styleClass="label_big" text="Membership Information :">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
@@ -131,7 +126,7 @@
                                     <JFXTimePicker fx:id="endTimePicker" defaultColor="#4CAF50" editable="true" promptText="End Time" />
                                  </children>
                               </HBox>
-                              <Label layoutX="20.0" layoutY="465.0" text="Payment Information :">
+                              <Label layoutX="20.0" layoutY="465.0" styleClass="label_big" text="Payment Information :">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>

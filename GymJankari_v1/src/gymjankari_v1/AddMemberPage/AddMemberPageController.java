@@ -39,6 +39,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Duration;
@@ -106,6 +107,8 @@ public class AddMemberPageController implements Initializable {
 
     private Main main;
     private String imageDataString;
+    @FXML
+    private ImageView uploadImageView;
 
     @FXML
     private void uploadButtonClicked() throws IOException {
@@ -266,6 +269,10 @@ public class AddMemberPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        final Circle clip1 = new Circle(100,100,100);
+        final Circle clip2 = new Circle(100,100,100);
+        photoImageView.setClip(clip1);
+        uploadImageView.setClip(clip2);
         RequiredFieldValidator idFieldValidator = new RequiredFieldValidator();
         memberidTextField.getValidators().add(idFieldValidator);
         idFieldValidator.setMessage("Cannot be empty");

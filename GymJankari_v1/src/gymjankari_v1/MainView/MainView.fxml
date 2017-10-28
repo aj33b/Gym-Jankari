@@ -17,21 +17,21 @@
 
 <BorderPane id="BorderPane" fx:id="mainwindow" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #ffffff; -fx-border-color: #2c3e50;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.MainView.MainViewController">
    <top>
-      <JFXToolbar fx:id="titlebar" onDragDetected="#startMoveWindow" onMouseDragged="#moveWindow" onMouseReleased="#endMoveWindow" style="-fx-background-color: #ffffff;" styleClass="custombackgrouncolor1" stylesheets="@../style/style.css">
+      <JFXToolbar fx:id="titlebar" onDragDetected="#startMoveWindow" onMouseDragged="#moveWindow" onMouseReleased="#endMoveWindow" styleClass="custombackgrouncolor2" stylesheets="@../style/style.css">
          <right>
             <HBox alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="minimizeButton" contentDisplay="GRAPHIC_ONLY" onAction="#minimizeButtonClicked" styleClass="buttonbgcolorchange1" stylesheets="@../style/style.css" text="Minimize">
+                  <JFXButton fx:id="minimizeButton" contentDisplay="GRAPHIC_ONLY" onAction="#minimizeButtonClicked" styleClass="buttonbgcolorchange3" stylesheets="@../style/style.css" text="Minimize">
                      <graphic>
                         <MaterialDesignIconView glyphName="MINUS" size="20" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="maximizeButton" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" onAction="#maximizeButtonClicked" styleClass="buttonbgcolorchange1" stylesheets="@../style/style.css" text="Maximize">
+                  <JFXButton fx:id="maximizeButton" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" onAction="#maximizeButtonClicked" styleClass="buttonbgcolorchange3" stylesheets="@../style/style.css" text="Maximize">
                      <graphic>
                         <FontAwesomeIconView glyphName="EXPAND" size="15" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="closeButton" contentDisplay="GRAPHIC_ONLY" onAction="#closeButtonClicked" styleClass="buttonbgcolorchange1" stylesheets="@../style/style.css" text="Close">
+                  <JFXButton fx:id="closeButton" contentDisplay="GRAPHIC_ONLY" onAction="#closeButtonClicked" styleClass="buttonbgcolorchange3" stylesheets="@../style/style.css" text="Close">
                      <graphic>
                         <MaterialDesignIconView glyphName="CLOSE" size="20" />
                      </graphic>

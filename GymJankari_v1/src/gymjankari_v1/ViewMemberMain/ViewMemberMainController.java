@@ -53,6 +53,8 @@ import javax.imageio.ImageIO;
 import org.apache.commons.codec.binary.Base64;
 import org.controlsfx.control.Notifications;
 import static gymjankari_v1.Main.mainLayout;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 
 /**
  * FXML Controller class
@@ -128,6 +130,8 @@ public class ViewMemberMainController implements Initializable {
 
     @FXML
     private JFXButton editpdButton;
+    @FXML
+    private VBox subwindow;
 
     @FXML
     private void uploadButtonClicked() throws IOException {
@@ -246,6 +250,10 @@ public class ViewMemberMainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        final Circle clip1 = new Circle(100,100,100);
+        final Circle clip2 = new Circle(100,100,100);
+        photoImageView.setClip(clip1);
+        uploadImageView.setClip(clip2);
         RequiredFieldValidator idFieldValidator = new RequiredFieldValidator();
         memberidTextField.getValidators().add(idFieldValidator);
         idFieldValidator.setMessage("Cannot be empty");
@@ -289,7 +297,7 @@ public class ViewMemberMainController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class.getResource("PaymentDetailsPage/PaymentDetailsPage.fxml"));
         BorderPane homepageLayout = loader.load();
-        mainLayout.setCenter(homepageLayout);
+        subwindow.getChildren().setAll(homepageLayout);
         PaymentDetailsPageController paymentDetailsPageController = loader.getController();
         paymentDetailsPageController.setData(memberidTextField.getText());
     }

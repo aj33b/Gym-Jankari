@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'Roboto';
+    src: url('RobotoCondensed-Light.ttf');
+}
+
+.text{
+    -fx-font-family: "Roboto";
+    -fx-text-fill:#000000;
+}
+
+.jfx-text-field{
+    -jfx-focus-color:#388E3C;
+    -fx-font-size:13;
+}
+
+.radio-button{
+    -fx-font-size:14;    
+}
+
+.label_big {
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+}
+
+.label_small{
+    -fx-font-size: 14;
+}

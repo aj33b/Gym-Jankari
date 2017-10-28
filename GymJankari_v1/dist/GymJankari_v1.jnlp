@@ -8,13 +8,13 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="GymJankari_v1.jar" size="192182" download="eager" />
-    <jar href="lib/commons-codec-1.10.jar" size="284184" download="eager" />
-    <jar href="lib/controlsfx-8.40.14.jar" size="1215643" download="eager" />
-    <jar href="lib/fontawesomefx-8.9.jar" size="571068" download="eager" />
-    <jar href="lib/jfoenix.jar" size="2386535" download="eager" />
-    <jar href="lib/joda-time-2.4.jar" size="586201" download="eager" />
-    <jar href="lib/sqlite-jdbc-3.20.0.jar" size="6637012" download="eager" />
+    <jar href="GymJankari_v1.jar" size="259661" download="eager" />
+    <jar href="lib\commons-codec-1.10.jar" size="284184" download="eager" />
+    <jar href="lib\controlsfx-8.40.14.jar" size="1215643" download="eager" />
+    <jar href="lib\fontawesomefx-8.9.jar" size="571068" download="eager" />
+    <jar href="lib\jfoenix.jar" size="2386535" download="eager" />
+    <jar href="lib\joda-time-2.4.jar" size="586201" download="eager" />
+    <jar href="lib\sqlite-jdbc-3.20.0.jar" size="6637012" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="GymJankari_v1" >
     <param name="requiredFXVersion" value="8.0+"/>

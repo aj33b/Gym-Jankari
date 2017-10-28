@@ -6,6 +6,8 @@
 <?import com.jfoenix.controls.JFXTimePicker?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
@@ -14,6 +16,7 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -22,178 +25,194 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.ViewMemberMain.ViewMemberMainController">
+<BorderPane style="-fx-background-color: #ffffff;" stylesheets="@../style/formstyle.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.ViewMemberMain.ViewMemberMainController">
    <center>
-      <BorderPane prefHeight="1000.0" prefWidth="600.0">
-         <center>
-            <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" prefViewportHeight="698.0" prefViewportWidth="468.0" style="-fx-background-color: #ffffff;">
+      <AnchorPane style="-fx-background-color: #ffffff;">
+         <children>
+            <ScrollPane fitToWidth="true" layoutY="125.0" prefViewportHeight="600.0" prefViewportWidth="785.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
                <content>
-                  <StackPane alignment="TOP_CENTER" style="-fx-background-color: #ffffff;">
+                  <AnchorPane style="-fx-background-color: #ffffff;">
                      <children>
-                        <VBox maxHeight="1150.0" maxWidth="520.0" minHeight="1150.0" minWidth="520.0" prefHeight="1150.0" prefWidth="600.0" spacing="25.0" style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
+                        <StackPane alignment="TOP_CENTER" prefWidth="787.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <HBox spacing="10.0">
+                              <VBox fx:id="subwindow" maxWidth="500.0" minWidth="500.0" prefWidth="500.0" spacing="25.0" style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
                                  <children>
-                                    <JFXButton fx:id="editButton" onAction="#editButtonClicked" prefHeight="29.0" prefWidth="175.0" stylesheets="@../style/style.css" text="Edit Basic Information">
-                                       <graphic>
-                                          <FontAwesomeIconView glyphName="PENCIL" size="20" />
-                                       </graphic>
-                                       <styleClass>
-                                          <String fx:value="buttonbgcolorchange2" />
-                                          <String fx:value="custombackgrouncolor3" />
-                                       </styleClass></JFXButton>
-                                    <JFXButton fx:id="deleteButton" onAction="#deleteButtonClicked" prefHeight="34.0" prefWidth="150.0" stylesheets="@../style/style.css" text="Delete">
-                                       <graphic>
-                                          <FontAwesomeIconView glyphName="TRASH_ALT" size="20" />
-                                       </graphic>
-                                       <styleClass>
-                                          <String fx:value="buttonbgcolorchange2" />
-                                          <String fx:value="custombackgrouncolor3" />
-                                       </styleClass></JFXButton>
-                                    <JFXButton fx:id="editpdButton" layoutX="219.0" layoutY="10.0" onAction="#editpdButtonClicked" prefHeight="29.0" prefWidth="170.0" stylesheets="@../style/style.css" text="Update Payment">
-                                       <graphic>
-                                          <FontAwesomeIconView glyphName="MONEY" size="20" />
-                                       </graphic>
-                                       <styleClass>
-                                          <String fx:value="buttonbgcolorchange2" />
-                                          <String fx:value="custombackgrouncolor3" />
-                                       </styleClass>
-                                    </JFXButton>
-                                 </children>
-                              </HBox>
-                              <HBox spacing="20.0">
-                                 <children>
-                                    <VBox spacing="25.0">
+                                    <Label styleClass="label_big" text="Basic Information :">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="fullnameTextField" editable="false" labelFloat="true" promptText="Full Name" />
+                                    <JFXDatePicker fx:id="dobDatePicker" defaultColor="#4CAF50" prefHeight="25.0" prefWidth="275.0" promptText="Date Of Birth" />
+                                    <HBox spacing="10.0">
                                        <children>
-                                          <Label text="Basic Information :">
-                                             <font>
-                                                <Font name="System Bold" size="13.0" />
-                                             </font>
-                                          </Label>
-                                          <JFXTextField fx:id="fullnameTextField" editable="false" labelFloat="true" promptText="Full Name" />
-                                          <JFXDatePicker fx:id="dobDatePicker" defaultColor="#4CAF50" prefHeight="25.0" prefWidth="275.0" promptText="Date Of Birth" />
-                                          <HBox spacing="10.0">
-                                             <children>
-                                                <Label text="Gender :" />
-                                                <RadioButton fx:id="maleRadioButton" disable="true" mnemonicParsing="false" selected="true" text="Male">
-                                                   <toggleGroup>
-                                                      <ToggleGroup fx:id="gender" />
-                                                   </toggleGroup>
-                                                </RadioButton>
-                                                <RadioButton fx:id="femaleRadioButton" disable="true" mnemonicParsing="false" text="Female" toggleGroup="$gender" />
-                                                <RadioButton fx:id="otherRadioButton" disable="true" mnemonicParsing="false" text="Other" toggleGroup="$gender" />
-                                             </children>
-                                          </HBox>
-                                          <JFXTextField fx:id="ageTextField" editable="false" labelFloat="true" promptText="Age" />
-                                          <JFXTextField fx:id="heightTextField" editable="false" labelFloat="true" promptText="Height (ft.in)" />
-                                          <JFXTextField fx:id="weightTextField" editable="false" labelFloat="true" promptText="Weight (kgs)" />
+                                          <Label styleClass="label_small" text="Gender :" />
+                                          <RadioButton fx:id="maleRadioButton" disable="true" mnemonicParsing="false" selected="true" text="Male">
+                                             <toggleGroup>
+                                                <ToggleGroup fx:id="gender" />
+                                             </toggleGroup>
+                                          </RadioButton>
+                                          <RadioButton fx:id="femaleRadioButton" disable="true" mnemonicParsing="false" text="Female" toggleGroup="$gender" />
+                                          <RadioButton fx:id="otherRadioButton" disable="true" mnemonicParsing="false" text="Other" toggleGroup="$gender" />
                                        </children>
-                                    </VBox>
-                                    <HBox alignment="TOP_CENTER">
+                                    </HBox>
+                                    <JFXTextField fx:id="ageTextField" editable="false" labelFloat="true" promptText="Age" />
+                                    <JFXTextField fx:id="heightTextField" editable="false" labelFloat="true" promptText="Height (ft.in)" />
+                                    <JFXTextField fx:id="weightTextField" editable="false" labelFloat="true" promptText="Weight (kgs)" />
+                                    <Label styleClass="label_big" text="Contact Information :">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="20.0" layoutY="238.0" styleClass="label_small" text="Address :" />
+                                    <HBox spacing="15.0">
                                        <children>
-                                          <Pane nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #ffffff;">
-                                             <children>
-                                                <ImageView fx:id="uploadImageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false">
-                                                   <image>
-                                                      <Image url="@../images/upload_image.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <ImageView fx:id="photoImageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" />
-                                                <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../images/circle.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <JFXButton fx:id="uploadButton" contentDisplay="GRAPHIC_ONLY" layoutX="54.0" layoutY="58.0" onAction="#uploadButtonClicked" opacity="0.0" visible="false">
-                                                   <graphic>
-                                                      <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
-                                                         <image>
-                                                            <Image url="@../images/upload_icon.png" />
-                                                         </image>
-                                                      </ImageView>
-                                                   </graphic>
-                                                </JFXButton>
-                                             </children>
-                                          </Pane>
+                                          <JFXTextField fx:id="streetTextField" editable="false" labelFloat="true" prefWidth="250.0" promptText="Street" />
+                                          <JFXTextField fx:id="vdcmunTextField" editable="false" labelFloat="true" prefWidth="250.0" promptText="VDC/Municipality" GridPane.columnIndex="1" />
+                                       </children>
+                                    </HBox>
+                                    <HBox spacing="15.0">
+                                       <children>
+                                          <JFXTextField fx:id="wardnoTextField" editable="false" labelFloat="true" prefWidth="250.0" promptText="Ward No." GridPane.rowIndex="1" />
+                                          <JFXTextField fx:id="districtTextField" editable="false" labelFloat="true" prefWidth="250.0" promptText="District" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                       </children>
+                                    </HBox>
+                                    <HBox spacing="15.0">
+                                       <children>
+                                          <JFXTextField fx:id="landlineTextField" editable="false" labelFloat="true" prefWidth="250.0" promptText="Phone (Landline)" />
+                                          <JFXTextField fx:id="mobileTextField" editable="false" labelFloat="true" layoutX="20.0" layoutY="427.0" prefWidth="250.0" promptText="Phone (Mobile)" />
+                                       </children>
+                                    </HBox>
+                                    <JFXTextField fx:id="emailTextField" editable="false" labelFloat="true" promptText="E-mail Address" />
+                                    <Label layoutX="20.0" layoutY="238.0" styleClass="label_big" text="Membership Information :">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox spacing="15.0">
+                                       <children>
+                                          <JFXTextField fx:id="memberidTextField" editable="false" labelFloat="true" layoutX="20.0" layoutY="389.0" prefHeight="23.0" prefWidth="185.0" promptText="Membership ID" />
+                                          <JFXDatePicker fx:id="membersinceDatePicker" defaultColor="#4CAF50" prefHeight="25.0" prefWidth="246.0" promptText="Member Since" />
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_LEFT" spacing="15.0">
+                                       <children>
+                                          <Label layoutX="20.0" layoutY="269.0" text="Shift :" />
+                                          <JFXTimePicker fx:id="startTimePicker" defaultColor="#4CAF50" editable="true" promptText="Start Time" />
+                                          <Label text="to" />
+                                          <JFXTimePicker fx:id="endTimePicker" defaultColor="#4CAF50" editable="true" promptText="End TIme" />
+                                       </children>
+                                    </HBox>
+                                    <Label layoutX="20.0" layoutY="465.0" styleClass="label_big" text="Payment Information :">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextField fx:id="paymentrateTextField" editable="false" labelFloat="true" promptText="Monthly Rate (Rs.)" />
+                                    <TableView fx:id="paymentdetailTableView" prefHeight="250.0" prefWidth="520.0" stylesheets="@../style/tableviewstyle.css">
+                                      <columns>
+                                        <TableColumn fx:id="paymentdateTableColumn" editable="false" prefWidth="225.0" text="Payment Date" />
+                                        <TableColumn fx:id="paymentamountTableColumn" editable="false" minWidth="0.0" prefWidth="294.0" text="Payment Amount" />
+                                      </columns>
+                                    </TableView>
+                                    <HBox alignment="TOP_RIGHT">
+                                       <children>
+                                          <JFXButton fx:id="saveButton" onAction="#saveButtonClicked" prefHeight="34.0" prefWidth="143.0" stylesheets="@../style/style.css" text="Save" visible="false">
+                                             <graphic>
+                                                <FontAwesomeIconView glyphName="SAVE" size="20" />
+                                             </graphic>
+                                             <styleClass>
+                                                <String fx:value="buttonbgcolorchange2" />
+                                                <String fx:value="custombackgrouncolor3" />
+                                             </styleClass>
+                                          </JFXButton>
                                        </children>
                                     </HBox>
                                  </children>
-                              </HBox>
-                              <Label text="Contact Information :">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                              <Label layoutX="20.0" layoutY="238.0" text="Address :" />
-                              <HBox spacing="15.0">
+                                 <padding>
+                                    <Insets top="20.0" />
+                                 </padding>
+                              </VBox>
+                           </children>
+                        </StackPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
+            <AnchorPane maxHeight="125.0" minHeight="125.0" prefHeight="125.0" prefWidth="850.0" styleClass="custombackgrouncolor2" stylesheets="@../style/style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <StackPane alignment="TOP_CENTER" prefHeight="125.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <VBox maxHeight="125.0" maxWidth="750.0" minHeight="125.0" minWidth="750.0" prefHeight="125.0" prefWidth="750.0" spacing="25.0" StackPane.alignment="TOP_CENTER">
+                           <children>
+                              <HBox spacing="20.0">
                                  <children>
-                                    <JFXTextField fx:id="streetTextField" editable="false" labelFloat="true" prefWidth="250.0" promptText="Street" />
-                                    <JFXTextField fx:id="vdcmunTextField" editable="false" labelFloat="true" prefWidth="250.0" promptText="VDC/Municipality" GridPane.columnIndex="1" />
-                                 </children>
-                              </HBox>
-                              <HBox spacing="15.0">
-                                 <children>
-                                    <JFXTextField fx:id="wardnoTextField" editable="false" labelFloat="true" prefWidth="250.0" promptText="Ward No." GridPane.rowIndex="1" />
-                                    <JFXTextField fx:id="districtTextField" editable="false" labelFloat="true" prefWidth="250.0" promptText="District" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                 </children>
-                              </HBox>
-                              <HBox spacing="15.0">
-                                 <children>
-                                    <JFXTextField fx:id="landlineTextField" editable="false" labelFloat="true" prefWidth="250.0" promptText="Phone (Landline)" />
-                                    <JFXTextField fx:id="mobileTextField" editable="false" labelFloat="true" layoutX="20.0" layoutY="427.0" prefWidth="250.0" promptText="Phone (Mobile)" />
-                                 </children>
-                              </HBox>
-                              <JFXTextField fx:id="emailTextField" editable="false" labelFloat="true" promptText="E-mail Address" />
-                              <Label layoutX="20.0" layoutY="238.0" text="Membership Information :">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                              <HBox spacing="15.0">
-                                 <children>
-                                    <JFXTextField fx:id="memberidTextField" editable="false" labelFloat="true" layoutX="20.0" layoutY="389.0" prefHeight="23.0" prefWidth="185.0" promptText="Membership ID" />
-                                    <JFXDatePicker fx:id="membersinceDatePicker" defaultColor="#4CAF50" prefHeight="25.0" prefWidth="246.0" promptText="Member Since" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER_LEFT" spacing="15.0">
-                                 <children>
-                                    <Label layoutX="20.0" layoutY="269.0" text="Shift :" />
-                                    <JFXTimePicker fx:id="startTimePicker" defaultColor="#4CAF50" editable="true" promptText="Start Time" />
-                                    <Label text="to" />
-                                    <JFXTimePicker fx:id="endTimePicker" defaultColor="#4CAF50" editable="true" promptText="End TIme" />
-                                 </children>
-                              </HBox>
-                              <Label layoutX="20.0" layoutY="465.0" text="Payment Information :">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                              <JFXTextField fx:id="paymentrateTextField" editable="false" labelFloat="true" promptText="Monthly Rate (Rs.)" />
-                              <TableView fx:id="paymentdetailTableView" prefHeight="300.0" prefWidth="520.0" stylesheets="@../style/tableviewstyle.css">
-                                <columns>
-                                  <TableColumn fx:id="paymentdateTableColumn" editable="false" prefWidth="225.0" text="Payment Date" />
-                                  <TableColumn fx:id="paymentamountTableColumn" editable="false" minWidth="0.0" prefWidth="294.0" text="Payment Amount" />
-                                </columns>
-                              </TableView>
-                              <HBox alignment="TOP_RIGHT">
-                                 <children>
-                                    <JFXButton fx:id="saveButton" onAction="#saveButtonClicked" prefHeight="34.0" prefWidth="143.0" stylesheets="@../style/style.css" text="Save" visible="false">
-                                       <graphic>
-                                          <FontAwesomeIconView glyphName="SAVE" size="20" />
-                                       </graphic>
-                                       <styleClass>
-                                          <String fx:value="buttonbgcolorchange2" />
-                                          <String fx:value="custombackgrouncolor3" />
-                                       </styleClass></JFXButton>
+                                    <Pane>
+                                       <children>
+                                          <ImageView fx:id="uploadImageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                             <image>
+                                                <Image url="@../images/upload_image.png" />
+                                             </image>
+                                             <viewport>
+                                                <Rectangle2D />
+                                             </viewport>
+                                          </ImageView>
+                                          <ImageView fx:id="photoImageView" fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" />
+                                          <JFXButton fx:id="uploadButton" contentDisplay="GRAPHIC_ONLY" layoutX="55.0" layoutY="59.0" onAction="#uploadButtonClicked" opacity="0.0" visible="false">
+                                             <graphic>
+                                                <ImageView fitHeight="75.0" fitWidth="75.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../images/upload_icon.png" />
+                                                   </image>
+                                                </ImageView>
+                                             </graphic>
+                                          </JFXButton>
+                                       </children>
+                                    </Pane>
+                                    <AnchorPane>
+                                       <children>
+                                          <HBox alignment="BOTTOM_LEFT" prefHeight="29.0" prefWidth="366.0" spacing="10.0" AnchorPane.topAnchor="95.0">
+                                             <children>
+                                                <JFXButton fx:id="editButton" alignment="TOP_LEFT" onAction="#editButtonClicked" prefHeight="30.0" prefWidth="100.0" stylesheets="@../style/style.css" text="Edit">
+                                                   <graphic>
+                                                      <FontAwesomeIconView glyphName="PENCIL" size="20" />
+                                                   </graphic>
+                                                   <styleClass>
+                                                      <String fx:value="buttonbgcolorchange3" />
+                                                      <String fx:value="custombackgrouncolor2" />
+                                                   </styleClass>
+                                                </JFXButton>
+                                                <JFXButton fx:id="deleteButton" alignment="TOP_LEFT" onAction="#deleteButtonClicked" prefHeight="30.0" prefWidth="100.0" stylesheets="@../style/style.css" text="Delete">
+                                                   <graphic>
+                                                      <FontAwesomeIconView glyphName="TRASH_ALT" size="20" />
+                                                   </graphic>
+                                                   <styleClass>
+                                                      <String fx:value="buttonbgcolorchange3" />
+                                                      <String fx:value="custombackgrouncolor2" />
+                                                   </styleClass>
+                                                </JFXButton>
+                                                <JFXButton fx:id="editpdButton" alignment="TOP_LEFT" layoutX="219.0" layoutY="10.0" onAction="#editpdButtonClicked" prefHeight="30.0" prefWidth="138.0" stylesheets="@../style/style.css" text="Update Payment" wrapText="true">
+                                                   <graphic>
+                                                      <FontAwesomeIconView glyphName="MONEY" size="20" />
+                                                   </graphic>
+                                                   <styleClass>
+                                                      <String fx:value="buttonbgcolorchange3" />
+                                                      <String fx:value="custombackgrouncolor2" />
+                                                   </styleClass>
+                                                </JFXButton>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </AnchorPane>
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
                      </children>
                   </StackPane>
-               </content>
-            </ScrollPane>
-         </center>
-      </BorderPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
    </center>
 </BorderPane>

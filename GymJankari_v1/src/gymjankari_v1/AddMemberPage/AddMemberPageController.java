@@ -6,6 +6,7 @@
 package gymjankari_v1.AddMemberPage;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
 import com.jfoenix.validation.RequiredFieldValidator;
@@ -61,7 +62,7 @@ public class AddMemberPageController implements Initializable {
     @FXML
     private JFXTextField fullnameTextField;
     @FXML
-    private DatePicker dobDatePicker;
+    private JFXDatePicker dobDatePicker;
     @FXML
     private RadioButton maleRadioButton;
     @FXML
@@ -89,13 +90,13 @@ public class AddMemberPageController implements Initializable {
     @FXML
     private JFXTextField memberidTextField;
     @FXML
-    private DatePicker membersinceDatePicker;
+    private JFXDatePicker membersinceDatePicker;
     @FXML
     private JFXTimePicker startTimePicker;
     @FXML
     private JFXTimePicker endTimePicker;
     @FXML
-    private DatePicker paymentdateDatePicker;
+    private JFXDatePicker paymentdateDatePicker;
     @FXML
     private JFXTextField paymentrateTextField;
     @FXML

@@ -57,7 +57,7 @@
                   </TableView>
                   <HBox alignment="TOP_RIGHT">
                      <children>
-                        <JFXButton fx:id="saveButton" onAction="#saveButtonClicked" prefHeight="34.0" prefWidth="143.0" stylesheets="@../style/style.css" text="Save">
+                        <JFXButton fx:id="saveButton" layoutX="387.0" layoutY="10.0" onAction="#saveButtonClicked" prefHeight="34.0" prefWidth="143.0" stylesheets="@../style/style.css" text="Save">
                            <graphic>
                               <FontAwesomeIconView glyphName="SAVE" size="20" />
                            </graphic>

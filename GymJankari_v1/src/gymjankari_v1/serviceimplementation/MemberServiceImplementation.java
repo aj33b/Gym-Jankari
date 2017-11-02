@@ -320,7 +320,7 @@ public class MemberServiceImplementation implements MemberService {
             ResultSet rs = read_stm.executeQuery(read_sql);
             while (rs.next()) {
                 Member member = new Member();
-                member.setPrimaryId("PrimaryId");
+                member.setPrimaryId(String.valueOf(rs.getInt("PrimaryId")));
                 member.setDisplayId(rs.getString("MemberId"));
                 member.setPayDate(dateConverterInterface.convertAdToBs(rs.getString("PaymentDate")));
                 member.setPayAmount(rs.getFloat("PaymentAmount"));

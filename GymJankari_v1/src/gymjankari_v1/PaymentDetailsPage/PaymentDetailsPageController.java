@@ -235,5 +235,5 @@ public class PaymentDetailsPageController implements Initializable {
         String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(expiryDate);
         return formattedDate;
     }
-
+    
 }

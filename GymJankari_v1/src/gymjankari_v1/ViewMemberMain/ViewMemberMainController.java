@@ -6,7 +6,7 @@
 package gymjankari_v1.ViewMemberMain;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
 import com.jfoenix.validation.RequiredFieldValidator;
@@ -70,8 +70,6 @@ public class ViewMemberMainController implements Initializable {
     @FXML
     private JFXTextField fullnameTextField;
     @FXML
-    private JFXDatePicker dobDatePicker;
-    @FXML
     private RadioButton maleRadioButton;
     @FXML
     private RadioButton femaleRadioButton;
@@ -97,8 +95,6 @@ public class ViewMemberMainController implements Initializable {
     private JFXTextField mobileTextField;
     @FXML
     private JFXTextField memberidTextField;
-    @FXML
-    private JFXDatePicker membersinceDatePicker;
     @FXML
     private JFXTimePicker startTimePicker;
     @FXML
@@ -132,6 +128,18 @@ public class ViewMemberMainController implements Initializable {
     private JFXButton editpdButton;
     @FXML
     private VBox subwindow;
+    @FXML
+    private JFXComboBox<?> dobbsmonth;
+    @FXML
+    private JFXComboBox<?> dobbsday;
+    @FXML
+    private JFXComboBox<?> dobbsyear;
+    @FXML
+    private JFXComboBox<?> memsinbsmonth;
+    @FXML
+    private JFXComboBox<?> memsinbsday;
+    @FXML
+    private JFXComboBox<?> memsinbsyear;
 
     @FXML
     private void uploadButtonClicked() throws IOException {
@@ -219,7 +227,9 @@ public class ViewMemberMainController implements Initializable {
             }
         }
         fullnameTextField.setEditable(false);
-        dobDatePicker.setEditable(false);
+        dobbsmonth.setEditable(false);
+        dobbsday.setEditable(false);
+        dobbsyear.setEditable(false);
         heightTextField.setEditable(false);
         weightTextField.setEditable(false);
         streetTextField.setEditable(false);
@@ -230,7 +240,9 @@ public class ViewMemberMainController implements Initializable {
         landlineTextField.setEditable(false);
         mobileTextField.setEditable(false);
         memberidTextField.setEditable(false);
-        membersinceDatePicker.setEditable(false);
+        memsinbsmonth.setEditable(false);
+        memsinbsday.setEditable(false);
+        memsinbsyear.setEditable(false);
         paymentrateTextField.setEditable(false);
         paymentdateTableColumn.setEditable(false);
         paymentamountTableColumn.setEditable(false);
@@ -307,7 +319,9 @@ public class ViewMemberMainController implements Initializable {
         Member member = new Member();
         id = memberidTextField.getText();
         fullnameTextField.setEditable(true);
-        dobDatePicker.setEditable(true);
+        dobbsmonth.setEditable(true);
+        dobbsday.setEditable(true);
+        dobbsyear.setEditable(true);
         heightTextField.setEditable(true);
         weightTextField.setEditable(true);
         streetTextField.setEditable(true);
@@ -317,7 +331,9 @@ public class ViewMemberMainController implements Initializable {
         emailTextField.setEditable(true);
         landlineTextField.setEditable(true);
         mobileTextField.setEditable(true);
-        membersinceDatePicker.setEditable(true);
+        memsinbsmonth.setEditable(true);
+        memsinbsday.setEditable(true);
+        memsinbsyear.setEditable(true);
         paymentrateTextField.setEditable(true);
         paymentdateTableColumn.setEditable(true);
         paymentamountTableColumn.setEditable(true);

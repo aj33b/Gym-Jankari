@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import java.lang.String?>
@@ -32,9 +32,20 @@
                      </font>
                   </Label>
                   <JFXTextField fx:id="paymentrateTextField" editable="false" labelFloat="true" promptText="Monthly Rate (Rs.)" />
-                  <HBox spacing="25.0">
+                  <HBox alignment="BOTTOM_LEFT" spacing="25.0">
                      <children>
-                        <JFXDatePicker fx:id="paymentdateDatePicker" defaultColor="#388e3c" prefHeight="25.0" prefWidth="247.0" promptText="Payment Date" />
+                        <VBox>
+                           <children>
+                              <Label styleClass="label_small" text="Payment Date:" />
+                              <HBox spacing="15.0">
+                                 <children>
+                                    <JFXComboBox fx:id="paybsyear" layoutX="81.0" layoutY="10.0" prefHeight="25.0" prefWidth="87.0" promptText="Year" />
+                                    <JFXComboBox fx:id="paybsmonth" prefHeight="25.0" prefWidth="102.0" promptText="Month" />
+                                    <JFXComboBox fx:id="paybsday" layoutX="10.0" layoutY="10.0" promptText="Day" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
                         <JFXTextField fx:id="paymentamountTextField" labelFloat="true" prefHeight="25.0" prefWidth="244.0" promptText="Payment Amount (Rs.)" />
                      </children>
                   </HBox>

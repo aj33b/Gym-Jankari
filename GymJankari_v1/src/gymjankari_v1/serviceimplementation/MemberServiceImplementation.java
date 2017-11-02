@@ -5,6 +5,9 @@
  */
 package gymjankari_v1.serviceimplementation;
 
+import gymjankari_v1.dateconverter.DateConverter;
+import gymjankari_v1.dateconverter.DateConverterInterface;
+import gymjankari_v1.dateconverter.NepaliDateStorage;
 import gymjankari_v1.dbconnection.DBConnection;
 import gymjankari_v1.models.Member;
 import gymjankari_v1.service.MemberService;
@@ -343,6 +346,80 @@ public class MemberServiceImplementation implements MemberService {
             Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+    }
+
+    @Override
+    public String numberToMonthConversion(int day) {
+        switch(day){
+            case 1:
+                return "Baisakh";
+            case 2:
+                return "Jestha";
+            case 3:
+                return "Asadh";
+            case 4:
+                return "Shrawan";
+            case 5:
+                return "Bhadra";
+            case 6:
+                return "Asoj";
+            case 7:
+                return "Kartik";
+            case 8:
+                return "Mangsir";
+            case 9:
+                return "Poush";
+            case 10:
+                return "Magh";
+            case 11:
+                return "Falgun";
+            case 12:
+                return "Chaitra";
+        }
+        return null;
+    }
+
+    @Override
+    public int monthToNumberConversion(String day) {
+        switch(day){
+            case "Baisakh":
+                return 1;
+            case "Jestha":
+                return 2;
+            case "Asadh":
+                return 3;
+            case "Shrawan":
+                return 4;
+            case "Bhadra":
+                return 5;
+            case "Asoj":
+                return 6;
+            case "Kartik":
+                return 7;
+            case "Mangsir":
+                return 8;
+            case "Poush":
+                return 9;
+            case "Magh":
+                return 10;
+            case "Falgun":
+                return 11;
+            case "Chaitra":
+                return 12;
+            
+        }
+        return 0;
+    }
+
+    @Override
+    public ObservableList<Integer> dayValues(String bsYear, int bsMonth) {
+        DateConverterInterface dateConverterInterface = new DateConverter();
+        ObservableList<Integer> returnList = FXCollections.observableArrayList();
+        int index = dateConverterInterface.getBsIndex(Integer.parseInt(bsYear));
+        for(int i=1;i<=NepaliDateStorage.nepaliMonthDays.get(index)[bsMonth-1];i++){
+         returnList.add(i);   
+        }
+        return returnList;
     }
 
 }

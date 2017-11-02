@@ -13,6 +13,11 @@
     -fx-font-size:13;
 }
 
+.jfx-combo-box{
+    -jfx-focus-color:#388E3C;
+    -fx-font-size:13;
+}
+
 .radio-button{
     -fx-font-size:14;    
 }

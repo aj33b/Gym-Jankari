@@ -7,10 +7,13 @@ package gymjankari_v1.AddMemberPage;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
 import com.jfoenix.validation.RequiredFieldValidator;
 import gymjankari_v1.Main;
+import gymjankari_v1.dateconverter.DateConverter;
+import gymjankari_v1.dateconverter.DateConverterInterface;
 import gymjankari_v1.models.Member;
 import gymjankari_v1.service.MemberService;
 import gymjankari_v1.serviceimplementation.MemberServiceImplementation;
@@ -32,10 +35,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
@@ -110,6 +116,38 @@ public class AddMemberPageController implements Initializable {
     private String imageDataString;
     @FXML
     private ImageView uploadImageView;
+    @FXML
+    private JFXComboBox<String> dobbsmonth;
+    @FXML
+    private JFXComboBox<Integer> dobbsday;
+    @FXML
+    private JFXComboBox<Integer> dobbsyear;
+    @FXML
+    private JFXComboBox<String> memsinbsmonth;
+    @FXML
+    private JFXComboBox<Integer> memsinbsday;
+    @FXML
+    private JFXComboBox<Integer> memsinbsyear;
+    @FXML
+    private JFXComboBox<String> paybsmonth;
+    @FXML
+    private JFXComboBox<Integer> paybsday;
+    @FXML
+    private JFXComboBox<Integer> paybsyear;
+    @FXML
+    private ListView<String> monthList;
+    @FXML
+    private ListView<Integer> dayList;
+    @FXML
+    private ListView<Integer> yearList;
+
+    DateConverterInterface dateConverterInterface = new DateConverter();
+    LocalDate default_date = LocalDate.now();
+    String default_bs_date = dateConverterInterface.convertAdToBs(default_date.toString());
+    String defaultBsDate[] = default_bs_date.split("-");
+    String defaultYear = defaultBsDate[0];
+    String defaultMonth = defaultBsDate[1];
+    String defaultDay = defaultBsDate[2];
 
     @FXML
     private void uploadButtonClicked() throws IOException {
@@ -142,13 +180,11 @@ public class AddMemberPageController implements Initializable {
             nameFieldValidation();
         } else {
             member.setFullName(name);
-            LocalDate dob = dobDatePicker.getValue();
-            if (dob == null) {
-                LocalDate date = LocalDate.now();
-                member.setDOB(date.toString());
-            } else {
-                member.setDOB(dobDatePicker.getValue().toString());
-            }
+            String dobYear = dobbsyear.getSelectionModel().getSelectedItem().toString();
+            String dobMonth = String.valueOf(memberService.monthToNumberConversion(dobbsmonth.getSelectionModel().getSelectedItem()));
+            String dobDay = String.valueOf(dobbsday.getSelectionModel().getSelectedItem());
+            String dobBsDate = dobYear.concat("-").concat(dobMonth).concat("-").concat(dobDay);
+            member.setDOB(dateConverterInterface.convertBsToAd(dobBsDate).toString());
             if (maleRadioButton.isSelected()) {
                 member.setGender("Male");
             } else if (femaleRadioButton.isSelected()) {
@@ -179,14 +215,11 @@ public class AddMemberPageController implements Initializable {
                     errorNotifications.showError();
                 } else {
                     member.setmId(memberId);
-                    LocalDate memberSince = membersinceDatePicker.getValue();
-                    if (memberSince == null) {
-                        LocalDate date = LocalDate.now();
-                        member.setMemberSince(date.toString());
-                    } else {
-                        member.setMemberSince(membersinceDatePicker.getValue().toString());
-                    }
-
+                    String memberSinceYear = memsinbsyear.getSelectionModel().getSelectedItem().toString();
+                    String memberSinceMonth = String.valueOf(memberService.monthToNumberConversion(memsinbsmonth.getSelectionModel().getSelectedItem()));
+                    String memberSinceDay = String.valueOf(memsinbsday.getSelectionModel().getSelectedItem());
+                    String memberSinceBsDate = memberSinceYear.concat("-").concat(memberSinceMonth).concat("-").concat(memberSinceDay);
+                    member.setDOB(dateConverterInterface.convertBsToAd(memberSinceBsDate).toString());
                     LocalTime startTime = startTimePicker.getValue();
                     if (startTime == null) {
                         LocalTime time = LocalTime.now();
@@ -201,13 +234,11 @@ public class AddMemberPageController implements Initializable {
                     } else {
                         member.setEndTime(String.valueOf(endTimePicker.getValue()));
                     }
-                    LocalDate payDate = paymentdateDatePicker.getValue();
-                    if (payDate == null) {
-                        LocalDate date = LocalDate.now();
-                        member.setPayDate(date.toString());
-                    } else {
-                        member.setPayDate(paymentdateDatePicker.getValue().toString());
-                    }
+                    String payYear = paybsyear.getSelectionModel().getSelectedItem().toString();
+                    String payMonth = String.valueOf(memberService.monthToNumberConversion(paybsmonth.getSelectionModel().getSelectedItem()));
+                    String payDay = String.valueOf(paybsday.getSelectionModel().getSelectedItem());
+                    String payBsDate = payYear.concat("-").concat(payMonth).concat("-").concat(payDay);
+                    member.setPayDate(dateConverterInterface.convertBsToAd(payBsDate).toString());
                     String payRate = paymentrateTextField.getText();
                     if (payRate.isEmpty()) {
                         rateFieldValidation();
@@ -270,8 +301,48 @@ public class AddMemberPageController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        final Circle clip1 = new Circle(100,100,100);
-        final Circle clip2 = new Circle(100,100,100);
+        MemberService memberService = new MemberServiceImplementation();
+        ObservableList<String> mList = FXCollections.observableArrayList("Baisakh", "Jestha", "Asadh", "Shrawan", "Bhadra", "Asoj", "Kartik", "Mangsir", "Poush", "Magh", "Falgun", "Chaitra");
+        ObservableList<Integer> yList = FXCollections.observableArrayList();
+        for (int i = 1999; i <= 2099; i++) {
+            yList.add(i);
+        }
+        dobbsyear.getSelectionModel().select(Integer.parseInt(defaultYear));
+        dobbsmonth.getSelectionModel().select(defaultMonth);
+        dobbsday.getSelectionModel().select(Integer.parseInt(defaultDay));
+
+        dobbsyear.setItems(yList);
+        dobbsmonth.setItems(mList);
+        memsinbsyear.setItems(yList);
+        memsinbsmonth.setItems(mList);
+        paybsyear.setItems(yList);
+        paybsmonth.setItems(mList);
+        dobbsyear.valueProperty().addListener(new ChangeListener<Integer>() {
+            @Override
+            public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
+                ObservableList<Integer> dList = FXCollections.observableArrayList();
+                String selectedYear = String.valueOf(dobbsyear.getSelectionModel().getSelectedItem());
+                int selectedMonth = memberService.monthToNumberConversion(dobbsmonth.getSelectionModel().getSelectedItem());
+                dList = memberService.dayValues(selectedYear, selectedMonth);
+                dobbsday.setItems(dList);
+            }
+
+        });
+        dobbsmonth.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                ObservableList<Integer> dList = FXCollections.observableArrayList();
+                String selectedYear = String.valueOf(dobbsyear.getSelectionModel().getSelectedItem());
+                int selectedMonth = memberService.monthToNumberConversion(dobbsmonth.getSelectionModel().getSelectedItem());
+                dList = memberService.dayValues(selectedYear, selectedMonth);
+                dobbsday.setItems(dList);
+
+            }
+
+        });
+
+        final Circle clip1 = new Circle(100, 100, 100);
+        final Circle clip2 = new Circle(100, 100, 100);
         photoImageView.setClip(clip1);
         uploadImageView.setClip(clip2);
         RequiredFieldValidator idFieldValidator = new RequiredFieldValidator();
@@ -361,18 +432,18 @@ public class AddMemberPageController implements Initializable {
         float validDays = Float.parseFloat(payAmount) / ratePerDay;
         return (int) validDays;
     }
-    
-    public int calculateDays(String string1){
-        long diff=0;
+
+    public int calculateDays(String string1) {
+        long diff = 0;
         try {
             SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date date1 = myFormat.parse(string1);
             Date date2 = myFormat.parse(LocalDate.now().toString());
             diff = date1.getTime() - date2.getTime();
-                    } catch (ParseException ex) {
+        } catch (ParseException ex) {
             Logger.getLogger(AddMemberPageController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return (int)TimeUnit.DAYS.convert(diff,TimeUnit.MILLISECONDS);
+        return (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
     }
-    
+
 }

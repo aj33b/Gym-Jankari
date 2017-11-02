@@ -78,11 +78,13 @@ public class ViewMemberPageController implements Initializable {
         MemberService memberService = new MemberServiceImplementation();
         populateTable();
         memberdetailTableView.setItems(memberService.getAllMember());
-        memberdetailTableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                id = memberdetailTableView.getSelectionModel().getSelectedItem().getDisplayId();
-                if (id != null) {
+    }
+    
+    @FXML
+    public void clickItem(MouseEvent event){
+        if(event.getClickCount()==1){
+            id = memberdetailTableView.getSelectionModel().getSelectedItem().getDisplayId();
+            if (id != null) {
                     FXMLLoader loader = new FXMLLoader();
                     try {
                         loader.setLocation(Main.class.getResource("ViewMemberMain/ViewMemberMain.fxml"));
@@ -94,10 +96,9 @@ public class ViewMemberPageController implements Initializable {
                     ViewMemberMainController viewMemberController = loader.getController();
                     viewMemberController.setData(id);
                 }
-            }
-        });
+        }
     }
-
+    
     @FXML
     private void searchButtonClicked(ActionEvent event) {
         MemberService memberService = new MemberServiceImplementation();

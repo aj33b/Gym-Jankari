@@ -6,6 +6,7 @@
 package gymjankari_v1.AddMemberPage;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
 import com.jfoenix.validation.RequiredFieldValidator;
@@ -34,6 +35,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
@@ -61,8 +63,6 @@ public class AddMemberPageController implements Initializable {
     @FXML
     private JFXTextField fullnameTextField;
     @FXML
-    private DatePicker dobDatePicker;
-    @FXML
     private RadioButton maleRadioButton;
     @FXML
     private RadioButton femaleRadioButton;
@@ -89,13 +89,9 @@ public class AddMemberPageController implements Initializable {
     @FXML
     private JFXTextField memberidTextField;
     @FXML
-    private DatePicker membersinceDatePicker;
-    @FXML
     private JFXTimePicker startTimePicker;
     @FXML
     private JFXTimePicker endTimePicker;
-    @FXML
-    private DatePicker paymentdateDatePicker;
     @FXML
     private JFXTextField paymentrateTextField;
     @FXML
@@ -109,6 +105,24 @@ public class AddMemberPageController implements Initializable {
     private String imageDataString;
     @FXML
     private ImageView uploadImageView;
+    @FXML
+    private JFXComboBox<?> dobbsmonth;
+    @FXML
+    private JFXComboBox<?> dobbsday;
+    @FXML
+    private JFXComboBox<?> dobbsyear;
+    @FXML
+    private JFXComboBox<?> memsinbsmonth;
+    @FXML
+    private JFXComboBox<?> memsinbsday;
+    @FXML
+    private JFXComboBox<?> memsinbsyear;
+    @FXML
+    private JFXComboBox<?> paybsmonth;
+    @FXML
+    private JFXComboBox<?> paybsday;
+    @FXML
+    private JFXComboBox<?> paybsyear;
 
     @FXML
     private void uploadButtonClicked() throws IOException {

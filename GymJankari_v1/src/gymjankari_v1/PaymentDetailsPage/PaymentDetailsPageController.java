@@ -6,6 +6,7 @@
 package gymjankari_v1.PaymentDetailsPage;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
@@ -51,8 +52,6 @@ public class PaymentDetailsPageController implements Initializable {
     @FXML
     private JFXTextField paymentrateTextField;
     @FXML
-    private JFXDatePicker paymentdateDatePicker;
-    @FXML
     private JFXTextField paymentamountTextField;
     @FXML
     private TableView<Member> paymentdetailTableView;
@@ -64,6 +63,12 @@ public class PaymentDetailsPageController implements Initializable {
     private JFXButton saveButton;
 
     private LocalDate expiryDateFromDB;
+    @FXML
+    private JFXComboBox<?> paybsmonth;
+    @FXML
+    private JFXComboBox<?> paybsday;
+    @FXML
+    private JFXComboBox<?> paybsyear;
 
     /**
      * Initializes the controller class.

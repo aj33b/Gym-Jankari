@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXTimePicker?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
@@ -29,7 +29,7 @@
    <center>
       <AnchorPane style="-fx-background-color: #ffffff;">
          <children>
-            <ScrollPane fitToWidth="true" layoutY="125.0" prefViewportHeight="600.0" prefViewportWidth="785.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
+            <ScrollPane fitToWidth="true" layoutY="125.0" prefViewportHeight="600.0" prefViewportWidth="785.0" prefWidth="850.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="-31.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
                <content>
                   <AnchorPane style="-fx-background-color: #ffffff;">
                      <children>
@@ -43,7 +43,18 @@
                                        </font>
                                     </Label>
                                     <JFXTextField fx:id="fullnameTextField" editable="false" labelFloat="true" promptText="Full Name" />
-                                    <JFXDatePicker fx:id="dobDatePicker" defaultColor="#4CAF50" prefHeight="25.0" prefWidth="275.0" promptText="Date Of Birth" />
+                                    <VBox>
+                                       <children>
+                                          <Label styleClass="label_small" text="Date Of Birth :" />
+                                          <HBox spacing="15.0">
+                                             <children>
+                                                <JFXComboBox fx:id="dobbsmonth" prefHeight="25.0" prefWidth="102.0" />
+                                                <JFXComboBox fx:id="dobbsday" layoutX="10.0" layoutY="10.0" />
+                                                <JFXComboBox fx:id="dobbsyear" layoutX="81.0" layoutY="10.0" prefHeight="25.0" prefWidth="87.0" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
                                     <HBox spacing="10.0">
                                        <children>
                                           <Label styleClass="label_small" text="Gender :" />
@@ -89,10 +100,21 @@
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </Label>
-                                    <HBox spacing="15.0">
+                                    <HBox alignment="BOTTOM_LEFT" spacing="15.0">
                                        <children>
                                           <JFXTextField fx:id="memberidTextField" editable="false" labelFloat="true" layoutX="20.0" layoutY="389.0" prefHeight="23.0" prefWidth="185.0" promptText="Membership ID" />
-                                          <JFXDatePicker fx:id="membersinceDatePicker" defaultColor="#4CAF50" prefHeight="25.0" prefWidth="246.0" promptText="Member Since" />
+                                          <VBox>
+                                             <children>
+                                                <Label styleClass="label_small" text="Member Since:" />
+                                                <HBox spacing="15.0">
+                                                   <children>
+                                                      <JFXComboBox fx:id="memsinbsmonth" prefHeight="25.0" prefWidth="102.0" />
+                                                      <JFXComboBox fx:id="memsinbsday" layoutX="10.0" layoutY="10.0" />
+                                                      <JFXComboBox fx:id="memsinbsyear" layoutX="81.0" layoutY="10.0" prefHeight="25.0" prefWidth="87.0" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER_LEFT" spacing="15.0">

@@ -5,6 +5,7 @@
  */
 package gymjankari_v1.serviceimplementation;
 
+import gymjankari_v1.PaymentDetailsPage.PaymentDetailsPageController;
 import gymjankari_v1.dateconverter.DateConverter;
 import gymjankari_v1.dateconverter.DateConverterInterface;
 import gymjankari_v1.dateconverter.NepaliDateStorage;
@@ -16,6 +17,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -79,6 +85,7 @@ public class MemberServiceImplementation implements MemberService {
 
     @Override
     public ObservableList<Member> getAllMember() {
+        DateConverterInterface dateConverterInterface = new DateConverter();
         ObservableList<Member> memberList = FXCollections.observableArrayList();
         String read_sql = "select * from gymjankaridb";
         try {
@@ -106,7 +113,7 @@ public class MemberServiceImplementation implements MemberService {
                 member.setPayDate(rs.getString("PaymentDate"));
                 member.setPayRate(rs.getFloat("MonthlyRate"));
                 member.setPayAmount(rs.getFloat("PaymentAmount"));
-                member.setExpiryDate(rs.getString("ExpiryDate"));
+                member.setExpiryDate(dateConverterInterface.convertAdToBs(rs.getString("ExpiryDate")));
                 member.setPicture(rs.getString("Picture"));
                 member.setDay(rs.getInt("DaysRemaining"));
                 memberList.add(member);
@@ -351,7 +358,7 @@ public class MemberServiceImplementation implements MemberService {
 
     @Override
     public String numberToMonthConversion(int day) {
-        switch(day){
+        switch (day) {
             case 1:
                 return "Baisakh";
             case 2:
@@ -381,46 +388,86 @@ public class MemberServiceImplementation implements MemberService {
     }
 
     @Override
-    public int monthToNumberConversion(String day) {
-        switch(day){
+    public String monthToNumberConversion(String day) {
+        switch (day) {
             case "Baisakh":
-                return 1;
+                return "01";
             case "Jestha":
-                return 2;
+                return "02";
             case "Asadh":
-                return 3;
+                return "03";
             case "Shrawan":
-                return 4;
+                return "04";
             case "Bhadra":
-                return 5;
+                return "05";
             case "Asoj":
-                return 6;
+                return "06";
             case "Kartik":
-                return 7;
+                return "07";
             case "Mangsir":
-                return 8;
+                return "08";
             case "Poush":
-                return 9;
+                return "09";
             case "Magh":
-                return 10;
+                return "10";
             case "Falgun":
-                return 11;
+                return "11";
             case "Chaitra":
-                return 12;
-            
+                return "12";
+
         }
-        return 0;
+        return null;
     }
 
     @Override
-    public ObservableList<Integer> dayValues(String bsYear, int bsMonth) {
+    public ObservableList<String> dayValues(String bsYear, int bsMonth) {
+        String[] days = {"01", "02", "03", "04", "05", "06", "07", "08", "09",
+            "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21",
+            "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32"};
         DateConverterInterface dateConverterInterface = new DateConverter();
-        ObservableList<Integer> returnList = FXCollections.observableArrayList();
+        ObservableList<String> returnList = FXCollections.observableArrayList();
         int index = dateConverterInterface.getBsIndex(Integer.parseInt(bsYear));
-        for(int i=1;i<=NepaliDateStorage.nepaliMonthDays.get(index)[bsMonth-1];i++){
-         returnList.add(i);   
+        for (int i = 1; i <= NepaliDateStorage.nepaliMonthDays.get(index)[bsMonth - 1]; i++) {
+            returnList.add(days[i - 1]);
         }
         return returnList;
+    }
+
+    @Override
+    public int calculateDays(String string1) {
+        long diff = 0;
+        try {
+            SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date date1 = myFormat.parse(string1);
+            Date date2 = myFormat.parse(LocalDate.now().toString());
+            diff = date1.getTime() - date2.getTime();
+        } catch (ParseException ex) {
+            Logger.getLogger(PaymentDetailsPageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+    }
+
+    @Override
+    public boolean updateDaysRemaining() {
+        MemberService memberService = new MemberServiceImplementation();
+        try {
+            String read_sql = "select MemberId,ExpiryDate from gymjankaridb";
+            String update_sql;
+            PreparedStatement update_pstm;
+            Statement read_stm = connect.createStatement();
+            ResultSet rs = read_stm.executeQuery(read_sql);
+            while (rs.next()) {
+                String memberId = rs.getString("MemberId");
+                String expiryDate = rs.getString("ExpiryDate");
+                update_sql = "update gymjankaridb set DaysRemaining=? where MemberId='" + memberId + "'";
+                update_pstm = connect.prepareStatement(update_sql);
+                update_pstm.setInt(1, memberService.calculateDays(expiryDate));
+                update_pstm.execute();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 
 }

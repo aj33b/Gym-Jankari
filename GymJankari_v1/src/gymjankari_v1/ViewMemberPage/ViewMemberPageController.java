@@ -64,8 +64,9 @@ public class ViewMemberPageController implements Initializable {
     private TableColumn<Member, String> expirydateTableColumn;
     @FXML
     private ToggleGroup search;
-    
+
     private String id = null;
+
     /**
      * Initializes the controller class.
      *

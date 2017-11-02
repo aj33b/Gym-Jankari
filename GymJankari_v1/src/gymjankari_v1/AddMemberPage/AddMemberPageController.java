@@ -22,15 +22,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
@@ -119,25 +116,25 @@ public class AddMemberPageController implements Initializable {
     @FXML
     private JFXComboBox<String> dobbsmonth;
     @FXML
-    private JFXComboBox<Integer> dobbsday;
+    private JFXComboBox<String> dobbsday;
     @FXML
     private JFXComboBox<Integer> dobbsyear;
     @FXML
     private JFXComboBox<String> memsinbsmonth;
     @FXML
-    private JFXComboBox<Integer> memsinbsday;
+    private JFXComboBox<String> memsinbsday;
     @FXML
     private JFXComboBox<Integer> memsinbsyear;
     @FXML
     private JFXComboBox<String> paybsmonth;
     @FXML
-    private JFXComboBox<Integer> paybsday;
+    private JFXComboBox<String> paybsday;
     @FXML
     private JFXComboBox<Integer> paybsyear;
     @FXML
     private ListView<String> monthList;
     @FXML
-    private ListView<Integer> dayList;
+    private ListView<String> dayList;
     @FXML
     private ListView<Integer> yearList;
 
@@ -181,8 +178,8 @@ public class AddMemberPageController implements Initializable {
         } else {
             member.setFullName(name);
             String dobYear = dobbsyear.getSelectionModel().getSelectedItem().toString();
-            String dobMonth = String.valueOf(memberService.monthToNumberConversion(dobbsmonth.getSelectionModel().getSelectedItem()));
-            String dobDay = String.valueOf(dobbsday.getSelectionModel().getSelectedItem());
+            String dobMonth = memberService.monthToNumberConversion(dobbsmonth.getSelectionModel().getSelectedItem());
+            String dobDay = dobbsday.getSelectionModel().getSelectedItem();
             String dobBsDate = dobYear.concat("-").concat(dobMonth).concat("-").concat(dobDay);
             member.setDOB(dateConverterInterface.convertBsToAd(dobBsDate));
             if (maleRadioButton.isSelected()) {
@@ -217,7 +214,7 @@ public class AddMemberPageController implements Initializable {
                     member.setmId(memberId);
                     String memberSinceYear = memsinbsyear.getSelectionModel().getSelectedItem().toString();
                     String memberSinceMonth = String.valueOf(memberService.monthToNumberConversion(memsinbsmonth.getSelectionModel().getSelectedItem()));
-                    String memberSinceDay = String.valueOf(memsinbsday.getSelectionModel().getSelectedItem());
+                    String memberSinceDay = memsinbsday.getSelectionModel().getSelectedItem();
                     String memberSinceBsDate = memberSinceYear.concat("-").concat(memberSinceMonth).concat("-").concat(memberSinceDay);
                     member.setMemberSince(dateConverterInterface.convertBsToAd(memberSinceBsDate));
                     LocalTime startTime = startTimePicker.getValue();
@@ -236,7 +233,7 @@ public class AddMemberPageController implements Initializable {
                     }
                     String payYear = paybsyear.getSelectionModel().getSelectedItem().toString();
                     String payMonth = String.valueOf(memberService.monthToNumberConversion(paybsmonth.getSelectionModel().getSelectedItem()));
-                    String payDay = String.valueOf(paybsday.getSelectionModel().getSelectedItem());
+                    String payDay = paybsday.getSelectionModel().getSelectedItem();
                     String payBsDate = payYear.concat("-").concat(payMonth).concat("-").concat(payDay);
                     member.setPayDate(dateConverterInterface.convertBsToAd(payBsDate));
                     String payRate = paymentrateTextField.getText();
@@ -262,7 +259,7 @@ public class AddMemberPageController implements Initializable {
                                 member.setExpiryDate(LocalDate.now().toString());
                             }
                             member.setPicture(imageDataString);
-                            int daysRemaining = calculateDays(member.getExpiryDate());
+                            int daysRemaining = memberService.calculateDays(member.getExpiryDate());
                             member.setDay(daysRemaining);
                             boolean res = memberService.addMember(member);
                             if (res) {
@@ -307,22 +304,35 @@ public class AddMemberPageController implements Initializable {
         for (int i = 1999; i <= 2099; i++) {
             yList.add(i);
         }
-        dobbsyear.getSelectionModel().select(Integer.parseInt(defaultYear));
-        dobbsmonth.getSelectionModel().select(defaultMonth);
-        dobbsday.getSelectionModel().select(Integer.parseInt(defaultDay));
-
+        ObservableList<String> defaultDays = FXCollections.observableArrayList("01", "02", "03", "04", "05", "06", "07", "08", "09",
+                "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21",
+                "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32");
         dobbsyear.setItems(yList);
         dobbsmonth.setItems(mList);
+        dobbsday.setItems(defaultDays);
         memsinbsyear.setItems(yList);
         memsinbsmonth.setItems(mList);
+        memsinbsday.setItems(defaultDays);
         paybsyear.setItems(yList);
         paybsmonth.setItems(mList);
+        paybsday.setItems(defaultDays);
+
+        dobbsyear.getSelectionModel().select(yList.get(Integer.parseInt(defaultYear) - 1999));
+        dobbsmonth.getSelectionModel().select(mList.get(Integer.parseInt(defaultMonth) - 1));
+        dobbsday.getSelectionModel().select(defaultDays.get(Integer.parseInt(defaultDay) - 1));
+        memsinbsyear.getSelectionModel().select(yList.get(Integer.parseInt(defaultYear) - 1999));
+        memsinbsmonth.getSelectionModel().select(mList.get(Integer.parseInt(defaultMonth) - 1));
+        memsinbsday.getSelectionModel().select(defaultDays.get(Integer.parseInt(defaultDay) - 1));
+        paybsyear.getSelectionModel().select(yList.get(Integer.parseInt(defaultYear) - 1999));
+        paybsmonth.getSelectionModel().select(mList.get(Integer.parseInt(defaultMonth) - 1));
+        paybsday.getSelectionModel().select(defaultDays.get(Integer.parseInt(defaultDay) - 1));
+
         dobbsyear.valueProperty().addListener(new ChangeListener<Integer>() {
             @Override
             public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
-                ObservableList<Integer> dList = FXCollections.observableArrayList();
+                ObservableList<String> dList = FXCollections.observableArrayList();
                 String selectedYear = String.valueOf(dobbsyear.getSelectionModel().getSelectedItem());
-                int selectedMonth = memberService.monthToNumberConversion(dobbsmonth.getSelectionModel().getSelectedItem());
+                int selectedMonth = Integer.parseInt(memberService.monthToNumberConversion(dobbsmonth.getSelectionModel().getSelectedItem()));
                 dList = memberService.dayValues(selectedYear, selectedMonth);
                 dobbsday.setItems(dList);
             }
@@ -331,11 +341,57 @@ public class AddMemberPageController implements Initializable {
         dobbsmonth.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                ObservableList<Integer> dList = FXCollections.observableArrayList();
+                ObservableList<String> dList = FXCollections.observableArrayList();
                 String selectedYear = String.valueOf(dobbsyear.getSelectionModel().getSelectedItem());
-                int selectedMonth = memberService.monthToNumberConversion(dobbsmonth.getSelectionModel().getSelectedItem());
+                int selectedMonth = Integer.parseInt(memberService.monthToNumberConversion(dobbsmonth.getSelectionModel().getSelectedItem()));
                 dList = memberService.dayValues(selectedYear, selectedMonth);
                 dobbsday.setItems(dList);
+
+            }
+
+        });
+        memsinbsyear.valueProperty().addListener(new ChangeListener<Integer>() {
+            @Override
+            public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
+                ObservableList<String> dList = FXCollections.observableArrayList();
+                String selectedYear = String.valueOf(memsinbsyear.getSelectionModel().getSelectedItem());
+                int selectedMonth = Integer.parseInt(memberService.monthToNumberConversion(memsinbsmonth.getSelectionModel().getSelectedItem()));
+                dList = memberService.dayValues(selectedYear, selectedMonth);
+                memsinbsday.setItems(dList);
+            }
+
+        });
+        memsinbsmonth.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                ObservableList<String> dList = FXCollections.observableArrayList();
+                String selectedYear = String.valueOf(memsinbsyear.getSelectionModel().getSelectedItem());
+                int selectedMonth = Integer.parseInt(memberService.monthToNumberConversion(memsinbsmonth.getSelectionModel().getSelectedItem()));
+                dList = memberService.dayValues(selectedYear, selectedMonth);
+                memsinbsday.setItems(dList);
+
+            }
+
+        });
+        paybsyear.valueProperty().addListener(new ChangeListener<Integer>() {
+            @Override
+            public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
+                ObservableList<String> dList = FXCollections.observableArrayList();
+                String selectedYear = String.valueOf(paybsyear.getSelectionModel().getSelectedItem());
+                int selectedMonth = Integer.parseInt(memberService.monthToNumberConversion(paybsmonth.getSelectionModel().getSelectedItem()));
+                dList = memberService.dayValues(selectedYear, selectedMonth);
+                paybsday.setItems(dList);
+            }
+
+        });
+        paybsmonth.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                ObservableList<String> dList = FXCollections.observableArrayList();
+                String selectedYear = String.valueOf(paybsyear.getSelectionModel().getSelectedItem());
+                int selectedMonth = Integer.parseInt(memberService.monthToNumberConversion(paybsmonth.getSelectionModel().getSelectedItem()));
+                dList = memberService.dayValues(selectedYear, selectedMonth);
+                paybsday.setItems(dList);
 
             }
 
@@ -432,18 +488,4 @@ public class AddMemberPageController implements Initializable {
         float validDays = Float.parseFloat(payAmount) / ratePerDay;
         return (int) validDays;
     }
-
-    public int calculateDays(String string1) {
-        long diff = 0;
-        try {
-            SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date date1 = myFormat.parse(string1);
-            Date date2 = myFormat.parse(LocalDate.now().toString());
-            diff = date1.getTime() - date2.getTime();
-        } catch (ParseException ex) {
-            Logger.getLogger(AddMemberPageController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-    }
-
 }

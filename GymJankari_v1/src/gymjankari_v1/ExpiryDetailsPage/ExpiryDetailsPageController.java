@@ -113,13 +113,11 @@ public class ExpiryDetailsPageController implements Initializable {
         if (day == null) {
             return Color.WHITESMOKE;
         }
-        if (Integer.parseInt(day)<=0) {
-            return Color.rgb(229,115,115);
-        }
-        else if(Integer.parseInt(day)>0 && Integer.parseInt(day)<=7){
-           return Color.YELLOW;   
-        }
-        else{
+        if (Integer.parseInt(day) <= 0) {
+            return Color.rgb(229, 115, 115);
+        } else if (Integer.parseInt(day) > 0 && Integer.parseInt(day) <= 7) {
+            return Color.YELLOW;
+        } else {
             return Color.WHITE;
         }
     }

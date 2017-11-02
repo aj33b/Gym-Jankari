@@ -28,7 +28,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -134,16 +133,16 @@ public class ViewMemberMainController implements Initializable {
     @FXML
     private JFXComboBox<String> dobbsmonth;
     @FXML
-    private JFXComboBox<Integer> dobbsday;
+    private JFXComboBox<String> dobbsday;
     @FXML
     private JFXComboBox<Integer> dobbsyear;
     @FXML
     private JFXComboBox<String> memsinbsmonth;
     @FXML
-    private JFXComboBox<Integer> memsinbsday;
+    private JFXComboBox<String> memsinbsday;
     @FXML
     private JFXComboBox<Integer> memsinbsyear;
-    
+
     DateConverterInterface dateConverterInterface = new DateConverter();
     LocalDate default_date = LocalDate.now();
     String default_bs_date = dateConverterInterface.convertAdToBs(default_date.toString());
@@ -151,6 +150,12 @@ public class ViewMemberMainController implements Initializable {
     String defaultYear = defaultBsDate[0];
     String defaultMonth = defaultBsDate[1];
     String defaultDay = defaultBsDate[2];
+
+    ObservableList<String> mList = FXCollections.observableArrayList("Baisakh", "Jestha", "Asadh", "Shrawan", "Bhadra", "Asoj", "Kartik", "Mangsir", "Poush", "Magh", "Falgun", "Chaitra");
+    ObservableList<Integer> yList = FXCollections.observableArrayList();
+    ObservableList<String> defaultDays = FXCollections.observableArrayList("01", "02", "03", "04", "05", "06", "07", "08", "09",
+            "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21",
+            "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32");
 
     @FXML
     private void uploadButtonClicked() throws IOException {
@@ -184,7 +189,7 @@ public class ViewMemberMainController implements Initializable {
         } else {
             member.setFullName(name);
             String dobYear = dobbsyear.getSelectionModel().getSelectedItem().toString();
-            String dobMonth = String.valueOf(memberService.monthToNumberConversion(dobbsmonth.getSelectionModel().getSelectedItem()));
+            String dobMonth = memberService.monthToNumberConversion(dobbsmonth.getSelectionModel().getSelectedItem());
             String dobDay = String.valueOf(dobbsday.getSelectionModel().getSelectedItem());
             String dobBsDate = dobYear.concat("-").concat(dobMonth).concat("-").concat(dobDay);
             member.setDOB(dateConverterInterface.convertBsToAd(dobBsDate));
@@ -208,7 +213,7 @@ public class ViewMemberMainController implements Initializable {
             member.setStartTime(startTimePicker.getValue().toString());
             member.setEndTime(endTimePicker.getValue().toString());
             String memberSinceYear = memsinbsyear.getSelectionModel().getSelectedItem().toString();
-            String memberSinceMonth = String.valueOf(memberService.monthToNumberConversion(memsinbsmonth.getSelectionModel().getSelectedItem()));
+            String memberSinceMonth = memberService.monthToNumberConversion(memsinbsmonth.getSelectionModel().getSelectedItem());
             String memberSinceDay = String.valueOf(memsinbsday.getSelectionModel().getSelectedItem());
             String memberSinceBsDate = memberSinceYear.concat("-").concat(memberSinceMonth).concat("-").concat(memberSinceDay);
             member.setMemberSince(dateConverterInterface.convertBsToAd(memberSinceBsDate));
@@ -281,27 +286,30 @@ public class ViewMemberMainController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-         MemberService memberService = new MemberServiceImplementation();
-        ObservableList<String> mList = FXCollections.observableArrayList("Baisakh", "Jestha", "Asadh", "Shrawan", "Bhadra", "Asoj", "Kartik", "Mangsir", "Poush", "Magh", "Falgun", "Chaitra");
-        ObservableList<Integer> yList = FXCollections.observableArrayList();
+        MemberService memberService = new MemberServiceImplementation();
         for (int i = 1999; i <= 2099; i++) {
             yList.add(i);
         }
-        dobbsyear.getSelectionModel().select(Integer.parseInt(defaultYear));
-        dobbsmonth.getSelectionModel().select(defaultMonth);
-        dobbsday.getSelectionModel().select(Integer.parseInt(defaultDay));
-
         dobbsyear.setItems(yList);
         dobbsmonth.setItems(mList);
+        dobbsday.setItems(defaultDays);
         memsinbsyear.setItems(yList);
         memsinbsmonth.setItems(mList);
+        memsinbsday.setItems(defaultDays);
+
+        dobbsyear.getSelectionModel().select(yList.get(Integer.parseInt(defaultYear) - 1999));
+        dobbsmonth.getSelectionModel().select(mList.get(Integer.parseInt(defaultMonth) - 1));
+        dobbsday.getSelectionModel().select(defaultDays.get(Integer.parseInt(defaultDay) - 1));
+        memsinbsyear.getSelectionModel().select(yList.get(Integer.parseInt(defaultYear) - 1999));
+        memsinbsmonth.getSelectionModel().select(mList.get(Integer.parseInt(defaultMonth) - 1));
+        memsinbsday.getSelectionModel().select(defaultDays.get(Integer.parseInt(defaultDay) - 1));
+
         dobbsyear.valueProperty().addListener(new ChangeListener<Integer>() {
             @Override
             public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
-                ObservableList<Integer> dList = FXCollections.observableArrayList();
+                ObservableList<String> dList = FXCollections.observableArrayList();
                 String selectedYear = String.valueOf(dobbsyear.getSelectionModel().getSelectedItem());
-                int selectedMonth = memberService.monthToNumberConversion(dobbsmonth.getSelectionModel().getSelectedItem());
+                int selectedMonth = Integer.parseInt(memberService.monthToNumberConversion(dobbsmonth.getSelectionModel().getSelectedItem()));
                 dList = memberService.dayValues(selectedYear, selectedMonth);
                 dobbsday.setItems(dList);
             }
@@ -310,18 +318,41 @@ public class ViewMemberMainController implements Initializable {
         dobbsmonth.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                ObservableList<Integer> dList = FXCollections.observableArrayList();
+                ObservableList<String> dList = FXCollections.observableArrayList();
                 String selectedYear = String.valueOf(dobbsyear.getSelectionModel().getSelectedItem());
-                int selectedMonth = memberService.monthToNumberConversion(dobbsmonth.getSelectionModel().getSelectedItem());
+                int selectedMonth = Integer.parseInt(memberService.monthToNumberConversion(dobbsmonth.getSelectionModel().getSelectedItem()));
                 dList = memberService.dayValues(selectedYear, selectedMonth);
                 dobbsday.setItems(dList);
 
             }
 
         });
-        
-        final Circle clip1 = new Circle(100,100,100);
-        final Circle clip2 = new Circle(100,100,100);
+        memsinbsyear.valueProperty().addListener(new ChangeListener<Integer>() {
+            @Override
+            public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
+                ObservableList<String> dList = FXCollections.observableArrayList();
+                String selectedYear = String.valueOf(memsinbsyear.getSelectionModel().getSelectedItem());
+                int selectedMonth = Integer.parseInt(memberService.monthToNumberConversion(memsinbsmonth.getSelectionModel().getSelectedItem()));
+                dList = memberService.dayValues(selectedYear, selectedMonth);
+                memsinbsday.setItems(dList);
+            }
+
+        });
+        memsinbsmonth.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                ObservableList<String> dList = FXCollections.observableArrayList();
+                String selectedYear = String.valueOf(memsinbsyear.getSelectionModel().getSelectedItem());
+                int selectedMonth = Integer.parseInt(memberService.monthToNumberConversion(memsinbsmonth.getSelectionModel().getSelectedItem()));
+                dList = memberService.dayValues(selectedYear, selectedMonth);
+                memsinbsday.setItems(dList);
+
+            }
+
+        });
+
+        final Circle clip1 = new Circle(100, 100, 100);
+        final Circle clip2 = new Circle(100, 100, 100);
         photoImageView.setClip(clip1);
         uploadImageView.setClip(clip2);
         RequiredFieldValidator idFieldValidator = new RequiredFieldValidator();
@@ -445,12 +476,12 @@ public class ViewMemberMainController implements Initializable {
             String dobYear = dobBsDate[0];
             String dobMonth = dobBsDate[1];
             String dobDay = dobBsDate[2];
-            dobbsyear.getSelectionModel().select(Integer.parseInt(dobYear));
-            dobbsmonth.getSelectionModel().select(memberService.numberToMonthConversion(Integer.parseInt(dobMonth)));
-            dobbsday.getSelectionModel().select(Integer.parseInt(dobDay));
+            dobbsyear.getSelectionModel().select(yList.get(Integer.parseInt(dobYear) - 1999));
+            dobbsmonth.getSelectionModel().select(mList.get(Integer.parseInt(dobMonth) - 1));
+            dobbsday.getSelectionModel().select(defaultDays.get(Integer.parseInt(dobDay) - 1));
             heightTextField.setText(member.getHeight());
             weightTextField.setText(member.getWeight());
-            
+
             int age = Integer.parseInt(defaultYear) - Integer.parseInt(dobYear);
             ageTextField.setText(String.valueOf(age));
             streetTextField.setText(member.getStreet());
@@ -467,9 +498,9 @@ public class ViewMemberMainController implements Initializable {
             String memberSinceYear = memberSinceBsDate[0];
             String memberSinceMonth = memberSinceBsDate[1];
             String memberSinceDay = memberSinceBsDate[2];
-            memsinbsyear.getSelectionModel().select(Integer.parseInt(memberSinceYear));
-            memsinbsmonth.getSelectionModel().select(memberService.numberToMonthConversion(Integer.parseInt(memberSinceMonth)));
-            memsinbsday.getSelectionModel().select(Integer.parseInt(memberSinceDay));
+            memsinbsyear.getSelectionModel().select(yList.get(Integer.parseInt(memberSinceYear) - 1999));
+            memsinbsmonth.getSelectionModel().select(mList.get(Integer.parseInt(memberSinceMonth) - 1));
+            memsinbsday.getSelectionModel().select(defaultDays.get(Integer.parseInt(memberSinceDay) - 1));
             paymentrateTextField.setText(String.valueOf(member.getPayRate()));
             imageDataString = member.getPicture();
             if (imageDataString != null) {

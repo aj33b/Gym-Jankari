@@ -17,16 +17,18 @@ import gymjankari_v1.service.MemberService;
 import gymjankari_v1.serviceimplementation.MemberServiceImplementation;
 import java.io.IOException;
 import java.net.URL;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -67,22 +69,69 @@ public class PaymentDetailsPageController implements Initializable {
     @FXML
     private JFXComboBox<String> paybsmonth;
     @FXML
-    private JFXComboBox<Integer> paybsday;
+    private JFXComboBox<String> paybsday;
     @FXML
     private JFXComboBox<Integer> paybsyear;
+
+    DateConverterInterface dateConverterInterface = new DateConverter();
+    LocalDate default_date = LocalDate.now();
+    String default_bs_date = dateConverterInterface.convertAdToBs(default_date.toString());
+    String defaultBsDate[] = default_bs_date.split("-");
+    String defaultYear = defaultBsDate[0];
+    String defaultMonth = defaultBsDate[1];
+    String defaultDay = defaultBsDate[2];
+
+    ObservableList<String> mList = FXCollections.observableArrayList("Baisakh", "Jestha", "Asadh", "Shrawan", "Bhadra", "Asoj", "Kartik", "Mangsir", "Poush", "Magh", "Falgun", "Chaitra");
+    ObservableList<Integer> yList = FXCollections.observableArrayList();
+    ObservableList<String> defaultDays = FXCollections.observableArrayList("01", "02", "03", "04", "05", "06", "07", "08", "09",
+            "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21",
+            "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32");
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        MemberService memberService = new MemberServiceImplementation();
+        for (int i = 1999; i <= 2099; i++) {
+            yList.add(i);
+        }
+        paybsyear.setItems(yList);
+        paybsmonth.setItems(mList);
+        paybsday.setItems(defaultDays);
 
+        paybsyear.getSelectionModel().select(yList.get(Integer.parseInt(defaultYear) - 1999));
+        paybsmonth.getSelectionModel().select(mList.get(Integer.parseInt(defaultMonth) - 1));
+        paybsday.getSelectionModel().select(defaultDays.get(Integer.parseInt(defaultDay) - 1));
+
+        paybsyear.valueProperty().addListener(new ChangeListener<Integer>() {
+            @Override
+            public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
+                ObservableList<String> dList = FXCollections.observableArrayList();
+                String selectedYear = String.valueOf(paybsyear.getSelectionModel().getSelectedItem());
+                int selectedMonth = Integer.parseInt(memberService.monthToNumberConversion(paybsmonth.getSelectionModel().getSelectedItem()));
+                dList = memberService.dayValues(selectedYear, selectedMonth);
+                paybsday.setItems(dList);
+            }
+
+        });
+        paybsmonth.valueProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                ObservableList<String> dList = FXCollections.observableArrayList();
+                String selectedYear = String.valueOf(paybsyear.getSelectionModel().getSelectedItem());
+                int selectedMonth = Integer.parseInt(memberService.monthToNumberConversion(paybsmonth.getSelectionModel().getSelectedItem()));
+                dList = memberService.dayValues(selectedYear, selectedMonth);
+                paybsday.setItems(dList);
+
+            }
+
+        });
     }
 
     @FXML
     private void saveButtonClicked(ActionEvent event) {
         MemberService memberService = new MemberServiceImplementation();
-        DateConverterInterface dateConverterInterface = new DateConverter();
         Member member = new Member();
         String payYear = paybsyear.getSelectionModel().getSelectedItem().toString();
         String payMonth = String.valueOf(memberService.monthToNumberConversion(paybsmonth.getSelectionModel().getSelectedItem()));
@@ -99,14 +148,14 @@ public class PaymentDetailsPageController implements Initializable {
 
                 if (LocalDate.now().compareTo(expiryDateFromDB) < 0) {
                     member.setExpiryDate(calculateExpiryDate(expiryDateFromDB.toString(), day));
-                }else{
+                } else {
                     member.setExpiryDate(calculateExpiryDate(dateConverterInterface.convertBsToAd(payBsDate), day));
                 }
 
             } else {
                 member.setExpiryDate(expiryDateFromDB.toString());
             }
-            int daysRemaining = calculateDays(member.getExpiryDate());
+            int daysRemaining = memberService.calculateDays(member.getExpiryDate());
             member.setDay(daysRemaining);
             if (memberService.updatePaymentDetails(member, memberidTextField.getText())) {
                 Image img = new Image("gymjankari_v1/images/checked_icon.png");
@@ -137,10 +186,18 @@ public class PaymentDetailsPageController implements Initializable {
     public void setData(String displayId) {
         MemberService memberService = new MemberServiceImplementation();
         Member member = memberService.getById(displayId);
+        expiryDateFromDB = localDate(member.getExpiryDate());
+        String defaultPaymentDate[] = dateConverterInterface.convertAdToBs(expiryDateFromDB.toString()).split("-");
+        String defaultPaymentYear = defaultPaymentDate[0];
+        String defaultPaymentMonth = defaultPaymentDate[1];
+        String defaultPaymentDay = defaultPaymentDate[2];
+        paybsyear.getSelectionModel().select(yList.get(Integer.parseInt(defaultPaymentYear) - 1999));
+        paybsmonth.getSelectionModel().select(mList.get(Integer.parseInt(defaultPaymentMonth) - 1));
+        paybsday.getSelectionModel().select(defaultDays.get(Integer.parseInt(defaultPaymentDay) - 1));
         fullnameTextField.setText(member.getFullName());
         memberidTextField.setText(member.getDisplayId());
         paymentrateTextField.setText(String.valueOf(member.getPayRate()));
-        expiryDateFromDB = localDate(member.getExpiryDate());
+
         populateTable();
         paymentdetailTableView.setItems(memberService.getPaymentDetails(displayId));
     }
@@ -169,7 +226,7 @@ public class PaymentDetailsPageController implements Initializable {
         return localDate;
     }
 
-    public String calculateExpiryDate(String initialDate,int day) {
+    public String calculateExpiryDate(String initialDate, int day) {
         Date date = java.sql.Date.valueOf(initialDate);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -177,19 +234,6 @@ public class PaymentDetailsPageController implements Initializable {
         Date expiryDate = calendar.getTime();
         String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(expiryDate);
         return formattedDate;
-    }
-    
-    public int calculateDays(String string1){
-        long diff=0;
-        try {
-            SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date date1 = myFormat.parse(string1);
-            Date date2 = myFormat.parse(LocalDate.now().toString());
-            diff = date1.getTime() - date2.getTime();
-                    } catch (ParseException ex) {
-            Logger.getLogger(PaymentDetailsPageController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return (int)TimeUnit.DAYS.convert(diff,TimeUnit.MILLISECONDS);
     }
 
 }

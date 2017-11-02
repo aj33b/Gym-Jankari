@@ -33,10 +33,14 @@ public interface MemberService {
     public ObservableList<Member> getPaymentDetails(String mId);
 
     public boolean updatePaymentDetails(Member member, String mId);
-    
+
     public String numberToMonthConversion(int day);
-    
-    public int monthToNumberConversion(String day);
-    
-    public ObservableList<Integer> dayValues(String bsYear, int bsMonth);
+
+    public String monthToNumberConversion(String day);
+
+    public ObservableList<String> dayValues(String bsYear, int bsMonth);
+
+    public int calculateDays(String string1);
+
+    public boolean updateDaysRemaining();
 }

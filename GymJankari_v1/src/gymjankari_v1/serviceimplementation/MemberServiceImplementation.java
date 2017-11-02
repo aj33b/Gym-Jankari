@@ -305,6 +305,7 @@ public class MemberServiceImplementation implements MemberService {
 
     @Override
     public ObservableList<Member> getPaymentDetails(String mId) {
+        DateConverterInterface dateConverterInterface = new DateConverter();
         ObservableList<Member> paymentDetails = FXCollections.observableArrayList();
         String read_sql = "select * from paymentdetailsdb where MemberId='" + mId + "'";
         try {
@@ -314,7 +315,7 @@ public class MemberServiceImplementation implements MemberService {
                 Member member = new Member();
                 member.setPrimaryId("PrimaryId");
                 member.setDisplayId(rs.getString("MemberId"));
-                member.setPayDate(rs.getString("PaymentDate"));
+                member.setPayDate(dateConverterInterface.convertAdToBs(rs.getString("PaymentDate")));
                 member.setPayAmount(rs.getFloat("PaymentAmount"));
                 paymentDetails.add(member);
             }

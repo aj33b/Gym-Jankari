@@ -184,7 +184,7 @@ public class AddMemberPageController implements Initializable {
             String dobMonth = String.valueOf(memberService.monthToNumberConversion(dobbsmonth.getSelectionModel().getSelectedItem()));
             String dobDay = String.valueOf(dobbsday.getSelectionModel().getSelectedItem());
             String dobBsDate = dobYear.concat("-").concat(dobMonth).concat("-").concat(dobDay);
-            member.setDOB(dateConverterInterface.convertBsToAd(dobBsDate).toString());
+            member.setDOB(dateConverterInterface.convertBsToAd(dobBsDate));
             if (maleRadioButton.isSelected()) {
                 member.setGender("Male");
             } else if (femaleRadioButton.isSelected()) {
@@ -219,7 +219,7 @@ public class AddMemberPageController implements Initializable {
                     String memberSinceMonth = String.valueOf(memberService.monthToNumberConversion(memsinbsmonth.getSelectionModel().getSelectedItem()));
                     String memberSinceDay = String.valueOf(memsinbsday.getSelectionModel().getSelectedItem());
                     String memberSinceBsDate = memberSinceYear.concat("-").concat(memberSinceMonth).concat("-").concat(memberSinceDay);
-                    member.setDOB(dateConverterInterface.convertBsToAd(memberSinceBsDate).toString());
+                    member.setMemberSince(dateConverterInterface.convertBsToAd(memberSinceBsDate));
                     LocalTime startTime = startTimePicker.getValue();
                     if (startTime == null) {
                         LocalTime time = LocalTime.now();
@@ -238,7 +238,7 @@ public class AddMemberPageController implements Initializable {
                     String payMonth = String.valueOf(memberService.monthToNumberConversion(paybsmonth.getSelectionModel().getSelectedItem()));
                     String payDay = String.valueOf(paybsday.getSelectionModel().getSelectedItem());
                     String payBsDate = payYear.concat("-").concat(payMonth).concat("-").concat(payDay);
-                    member.setPayDate(dateConverterInterface.convertBsToAd(payBsDate).toString());
+                    member.setPayDate(dateConverterInterface.convertBsToAd(payBsDate));
                     String payRate = paymentrateTextField.getText();
                     if (payRate.isEmpty()) {
                         rateFieldValidation();
@@ -251,7 +251,7 @@ public class AddMemberPageController implements Initializable {
                             member.setPayAmount(Float.parseFloat(paymentamountTextField.getText()));
                             int day = expiryDateCalculation(payRate, payAmount);
                             if (day != 0) {
-                                Date date = java.sql.Date.valueOf(member.getPayDate());
+                                Date date = java.sql.Date.valueOf(dateConverterInterface.convertBsToAd(payBsDate));
                                 Calendar calendar = Calendar.getInstance();
                                 calendar.setTime(date);
                                 calendar.add(Calendar.DAY_OF_MONTH, day);

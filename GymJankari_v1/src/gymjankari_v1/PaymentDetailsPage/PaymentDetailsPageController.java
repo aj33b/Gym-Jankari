@@ -7,10 +7,11 @@ package gymjankari_v1.PaymentDetailsPage;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import gymjankari_v1.Main;
+import gymjankari_v1.dateconverter.DateConverter;
+import gymjankari_v1.dateconverter.DateConverterInterface;
 import gymjankari_v1.models.Member;
 import gymjankari_v1.service.MemberService;
 import gymjankari_v1.serviceimplementation.MemberServiceImplementation;
@@ -64,11 +65,11 @@ public class PaymentDetailsPageController implements Initializable {
 
     private LocalDate expiryDateFromDB;
     @FXML
-    private JFXComboBox<?> paybsmonth;
+    private JFXComboBox<String> paybsmonth;
     @FXML
-    private JFXComboBox<?> paybsday;
+    private JFXComboBox<Integer> paybsday;
     @FXML
-    private JFXComboBox<?> paybsyear;
+    private JFXComboBox<Integer> paybsyear;
 
     /**
      * Initializes the controller class.
@@ -81,14 +82,13 @@ public class PaymentDetailsPageController implements Initializable {
     @FXML
     private void saveButtonClicked(ActionEvent event) {
         MemberService memberService = new MemberServiceImplementation();
+        DateConverterInterface dateConverterInterface = new DateConverter();
         Member member = new Member();
-        LocalDate payDate = paymentdateDatePicker.getValue();
-        if (payDate == null) {
-            LocalDate date = LocalDate.now();
-            member.setPayDate(date.toString());
-        } else {
-            member.setPayDate(paymentdateDatePicker.getValue().toString());
-        }
+        String payYear = paybsyear.getSelectionModel().getSelectedItem().toString();
+        String payMonth = String.valueOf(memberService.monthToNumberConversion(paybsmonth.getSelectionModel().getSelectedItem()));
+        String payDay = String.valueOf(paybsday.getSelectionModel().getSelectedItem());
+        String payBsDate = payYear.concat("-").concat(payMonth).concat("-").concat(payDay);
+        member.setPayDate(dateConverterInterface.convertBsToAd(payBsDate));
         String payAmount = paymentamountTextField.getText();
         if (payAmount.isEmpty()) {
             amountFieldValidation();
@@ -100,7 +100,7 @@ public class PaymentDetailsPageController implements Initializable {
                 if (LocalDate.now().compareTo(expiryDateFromDB) < 0) {
                     member.setExpiryDate(calculateExpiryDate(expiryDateFromDB.toString(), day));
                 }else{
-                    member.setExpiryDate(calculateExpiryDate(paymentdateDatePicker.getValue().toString(), day));
+                    member.setExpiryDate(calculateExpiryDate(dateConverterInterface.convertBsToAd(payBsDate), day));
                 }
 
             } else {

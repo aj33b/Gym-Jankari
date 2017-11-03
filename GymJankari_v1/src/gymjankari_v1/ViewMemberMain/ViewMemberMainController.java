@@ -41,6 +41,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -56,6 +57,7 @@ import javax.imageio.ImageIO;
 import org.apache.commons.codec.binary.Base64;
 import org.controlsfx.control.Notifications;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 /**
@@ -156,6 +158,8 @@ public class ViewMemberMainController implements Initializable {
     ObservableList<String> defaultDays = FXCollections.observableArrayList("01", "02", "03", "04", "05", "06", "07", "08", "09",
             "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21",
             "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32");
+    @FXML
+    private Label remainingdays;
 
     @FXML
     private void uploadButtonClicked() throws IOException {
@@ -494,6 +498,16 @@ public class ViewMemberMainController implements Initializable {
             memberidTextField.setText(member.getDisplayId());
             startTimePicker.setValue(localTime(member.getStartTime()));
             endTimePicker.setValue(localTime(member.getEndTime()));
+            int remainingDays = member.getDay();
+            if(remainingDays<=0){
+                remainingdays.setTextFill(Color.rgb(229, 115, 115));
+                remainingdays.setText(String.valueOf(remainingDays));
+            }else if(remainingDays>0 && remainingDays<=7){
+                remainingdays.setTextFill(Color.rgb(255,177,0));
+                remainingdays.setText(String.valueOf(remainingDays));
+            }else{
+                remainingdays.setTextFill(Color.GREEN);
+                remainingdays.setText(String.valueOf(remainingDays));}
             String memberSinceBsDate[] = dateConverterInterface.convertAdToBs(member.getMemberSince()).split("-");
             String memberSinceYear = memberSinceBsDate[0];
             String memberSinceMonth = memberSinceBsDate[1];

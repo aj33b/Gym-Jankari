@@ -211,6 +211,7 @@ public class MemberServiceImplementation implements MemberService {
                 member.setPayAmount(rs.getFloat("PaymentAmount"));
                 member.setExpiryDate(rs.getString("ExpiryDate"));
                 member.setPicture(rs.getString("Picture"));
+                member.setDay(rs.getInt("DaysRemaining"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);

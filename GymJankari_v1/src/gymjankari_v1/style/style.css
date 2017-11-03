@@ -26,6 +26,11 @@
     -fx-text-fill: #2c3e50;
 }
 
+.customfont_dense_black2 {
+    -fx-font-family: "Dense";
+    -fx-font-size: 18;
+}
+
 .customfont_dense_abtdev {
     -fx-font-family: "Dense";
 }

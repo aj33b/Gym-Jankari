@@ -82,7 +82,7 @@ public class ViewMemberPageController implements Initializable {
     
     @FXML
     public void clickItem(MouseEvent event){
-        if(event.getClickCount()==1){
+        if(event.getClickCount()==2){
             id = memberdetailTableView.getSelectionModel().getSelectedItem().getDisplayId();
             if (id != null) {
                     FXMLLoader loader = new FXMLLoader();

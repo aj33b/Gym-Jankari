@@ -4,82 +4,100 @@
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import java.lang.Double?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.Blend?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane id="BorderPane" fx:id="mainwindow" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #ffffff; -fx-border-color: #2c3e50;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.MainView.MainViewController">
+<BorderPane id="BorderPane" fx:id="mainwindow" prefHeight="600.0" prefWidth="1000.0" style="-fx-background-color: #ffffff; -fx-border-color: #212121;" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gymjankari_v1.MainView.MainViewController">
    <top>
-      <JFXToolbar fx:id="titlebar" onDragDetected="#startMoveWindow" onMouseDragged="#moveWindow" onMouseReleased="#endMoveWindow" styleClass="custombackgrouncolor2" stylesheets="@../style/style.css">
+      <JFXToolbar fx:id="titlebar" onDragDetected="#startMoveWindow" onMouseDragged="#moveWindow" onMouseReleased="#endMoveWindow" styleClass="custombackgrouncolor7" stylesheets="@../style/style.css">
          <right>
-            <HBox alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_RIGHT" styleClass="custombackgrouncolor5" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="minimizeButton" contentDisplay="GRAPHIC_ONLY" onAction="#minimizeButtonClicked" styleClass="buttonbgcolorchange3" stylesheets="@../style/style.css" text="Minimize">
+                  <JFXButton fx:id="minimizeButton" contentDisplay="GRAPHIC_ONLY" onAction="#minimizeButtonClicked" styleClass="buttonbgcolorchange1" stylesheets="@../style/style.css" text="Minimize">
                      <graphic>
-                        <MaterialDesignIconView glyphName="MINUS" size="20" />
+                        <MaterialDesignIconView fill="WHITE" glyphName="MINUS" size="20" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="maximizeButton" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" onAction="#maximizeButtonClicked" styleClass="buttonbgcolorchange3" stylesheets="@../style/style.css" text="Maximize">
+                  <JFXButton fx:id="maximizeButton" contentDisplay="GRAPHIC_ONLY" layoutX="10.0" layoutY="10.0" onAction="#maximizeButtonClicked" styleClass="buttonbgcolorchange1" stylesheets="@../style/style.css" text="Maximize">
                      <graphic>
-                        <FontAwesomeIconView glyphName="EXPAND" size="15" />
+                        <FontAwesomeIconView fill="WHITE" glyphName="EXPAND" size="15" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="closeButton" contentDisplay="GRAPHIC_ONLY" onAction="#closeButtonClicked" styleClass="buttonbgcolorchange3" stylesheets="@../style/style.css" text="Close">
+                  <JFXButton fx:id="closeButton" contentDisplay="GRAPHIC_ONLY" onAction="#closeButtonClicked" styleClass="buttonbgcolorchange1" stylesheets="@../style/style.css" text="Close">
                      <graphic>
-                        <MaterialDesignIconView glyphName="CLOSE" size="20" />
+                        <MaterialDesignIconView fill="WHITE" glyphName="CLOSE" size="20" />
                      </graphic>
                   </JFXButton>
                </children>
             </HBox>
          </right>
-         <left>
-            <Pane prefWidth="200.0" styleClass="custombackgrouncolor1" stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
-               <children>
-                  <JFXButton fx:id="backButton" contentDisplay="GRAPHIC_ONLY" onAction="#backButtonClicked" styleClass="buttonbgcolorchange1" stylesheets="@../style/style.css" text="Back">
-                     <graphic>
-                        <MaterialDesignIconView fill="WHITE" glyphName="ARROW_LEFT" size="25" />
-                     </graphic>
-                  </JFXButton>
-               </children>
-            </Pane>
-         </left>
          <effect>
             <Blend />
          </effect>
          <center>
-            <ImageView fitHeight="33.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-               <image>
-                  <Image url="@../images/main_logo.png" />
-               </image>
-            </ImageView>
+            <HBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
+               <children>
+                  <Label fx:id="title1" styleClass="customfont_dense_titlebar" text="View Member" />
+               </children>
+               <padding>
+                  <Insets left="20.0" />
+               </padding>
+            </HBox>
          </center>
+         <bottom>
+            <BorderPane styleClass="custombackgrouncolor7" BorderPane.alignment="CENTER" />
+         </bottom>
+         <left>
+            <Pane prefHeight="40.0" prefWidth="200.0" styleClass="custombackgrouncolor5" stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="backButton" contentDisplay="GRAPHIC_ONLY" layoutX="14.0" layoutY="4.0" onAction="#backButtonClicked" styleClass="buttonbgcolorchange1" stylesheets="@../style/style.css" text="Back">
+                     <graphic>
+                        <MaterialDesignIconView fill="WHITE" glyphName="HOME" size="25" />
+                     </graphic>
+                  </JFXButton>
+                  <Polygon fill="#212121" layoutX="205.0" layoutY="30.0" rotate="90.0" scaleX="0.4" scaleY="0.1" stroke="#212121" strokeType="INSIDE">
+                    <points>
+                      <Double fx:value="-50.0" />
+                      <Double fx:value="40.0" />
+                      <Double fx:value="50.0" />
+                      <Double fx:value="40.0" />
+                      <Double fx:value="0.0" />
+                      <Double fx:value="-60.0" />
+                    </points>
+                  </Polygon>
+                  <Label fx:id="title2" layoutX="66.0" layoutY="6.0" styleClass="customfont_dense" text="Muscle Factory Gym" />
+               </children>
+            </Pane>
+         </left>
       </JFXToolbar>
    </top>
    <left>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <center>
-            <VBox styleClass="custombackgrouncolor1" stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
+            <VBox styleClass="custombackgrouncolor6" stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="viewmemberButton" alignment="TOP_LEFT" ellipsisString="" layoutX="10.0" layoutY="10.0" onAction="#viewmemberButtonClicked" prefHeight="50.0" prefWidth="205.0" stylesheets="@../style/style.css" text="View Member" textFill="WHITE">
+                  <JFXButton fx:id="viewmemberButton" alignment="TOP_LEFT" ellipsisString="" graphicTextGap="20.0" layoutX="10.0" layoutY="10.0" onAction="#viewmemberButtonClicked" prefHeight="50.0" prefWidth="205.0" stylesheets="@../style/style.css" text="View Member" textFill="WHITE">
                      <font>
                         <Font size="25.0" />
                      </font>
                      <graphic>
-                        <MaterialDesignIconView fill="WHITE" glyphName="ACCOUNT_SEARCH" size="35" />
+                        <MaterialDesignIconView fill="WHITE" glyphName="ACCOUNT_SEARCH" size="30" />
                      </graphic>
                      <styleClass>
                         <String fx:value="customfont_dense" />
-                        <String fx:value="buttonbgcolorchange1" />
+                        <String fx:value="buttonbgcolorchange3" />
                      </styleClass>
                   </JFXButton>
-                  <JFXButton fx:id="addmemberButton" alignment="TOP_LEFT" onAction="#addmemberButtonClicked" prefHeight="50.0" prefWidth="205.0" stylesheets="@../style/style.css" text="Add Member" textFill="WHITE">
+                  <JFXButton fx:id="addmemberButton" alignment="TOP_LEFT" graphicTextGap="20.0" onAction="#addmemberButtonClicked" prefHeight="50.0" prefWidth="205.0" stylesheets="@../style/style.css" text="Add Member" textFill="WHITE">
                      <font>
                         <Font name="CapsuulaRegular" size="25.0" />
                      </font>
@@ -88,10 +106,10 @@
                      </graphic>
                      <styleClass>
                         <String fx:value="customfont_dense" />
-                        <String fx:value="buttonbgcolorchange1" />
+                        <String fx:value="buttonbgcolorchange3" />
                      </styleClass>
                   </JFXButton>
-                  <JFXButton fx:id="expirydetailsButton" alignment="TOP_LEFT" layoutX="10.0" layoutY="160.0" onAction="#expirydetailsButtonClicked" prefHeight="50.0" prefWidth="205.0" stylesheets="@../style/style.css" text="Expiry Details" textFill="WHITE">
+                  <JFXButton fx:id="expirydetailsButton" alignment="TOP_LEFT" graphicTextGap="20.0" layoutX="10.0" layoutY="160.0" onAction="#expirydetailsButtonClicked" prefHeight="50.0" prefWidth="205.0" stylesheets="@../style/style.css" text="Expiry Details" textFill="WHITE">
                      <font>
                         <Font name="CapsuulaRegular" size="25.0" />
                      </font>
@@ -100,16 +118,16 @@
                      </graphic>
                      <styleClass>
                         <String fx:value="customfont_dense" />
-                        <String fx:value="buttonbgcolorchange1" />
+                        <String fx:value="buttonbgcolorchange3" />
                      </styleClass>
                   </JFXButton>
                </children>
             </VBox>
          </center>
          <bottom>
-            <VBox alignment="BOTTOM_LEFT" prefHeight="387.0" prefWidth="205.0" styleClass="custombackgrouncolor1" stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
+            <VBox alignment="BOTTOM_LEFT" prefHeight="387.0" prefWidth="205.0" styleClass="custombackgrouncolor6" stylesheets="@../style/style.css" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="aboutdevButton" alignment="BOTTOM_LEFT" onAction="#aboutdevButtonClicked" prefHeight="50.0" prefWidth="205.0" stylesheets="@../style/style.css" text="About Developers" textFill="WHITE">
+                  <JFXButton fx:id="aboutdevButton" alignment="BOTTOM_LEFT" graphicTextGap="20.0" onAction="#aboutdevButtonClicked" prefHeight="50.0" prefWidth="205.0" stylesheets="@../style/style.css" text="About Developers" textFill="WHITE">
                      <font>
                         <Font name="CapsuulaRegular" size="22.0" />
                      </font>
@@ -118,7 +136,7 @@
                      </graphic>
                      <styleClass>
                         <String fx:value="customfont_dense" />
-                        <String fx:value="buttonbgcolorchange1" />
+                        <String fx:value="buttonbgcolorchange3" />
                      </styleClass>
                   </JFXButton>
                </children>

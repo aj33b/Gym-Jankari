@@ -29,11 +29,11 @@
    <center>
       <AnchorPane style="-fx-background-color: #ffffff;">
          <children>
-            <ScrollPane fitToWidth="true" layoutY="125.0" prefViewportHeight="600.0" prefViewportWidth="785.0" prefWidth="850.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="-31.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
+            <ScrollPane fitToWidth="true" layoutY="125.0" prefViewportHeight="600.0" prefViewportWidth="785.0" prefWidth="850.0" style="-fx-background-color: #ffffff;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="125.0">
                <content>
                   <AnchorPane style="-fx-background-color: #ffffff;">
                      <children>
-                        <StackPane alignment="TOP_CENTER" prefWidth="787.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <StackPane alignment="TOP_CENTER" prefWidth="787.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
                               <VBox fx:id="subwindow" maxWidth="500.0" minWidth="500.0" prefWidth="500.0" spacing="25.0" style="-fx-background-color: #ffffff;" StackPane.alignment="TOP_CENTER">
                                  <children>
@@ -161,13 +161,13 @@
                   </AnchorPane>
                </content>
             </ScrollPane>
-            <AnchorPane maxHeight="125.0" minHeight="125.0" prefHeight="125.0" prefWidth="850.0" styleClass="custombackgrouncolor2" stylesheets="@../style/style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane maxHeight="137.0" minHeight="125.0" prefHeight="125.0" prefWidth="850.0" styleClass="custombackgrouncolor7" stylesheets="@../style/style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <StackPane alignment="TOP_CENTER" prefHeight="125.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <VBox maxHeight="125.0" maxWidth="750.0" minHeight="125.0" minWidth="750.0" prefHeight="125.0" prefWidth="750.0" spacing="25.0" StackPane.alignment="TOP_CENTER">
                            <children>
-                              <HBox spacing="20.0">
+                              <HBox spacing="50.0">
                                  <children>
                                     <Pane>
                                        <children>
@@ -200,8 +200,8 @@
                                                       <FontAwesomeIconView glyphName="PENCIL" size="20" />
                                                    </graphic>
                                                    <styleClass>
-                                                      <String fx:value="buttonbgcolorchange3" />
-                                                      <String fx:value="custombackgrouncolor2" />
+                                                      <String fx:value="buttonbgcolorchange2" />
+                                                      <String fx:value="custombackgrouncolor7" />
                                                    </styleClass>
                                                 </JFXButton>
                                                 <JFXButton fx:id="deleteButton" alignment="TOP_LEFT" onAction="#deleteButtonClicked" prefHeight="30.0" prefWidth="100.0" stylesheets="@../style/style.css" text="Delete">
@@ -209,8 +209,8 @@
                                                       <FontAwesomeIconView glyphName="TRASH_ALT" size="20" />
                                                    </graphic>
                                                    <styleClass>
-                                                      <String fx:value="buttonbgcolorchange3" />
-                                                      <String fx:value="custombackgrouncolor2" />
+                                                      <String fx:value="buttonbgcolorchange2" />
+                                                      <String fx:value="custombackgrouncolor7" />
                                                    </styleClass>
                                                 </JFXButton>
                                                 <JFXButton fx:id="editpdButton" alignment="TOP_LEFT" layoutX="219.0" layoutY="10.0" onAction="#editpdButtonClicked" prefHeight="30.0" prefWidth="138.0" stylesheets="@../style/style.css" text="Update Payment" wrapText="true">
@@ -218,8 +218,8 @@
                                                       <FontAwesomeIconView glyphName="MONEY" size="20" />
                                                    </graphic>
                                                    <styleClass>
-                                                      <String fx:value="buttonbgcolorchange3" />
-                                                      <String fx:value="custombackgrouncolor2" />
+                                                      <String fx:value="buttonbgcolorchange2" />
+                                                      <String fx:value="custombackgrouncolor7" />
                                                    </styleClass>
                                                 </JFXButton>
                                              </children>

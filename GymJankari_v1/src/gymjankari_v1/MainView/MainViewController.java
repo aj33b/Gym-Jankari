@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Rectangle;
@@ -51,30 +52,39 @@ public class MainViewController implements Initializable {
     private JFXButton minimizeButton;
     @FXML
     private JFXButton maximizeButton;
+    @FXML
+    private Label title1;
+    @FXML
+    private Label title2;
 
     @FXML
     private void backButtonClicked() throws IOException {
-        main.showviewmemberpage();
+        Main.showviewmemberpage();
+        title1.setText("View Member");
     }
 
     @FXML
     private void addmemberButtonClicked() throws IOException {
         Main.showaddmemberpage();
+        title1.setText("Add Member");
     }
 
     @FXML
     private void viewmemberButtonClicked() throws IOException {
         Main.showviewmemberpage();
+        title1.setText("View Member");
     }
 
     @FXML
     private void expirydetailsButtonClicked() throws IOException {
         Main.showexpirydetailspage();
+        title1.setText("Expiry Details");
     }
 
     @FXML
     private void aboutdevButtonClicked() throws IOException {
         Main.showaboutdeveloperspage();
+        title1.setText("About Developers");
     }
 
     @FXML

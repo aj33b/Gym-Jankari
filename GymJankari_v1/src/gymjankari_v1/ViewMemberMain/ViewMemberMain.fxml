@@ -48,9 +48,9 @@
                                           <Label styleClass="label_small" text="Date Of Birth :" />
                                           <HBox spacing="15.0">
                                              <children>
-                                                <JFXComboBox fx:id="dobbsyear" layoutX="81.0" layoutY="10.0" prefHeight="25.0" prefWidth="96.0" />
-                                                <JFXComboBox fx:id="dobbsmonth" prefHeight="25.0" prefWidth="102.0" />
-                                                <JFXComboBox fx:id="dobbsday" layoutX="10.0" layoutY="10.0" />
+                                                <JFXComboBox fx:id="dobbsyear" disable="true" layoutX="81.0" layoutY="10.0" prefHeight="25.0" prefWidth="96.0" />
+                                                <JFXComboBox fx:id="dobbsmonth" disable="true" prefHeight="25.0" prefWidth="102.0" />
+                                                <JFXComboBox fx:id="dobbsday" disable="true" layoutX="10.0" layoutY="10.0" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -108,9 +108,9 @@
                                                 <Label styleClass="label_small" text="Member Since:" />
                                                 <HBox spacing="15.0">
                                                    <children>
-                                                      <JFXComboBox fx:id="memsinbsmonth" prefHeight="25.0" prefWidth="102.0" />
-                                                      <JFXComboBox fx:id="memsinbsday" layoutX="10.0" layoutY="10.0" />
-                                                      <JFXComboBox fx:id="memsinbsyear" layoutX="81.0" layoutY="10.0" prefHeight="25.0" prefWidth="87.0" />
+                                                      <JFXComboBox fx:id="memsinbsmonth" disable="true" prefHeight="25.0" prefWidth="102.0" />
+                                                      <JFXComboBox fx:id="memsinbsday" disable="true" layoutX="10.0" layoutY="10.0" />
+                                                      <JFXComboBox fx:id="memsinbsyear" disable="true" layoutX="81.0" layoutY="10.0" prefHeight="25.0" prefWidth="87.0" />
                                                    </children>
                                                 </HBox>
                                              </children>

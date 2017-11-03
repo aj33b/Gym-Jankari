@@ -255,9 +255,9 @@ public class ViewMemberMainController implements Initializable {
             }
         }
         fullnameTextField.setEditable(false);
-        dobbsmonth.setEditable(false);
-        dobbsday.setEditable(false);
-        dobbsyear.setEditable(false);
+        dobbsmonth.setDisable(true);
+        dobbsday.setDisable(true);
+        dobbsyear.setDisable(true);
         heightTextField.setEditable(false);
         weightTextField.setEditable(false);
         streetTextField.setEditable(false);
@@ -268,9 +268,9 @@ public class ViewMemberMainController implements Initializable {
         landlineTextField.setEditable(false);
         mobileTextField.setEditable(false);
         memberidTextField.setEditable(false);
-        memsinbsmonth.setEditable(false);
-        memsinbsday.setEditable(false);
-        memsinbsyear.setEditable(false);
+        memsinbsmonth.setDisable(true);
+        memsinbsday.setDisable(true);
+        memsinbsyear.setDisable(true);
         paymentrateTextField.setEditable(false);
         paymentdateTableColumn.setEditable(false);
         paymentamountTableColumn.setEditable(false);
@@ -412,9 +412,9 @@ public class ViewMemberMainController implements Initializable {
         Member member = new Member();
         id = memberidTextField.getText();
         fullnameTextField.setEditable(true);
-        dobbsmonth.setEditable(true);
-        dobbsday.setEditable(true);
-        dobbsyear.setEditable(true);
+        dobbsmonth.setDisable(false);
+        dobbsday.setDisable(false);
+        dobbsyear.setDisable(false);
         heightTextField.setEditable(true);
         weightTextField.setEditable(true);
         streetTextField.setEditable(true);
@@ -424,9 +424,9 @@ public class ViewMemberMainController implements Initializable {
         emailTextField.setEditable(true);
         landlineTextField.setEditable(true);
         mobileTextField.setEditable(true);
-        memsinbsmonth.setEditable(true);
-        memsinbsday.setEditable(true);
-        memsinbsyear.setEditable(true);
+        memsinbsmonth.setDisable(false);
+        memsinbsday.setDisable(false);
+        memsinbsyear.setDisable(false);
         paymentrateTextField.setEditable(false);
         paymentdateTableColumn.setEditable(true);
         paymentamountTableColumn.setEditable(true);

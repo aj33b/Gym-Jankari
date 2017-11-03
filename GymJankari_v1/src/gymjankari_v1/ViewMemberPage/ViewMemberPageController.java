@@ -19,7 +19,6 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -79,26 +78,26 @@ public class ViewMemberPageController implements Initializable {
         populateTable();
         memberdetailTableView.setItems(memberService.getAllMember());
     }
-    
+
     @FXML
-    public void clickItem(MouseEvent event){
-        if(event.getClickCount()==2){
+    public void clickItem(MouseEvent event) {
+        if (event.getClickCount() == 2) {
             id = memberdetailTableView.getSelectionModel().getSelectedItem().getDisplayId();
             if (id != null) {
-                    FXMLLoader loader = new FXMLLoader();
-                    try {
-                        loader.setLocation(Main.class.getResource("ViewMemberMain/ViewMemberMain.fxml"));
-                        BorderPane homepageLayout = loader.load();
-                        mainLayout.setCenter(homepageLayout);
-                    } catch (IOException ex) {
-                        Logger.getLogger(ViewMemberPageController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    ViewMemberMainController viewMemberController = loader.getController();
-                    viewMemberController.setData(id);
+                FXMLLoader loader = new FXMLLoader();
+                try {
+                    loader.setLocation(Main.class.getResource("ViewMemberMain/ViewMemberMain.fxml"));
+                    BorderPane homepageLayout = loader.load();
+                    mainLayout.setCenter(homepageLayout);
+                } catch (IOException ex) {
+                    Logger.getLogger(ViewMemberPageController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                ViewMemberMainController viewMemberController = loader.getController();
+                viewMemberController.setData(id);
+            }
         }
     }
-    
+
     @FXML
     private void searchButtonClicked(ActionEvent event) {
         MemberService memberService = new MemberServiceImplementation();

@@ -39,6 +39,7 @@ public class Member {
     private String primaryId;
     private String picture;
     private int day;
+    private int id;
 
     public String getFullName() {
         return fullName;
@@ -232,5 +233,12 @@ public class Member {
         this.day = day;
     }
 
-    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }

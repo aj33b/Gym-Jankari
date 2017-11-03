@@ -7,6 +7,7 @@ package gymjankari_v1.PaymentDetailsPage;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.validation.RequiredFieldValidator;
 import gymjankari_v1.Main;
@@ -35,9 +36,11 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
@@ -86,12 +89,28 @@ public class PaymentDetailsPageController implements Initializable {
     ObservableList<String> defaultDays = FXCollections.observableArrayList("01", "02", "03", "04", "05", "06", "07", "08", "09",
             "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21",
             "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32");
+    @FXML
+    private JFXButton payDeleteButton;
+    @FXML
+    private TableColumn<Member, Integer> idTableColumn;
+    @FXML
+    private TableColumn<Member, String> memberIdTableColumn;
+
+    int id = -1;
+    String displayId = null;
+    @FXML
+    private JFXRadioButton cdp;
+    @FXML
+    private ToggleGroup payment;
+    @FXML
+    private JFXRadioButton np;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        payDeleteButton.setDisable(true);
         MemberService memberService = new MemberServiceImplementation();
         for (int i = 1999; i <= 2099; i++) {
             yList.add(i);
@@ -138,6 +157,7 @@ public class PaymentDetailsPageController implements Initializable {
         String payDay = String.valueOf(paybsday.getSelectionModel().getSelectedItem());
         String payBsDate = payYear.concat("-").concat(payMonth).concat("-").concat(payDay);
         member.setPayDate(dateConverterInterface.convertBsToAd(payBsDate));
+        member.setPayRate(Float.parseFloat(paymentrateTextField.getText()));
         String payAmount = paymentamountTextField.getText();
         if (payAmount.isEmpty()) {
             amountFieldValidation();
@@ -149,7 +169,11 @@ public class PaymentDetailsPageController implements Initializable {
                 if (LocalDate.now().compareTo(expiryDateFromDB) < 0) {
                     member.setExpiryDate(calculateExpiryDate(expiryDateFromDB.toString(), day));
                 } else {
-                    member.setExpiryDate(calculateExpiryDate(dateConverterInterface.convertBsToAd(payBsDate), day));
+                    if(cdp.isSelected()){
+                        member.setExpiryDate(calculateExpiryDate(expiryDateFromDB.toString(), day));
+                    }else if(np.isSelected()){
+                        member.setExpiryDate(calculateExpiryDate(dateConverterInterface.convertBsToAd(payBsDate), day));
+                    }
                 }
 
             } else {
@@ -191,9 +215,6 @@ public class PaymentDetailsPageController implements Initializable {
         String defaultPaymentYear = defaultPaymentDate[0];
         String defaultPaymentMonth = defaultPaymentDate[1];
         String defaultPaymentDay = defaultPaymentDate[2];
-        paybsyear.getSelectionModel().select(yList.get(Integer.parseInt(defaultPaymentYear) - 1999));
-        paybsmonth.getSelectionModel().select(mList.get(Integer.parseInt(defaultPaymentMonth) - 1));
-        paybsday.getSelectionModel().select(defaultDays.get(Integer.parseInt(defaultPaymentDay) - 1));
         fullnameTextField.setText(member.getFullName());
         memberidTextField.setText(member.getDisplayId());
         paymentrateTextField.setText(String.valueOf(member.getPayRate()));
@@ -203,6 +224,8 @@ public class PaymentDetailsPageController implements Initializable {
     }
 
     public void populateTable() {
+        idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        memberIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("displayId"));
         paymentdateTableColumn.setCellValueFactory(new PropertyValueFactory<>("payDate"));
         paymentamountTableColumn.setCellValueFactory(new PropertyValueFactory<>("payAmount"));
     }
@@ -235,5 +258,45 @@ public class PaymentDetailsPageController implements Initializable {
         String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(expiryDate);
         return formattedDate;
     }
-    
+
+    @FXML
+    private void payDeleteButtonClicked() {
+        MemberService memberService = new MemberServiceImplementation();
+        if (displayId != null && id != -1) {
+            if (memberService.deletePaymentDetails(id, displayId)) {
+                Image img = new Image("gymjankari_v1/images/checked_icon.png");
+                Notifications addedNotifications = Notifications.create()
+                        .title("Payment Detail Deleted")
+                        .text("The Payment Detail has been deleted successfully.")
+                        .graphic(new ImageView(img))
+                        .hideAfter(Duration.seconds(5))
+                        .position(Pos.TOP_RIGHT);
+                addedNotifications.show();
+            } else {
+                Notifications errorNotifications = Notifications.create()
+                        .title("Failed to Delete Payment Detail")
+                        .text("Sorry! The Payment Detail has not been deleted due to some error.")
+                        .graphic(null)
+                        .hideAfter(Duration.seconds(5))
+                        .position(Pos.TOP_RIGHT);
+                errorNotifications.showError();
+            }
+            try {
+                Main.showviewmemberpage();
+            } catch (IOException ex) {
+                Logger.getLogger(PaymentDetailsPageController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @FXML
+    public void clickItem(MouseEvent event) {
+        if (event.getClickCount() == 1) {
+            id = paymentdetailTableView.getSelectionModel().getSelectedItem().getId();
+            displayId = paymentdetailTableView.getSelectionModel().getSelectedItem().getDisplayId();
+            if (displayId != null && id != -1) {
+                payDeleteButton.setDisable(false);
+            }
+        }
+    }
 }

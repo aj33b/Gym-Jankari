@@ -24,7 +24,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -219,15 +221,19 @@ public class AddMemberPageController implements Initializable {
                     member.setMemberSince(dateConverterInterface.convertBsToAd(memberSinceBsDate));
                     LocalTime startTime = startTimePicker.getValue();
                     if (startTime == null) {
-                        LocalTime time = LocalTime.now();
-                        member.setStartTime(time.toString());
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+                        LocalDateTime dateTime = LocalDateTime.now();
+                        String formattedDateTime = dateTime.format(formatter);
+                        member.setStartTime(formattedDateTime);
                     } else {
                         member.setStartTime(String.valueOf(startTimePicker.getValue()));
                     }
                     LocalTime endTime = endTimePicker.getValue();
                     if (endTime == null) {
-                        LocalTime time = LocalTime.now();
-                        member.setEndTime(time.toString());
+                       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+                        LocalDateTime dateTime = LocalDateTime.now();
+                        String formattedDateTime = dateTime.format(formatter);
+                        member.setEndTime(formattedDateTime);
                     } else {
                         member.setEndTime(String.valueOf(endTimePicker.getValue()));
                     }

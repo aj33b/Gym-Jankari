@@ -423,7 +423,7 @@ public class ViewMemberMainController implements Initializable {
         memsinbsmonth.setEditable(true);
         memsinbsday.setEditable(true);
         memsinbsyear.setEditable(true);
-        paymentrateTextField.setEditable(true);
+        paymentrateTextField.setEditable(false);
         paymentdateTableColumn.setEditable(true);
         paymentamountTableColumn.setEditable(true);
         startTimePicker.setEditable(false);

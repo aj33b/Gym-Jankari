@@ -20,12 +20,18 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 /**
  *
@@ -35,17 +41,19 @@ public class MemberServiceImplementation implements MemberService {
 
     Connection connect = null;
     Connection connect1 = null;
+    Connection connect2 = null;
 
     public MemberServiceImplementation() {
         connect = DBConnection.Connector();
         connect1 = DBConnection.Connector();
+        connect2 = DBConnection.Connector();
     }
 
     @Override
     public boolean addMember(Member member) {
         try {
             String write_sql = "insert into gymjankaridb(MemberId,FullName,DateOfBirth,Gender,Height,Weight,Street,VDCMun,WardNo,District,EmailAddress,Landline,Mobile,StartTime,EndTime,MemberSince,PaymentDate,MonthlyRate,PaymentAmount,ExpiryDate,Picture,DaysRemaining)values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            String write_sql1 = "insert into paymentdetailsdb(MemberId,PaymentDate,PaymentAmount)values(?,?,?)";
+            String write_sql1 = "insert into paymentdetailsdb(MemberId,PaymentDate,PaymentAmount,ExpiryDate,MonthlyRate)values(?,?,?,?,?)";
             PreparedStatement write_pstm = connect.prepareStatement(write_sql);
             PreparedStatement write_pstm1 = connect.prepareStatement(write_sql1);
             write_pstm.setString(1, member.getmId());
@@ -74,6 +82,8 @@ public class MemberServiceImplementation implements MemberService {
             write_pstm1.setString(1, member.getmId());
             write_pstm1.setString(2, member.getPayDate());
             write_pstm1.setFloat(3, member.getPayAmount());
+            write_pstm.setString(4, member.getExpiryDate());
+            write_pstm1.setFloat(5, member.getPayRate());
             write_pstm1.execute();
             return true;
 
@@ -320,7 +330,7 @@ public class MemberServiceImplementation implements MemberService {
             ResultSet rs = read_stm.executeQuery(read_sql);
             while (rs.next()) {
                 Member member = new Member();
-                member.setPrimaryId(String.valueOf(rs.getInt("PrimaryId")));
+                member.setId(rs.getInt("PrimaryId"));
                 member.setDisplayId(rs.getString("MemberId"));
                 member.setPayDate(dateConverterInterface.convertAdToBs(rs.getString("PaymentDate")));
                 member.setPayAmount(rs.getFloat("PaymentAmount"));
@@ -335,18 +345,21 @@ public class MemberServiceImplementation implements MemberService {
     @Override
     public boolean updatePaymentDetails(Member member, String displayId) {
         try {
-            String update_sql = "update gymjankaridb set PaymentDate=?,PaymentAmount=?,ExpiryDate=?,DaysRemaining=? where MemberId='" + displayId + "'";
-            String write_sql1 = "insert into paymentdetailsdb(MemberId,PaymentDate,PaymentAmount)values(?,?,?)";
+            String update_sql = "update gymjankaridb set PaymentDate=?,PaymentAmount=?,ExpiryDate=?,DaysRemaining=?,MonthlyRate=? where MemberId='" + displayId + "'";
+            String write_sql1 = "insert into paymentdetailsdb(MemberId,PaymentDate,PaymentAmount,ExpiryDate,MonthlyRate)values(?,?,?,?,?)";
             PreparedStatement update_pstm = connect.prepareStatement(update_sql);
             PreparedStatement write_pstm1 = connect.prepareStatement(write_sql1);
             update_pstm.setString(1, member.getPayDate());
             update_pstm.setFloat(2, member.getPayAmount());
             update_pstm.setString(3, member.getExpiryDate());
             update_pstm.setInt(4, member.getDay());
+            update_pstm.setFloat(5, member.getPayRate());
             update_pstm.execute();
             write_pstm1.setString(1, displayId);
             write_pstm1.setString(2, member.getPayDate());
             write_pstm1.setFloat(3, member.getPayAmount());
+            write_pstm1.setString(4, member.getExpiryDate());
+            write_pstm1.setFloat(5, member.getPayRate());
             write_pstm1.execute();
             return true;
 
@@ -449,25 +462,105 @@ public class MemberServiceImplementation implements MemberService {
 
     @Override
     public boolean updateDaysRemaining() {
-        MemberService memberService = new MemberServiceImplementation();
         try {
             String read_sql = "select MemberId,ExpiryDate from gymjankaridb";
             String update_sql;
             PreparedStatement update_pstm;
-            Statement read_stm = connect.createStatement();
+            Statement read_stm = connect2.createStatement();
             ResultSet rs = read_stm.executeQuery(read_sql);
             while (rs.next()) {
                 String memberId = rs.getString("MemberId");
                 String expiryDate = rs.getString("ExpiryDate");
                 update_sql = "update gymjankaridb set DaysRemaining=? where MemberId='" + memberId + "'";
-                update_pstm = connect.prepareStatement(update_sql);
-                update_pstm.setInt(1, memberService.calculateDays(expiryDate));
+                update_pstm = connect2.prepareStatement(update_sql);
+                update_pstm.setInt(1, calculateDays(expiryDate));
                 update_pstm.execute();
             }
         } catch (SQLException ex) {
             Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
+    }
+
+    @Override
+    public boolean deletePaymentDetails(int id, String displayId) {
+        String delete_sql = "delete from paymentdetailsdb where PrimaryId='" + id + "'";
+        try {
+            Statement delete_stm = connect.createStatement();
+            delete_stm.execute(delete_sql);
+            if (updateCoreDatabase(displayId)) {
+                return true;
+            } else {
+                Notifications errorNotifications = Notifications.create()
+                        .title("Failed to Update Core Database")
+                        .text("Sorry! The Core Database has not been updated due to some error.")
+                        .graphic(null)
+                        .hideAfter(Duration.seconds(5))
+                        .position(Pos.TOP_RIGHT);
+                errorNotifications.showError();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+
+    }
+
+    @Override
+    public boolean updateCoreDatabase(String displayId) {
+        int days;
+        ArrayList<Integer> id = new ArrayList<Integer>();
+        String expiryDateFromDB = null;
+        String expiryDate = null;
+        String paymentDate = null;
+        Float paymentAmount = null;
+        Float monthlyRate = null;
+        String testId;
+        String read_sql = "select * from paymentdetailsdb where MemberId='" + displayId + "'";
+        try {
+            Statement read_stm = connect.createStatement();
+            ResultSet rs = read_stm.executeQuery(read_sql);
+            while (rs.next()) {
+                id.add(rs.getInt("PrimaryId"));
+            }
+            Collections.sort(id, Collections.reverseOrder());
+            String read_sql1 = "select * from paymentdetailsdb where PrimaryId='" + id.get(0) + "'";
+            Statement read_stm1 = connect.createStatement();
+            ResultSet rs1 = read_stm1.executeQuery(read_sql1);
+            while (rs1.next()) {
+                paymentDate = rs1.getString("PaymentDate");
+                paymentAmount = rs1.getFloat("PaymentAmount");
+                monthlyRate = rs1.getFloat("MonthlyRate");
+                expiryDateFromDB = rs1.getString("ExpiryDate");
+            }
+            String update_sql = "update gymjankaridb set PaymentAmount=?,PaymentDate=?,ExpiryDate=?,DaysRemaining=? where MemberId='" + displayId + "'";
+            PreparedStatement update_pstm = connect.prepareStatement(update_sql);
+            update_pstm.setFloat(1, paymentAmount);
+            update_pstm.setString(2, paymentDate);
+            update_pstm.setString(3, expiryDateFromDB);
+            update_pstm.setInt(4, calculateDays(expiryDateFromDB));
+            update_pstm.execute();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(MemberServiceImplementation.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public int expiryDateCalculation(String payRate, String payAmount) {
+        float ratePerDay = Float.parseFloat(payRate) / 30;
+        float validDays = Float.parseFloat(payAmount) / ratePerDay;
+        return (int) validDays;
+    }
+
+    public String calculateExpiryDate(String initialDate, int day) {
+        Date date = java.sql.Date.valueOf(initialDate);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DAY_OF_MONTH, day);
+        Date expiryDate = calendar.getTime();
+        String formattedDate = new SimpleDateFormat("yyyy-MM-dd").format(expiryDate);
+        return formattedDate;
     }
 
 }

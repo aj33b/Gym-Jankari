@@ -43,4 +43,8 @@ public interface MemberService {
     public int calculateDays(String string1);
 
     public boolean updateDaysRemaining();
+
+    public boolean deletePaymentDetails(int id, String displayId);
+
+    public boolean updateCoreDatabase(String displayId);
 }
